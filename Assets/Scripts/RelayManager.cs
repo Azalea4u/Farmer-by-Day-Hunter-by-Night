@@ -24,6 +24,11 @@ public class RelayManager : MonoBehaviour
         joinCodeText.text = joinCode;
     }
 
+    public async void JoinRelay()
+    {
+        await StartClientWithRelay(joinCodeInputField.text);
+    }
+
     private async void Start()
     {
         await UnityServices.InitializeAsync();
@@ -35,7 +40,7 @@ public class RelayManager : MonoBehaviour
     {
         Allocation allocation = await RelayService.Instance.CreateAllocationAsync(maxConnections);
 
-        RelayServerData relayServerData = AllocationUtils.ToRelayServerData(allocation, "udp");
+        RelayServerData relayServerData = AllocationUtils.ToRelayServerData(allocation, "udp");  // Can change connectionType to dtls
 
         NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
 
@@ -46,6 +51,12 @@ public class RelayManager : MonoBehaviour
 
     private async Task<bool> StartClientWithRelay(string joinCode)
     {
-        return false;
+        JoinAllocation joinAllocation = await RelayService.Instance.JoinAllocationAsync(joinCode);
+
+        RelayServerData relayServerData = AllocationUtils.ToRelayServerData(joinAllocation, "udp");  // Can change connectionType to dtls
+
+        NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
+
+        return !string.IsNullOrEmpty(joinCode) && NetworkManager.Singleton.StartClient();
     }
 }
