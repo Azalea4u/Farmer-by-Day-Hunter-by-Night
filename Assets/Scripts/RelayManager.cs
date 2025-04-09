@@ -15,6 +15,7 @@ using UnityEngine;
 public class RelayManager : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI joinCodeText;
+    [SerializeField] private TextMeshProUGUI joinSuccessText;
     [SerializeField] private TMP_InputField joinCodeInputField;
 
 
@@ -26,7 +27,8 @@ public class RelayManager : MonoBehaviour
 
     public async void JoinRelay()
     {
-        await StartClientWithRelay(joinCodeInputField.text);
+        bool joinSuccess = await StartClientWithRelay(joinCodeInputField.text);
+        joinSuccessText.text = "Joined: " + joinSuccess;
     }
 
     private async void Start()

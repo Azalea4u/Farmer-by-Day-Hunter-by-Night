@@ -748,6 +748,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   joinCodeText: {fileID: 2145846520}
+  joinSuccessText: {fileID: 2145846520}
   joinCodeInputField: {fileID: 1011015825}
 --- !u!1 &711974376
 GameObject:
