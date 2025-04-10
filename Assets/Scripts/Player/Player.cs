@@ -2,6 +2,8 @@ using UnityEngine;
 using Unity.Netcode;
 using UnityEngine.InputSystem;
 
+// Thank you https://www.youtube.com/watch?v=HCaSnZvs90g for the movement help, really appreciate it :D
+
 public class Player : NetworkBehaviour
 {
     [SerializeField] private int walkSpeed = 5;
@@ -24,7 +26,7 @@ public class Player : NetworkBehaviour
     {
         Vector3 walkValue = walkAction.ReadValue<Vector2>();
 
-        walkValue.Normalize();  // Otherwise diagonal movement would be faster lol
+        walkValue.Normalize();  // Prevents faster diagonal movement lol
 
         rb.linearVelocity = walkValue * walkSpeed;
     }
