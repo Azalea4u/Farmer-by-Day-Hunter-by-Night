@@ -18,7 +18,7 @@ public class PlayerEnergy : MonoBehaviour
 
     private void Update()
     {
-        if (energyData.Energy > 0 && (!GameManager.instance.isGamePaused)) //|| !DialogueManager.instance.dialogueIsPlaying))
+        if (energyData.Energy > 0 && (!GameManager.instance.IsGamePaused)) //|| !DialogueManager.instance.dialogueIsPlaying))
         {
             energyTimer += Time.deltaTime;
 

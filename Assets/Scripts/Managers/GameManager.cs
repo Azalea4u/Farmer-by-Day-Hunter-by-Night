@@ -4,20 +4,27 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    public bool isGamePaused = false;
+    public bool IsGamePaused = false;
 
     private void Awake()
     {
-        // Singleton pattern for GameManager
-        if (instance != null && instance != this)
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
         {
             Destroy(gameObject);
-            return;
         }
+    }
 
-        instance = this;
-        //DontDestroyOnLoad(gameObject);
-
+    // Pauses the Game from any script
+    public void PauseGame(bool pauseGame)
+    {
+        IsGamePaused = pauseGame;
+        Time.timeScale = IsGamePaused ? 0 : 1;
+        //Debug.Log("Game " + (IsGamePaused ? "Paused" : "Resumed"));
     }
 
 }
