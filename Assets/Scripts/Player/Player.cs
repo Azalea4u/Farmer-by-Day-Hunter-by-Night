@@ -1,10 +1,9 @@
 using UnityEngine;
-using Unity.Netcode;
 using UnityEngine.InputSystem;
 
 // Thank you https://www.youtube.com/watch?v=HCaSnZvs90g for the movement help, really appreciate it :D
 
-public class Player : NetworkBehaviour
+public class Player : MonoBehaviour
 {
     [SerializeField] private int walkSpeed = 5;
     [SerializeField] private InputActionMap controls;
@@ -87,15 +86,6 @@ public class Player : NetworkBehaviour
         {
             swapAction = controls.AddAction("Swap");
             swapAction.AddBinding("<Keyboard>/q");
-        }
-    }
-
-    public override void OnNetworkSpawn()
-    {
-        if (!IsOwner)
-        {
-            enabled = false;
-            return;
         }
     }
 }
