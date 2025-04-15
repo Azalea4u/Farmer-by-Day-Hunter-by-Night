@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2301494129802054239
 Transform:
   m_ObjectHideFlags: 0
@@ -303,6 +303,22 @@ MonoBehaviour:
     m_Id: 0d7e79cf-6ad7-4431-b07d-02c932e66d56
     m_Asset: {fileID: 0}
     m_Actions:
+    - m_Name: Primary
+      m_Type: 1
+      m_ExpectedControlType: Button
+      m_Id: 36286364-621a-49c1-a0f0-10b3b0f8a547
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    - m_Name: Secondary
+      m_Type: 1
+      m_ExpectedControlType: Button
+      m_Id: e3179484-867d-4c04-9b1a-83ff1c893669
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
     - m_Name: Walk
       m_Type: 0
       m_ExpectedControlType: 
@@ -311,7 +327,55 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
+    - m_Name: Menu
+      m_Type: 1
+      m_ExpectedControlType: Button
+      m_Id: 4fe75a28-1da9-4428-b585-6c411e341786
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    - m_Name: Dialogue
+      m_Type: 1
+      m_ExpectedControlType: Button
+      m_Id: 6daafb62-7718-4635-afbc-d882ee1a61d8
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    - m_Name: Map
+      m_Type: 1
+      m_ExpectedControlType: Button
+      m_Id: b3aed70a-4544-4f22-b095-eb2318a34031
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    - m_Name: Swap
+      m_Type: 1
+      m_ExpectedControlType: Button
+      m_Id: 24d3a594-eb08-4dce-8b06-f71858b3f026
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
     m_Bindings:
+    - m_Name: 
+      m_Id: d632fc46-dab2-4f3c-87d6-adb44897585b
+      m_Path: <Mouse>/leftButton
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Primary
+      m_Flags: 0
+    - m_Name: 
+      m_Id: d2ffc825-5f5d-451f-824b-8bc9be4b4d9f
+      m_Path: <Mouse>/rightButton
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Secondary
+      m_Flags: 0
     - m_Name: 2D Vector
       m_Id: 4d1f7735-03aa-4e04-a862-726fba1931e0
       m_Path: 2DVector
@@ -352,6 +416,46 @@ MonoBehaviour:
       m_Groups: 
       m_Action: Walk
       m_Flags: 8
+    - m_Name: 
+      m_Id: 1d7f460d-dd16-4ca4-b3e1-14068d0a795f
+      m_Path: <Keyboard>/escape
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Menu
+      m_Flags: 0
+    - m_Name: 
+      m_Id: 2695dea6-14fd-4b65-86b1-3ba49347796b
+      m_Path: <Keyboard>/tab
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Menu
+      m_Flags: 0
+    - m_Name: 
+      m_Id: 466be274-c16e-4094-9fa7-72eb460b9adc
+      m_Path: <Keyboard>/m
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Map
+      m_Flags: 0
+    - m_Name: 
+      m_Id: fc6d8810-6309-4ea0-b94f-e302bd040f62
+      m_Path: <Keyboard>/q
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Swap
+      m_Flags: 0
+    - m_Name: 
+      m_Id: b4a03428-b9cb-44cb-89a4-d70ef6928f42
+      m_Path: <Keyboard>/e
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Dialogue
+      m_Flags: 0
 --- !u!114 &2183926120965272908
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -425,7 +529,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1876358554913981554}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
