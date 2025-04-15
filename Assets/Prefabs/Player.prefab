@@ -593,6 +593,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  constraintX: 50
-  constraintY: 50
+  constraintX: 20
+  constraintY: 12.5
   player: {fileID: 3003544883664176735}

@@ -5,8 +5,8 @@ using Unity.Netcode;
 
 public class CameraFollow : NetworkBehaviour
 {
-    public int constraintX = 100;
-    public int constraintY = 100;
+    public float constraintX = 100;
+    public float constraintY = 100;
 
     [SerializeField] private Transform player;
 
