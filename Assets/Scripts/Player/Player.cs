@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class Player : MonoBehaviour
 {
     [SerializeField] private int walkSpeed = 5;
+
     [SerializeField] private InputActionMap controls;
 
     private InputAction primaryAction;
@@ -16,20 +17,61 @@ public class Player : MonoBehaviour
     private InputAction mapAction;
     private InputAction swapAction;
 
+    private float radius;
+    private CircleCollider2D cc;
+
     private void Start()
     {
         SetupControls();
 
         controls.Enable();
+
+        cc = GetComponent<CircleCollider2D>();
+        radius = cc.radius;
     }
 
     private void FixedUpdate()
     {
         Vector3 walkValue = walkAction.ReadValue<Vector2>();
 
-        walkValue.Normalize();  // Prevents faster diagonal movement
+        if (walkValue.x != 0 || walkValue.y != 0)
+        {
+            walkValue.Normalize();  // Prevents faster diagonal movement
 
-        transform.position += Time.deltaTime * walkSpeed * walkValue;
+            transform.position += CheckCollisions(walkValue, Time.deltaTime * walkSpeed);
+        }
+    }
+
+    private Vector3 CheckCollisions(Vector3 moveDir, float distance)
+    {
+        RaycastHit2D hit = Physics2D.CircleCast(transform.position, radius, moveDir, distance);
+
+        if (hit && hit.collider != cc)
+        {
+            Vector3 resolvedMoveDir = moveDir;
+
+            float distanceX = distance;
+            float distanceY = distance;
+
+            Vector2 dirX = Vector2.zero;
+            dirX.x = moveDir.x;
+
+            RaycastHit2D hitX = Physics2D.CircleCast(transform.position, radius, dirX, distance);
+            if (hitX && hitX.collider != cc) { distanceX = Mathf.Abs(Vector2.Distance(hitX.point, transform.position)) - radius; }
+
+            Vector2 dirY = Vector2.zero;
+            dirY.y = moveDir.y;
+
+            RaycastHit2D hitY = Physics2D.CircleCast(transform.position, radius, dirY, distance);
+            if (hitY && hitY.collider != cc) { distanceY = Mathf.Abs(Vector2.Distance(hitY.point, transform.position)) - radius; }
+
+            resolvedMoveDir.x *= distanceX;
+            resolvedMoveDir.y *= distanceY;
+
+            return resolvedMoveDir;
+        }
+
+        return moveDir * distance;
     }
 
     private void SetupControls()
