@@ -7,17 +7,18 @@ public class PlayerEnergy : MonoBehaviour
     [SerializeField] private float slowEnergyDuration = 2f; // Duration to slow energy after eating
 
     private float currentTickInterval;
-    private float energyTimer;
+    // private float energyTimer;
 
     private void Start()
     {
         // Use the EnergySpeed from EnergyData
         currentTickInterval = energyData.EnergySpeed;
-        energyTimer = 0f;
+        //energyTimer = 0f;
     }
 
     private void Update()
     {
+        /*
         if (energyData.Energy > 0 && (!GameManager.instance.IsGamePaused)) //|| !DialogueManager.instance.dialogueIsPlaying))
         {
             energyTimer += Time.deltaTime;
@@ -37,12 +38,18 @@ public class PlayerEnergy : MonoBehaviour
 
             // Handle starvation effects here, e.g., damage or reduced movement.
         }
+        */
     }
 
-    private void ReduceEnergy()
+    public void ReduceEnergy(float amount = 1f)
     {
-        energyData.Energy = Mathf.Max(0, energyData.Energy - 1);
-        Debug.Log($"Energy: {energyData.Energy}");
+        energyData.Energy = Mathf.Max(0, energyData.Energy - amount);
+        Debug.Log($"Energy reduced by {amount}. Current energy: {energyData.Energy}");
+    }
+
+    public void ReduceEnergyBy10()
+    {
+        ReduceEnergy(10f);
     }
 
     public void Eat(float foodValue)

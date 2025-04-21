@@ -3,15 +3,32 @@ using UnityEngine.UI;
 
 public class EnergyBar_UI : MonoBehaviour
 {
-    [SerializeField] private PlayerEnergy playerEnergy; // Reference to PlayerEnergy script
-    [SerializeField] private Slider energyBar; // Reference to UI Slider
+    [SerializeField] private Slider energyBar;
+    [SerializeField] private PlayerEnergy playerEnergy;
+
+    public PlayerEnergy PlayerEnergy
+    {
+        get => playerEnergy;
+        set
+        {
+            playerEnergy = value;
+            UpdateEnergyBar(); // Automatically update the bar if set
+        }
+    }
 
     private void Update()
     {
         if (energyBar != null && playerEnergy != null)
-            //&&(!DialogueManager.instance.dialogueIsPlaying || !GameManager.instance.isGamePaused))
         {
-            energyBar.value = playerEnergy.GetEnergyPercentage(); // Set slider value
+            UpdateEnergyBar();
+        }
+    }
+
+    private void UpdateEnergyBar()
+    {
+        if (energyBar != null && playerEnergy != null)
+        {
+            energyBar.value = playerEnergy.GetEnergyPercentage();
         }
     }
 }
