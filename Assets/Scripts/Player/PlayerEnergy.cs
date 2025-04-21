@@ -42,7 +42,7 @@ public class PlayerEnergy : MonoBehaviour
     private void ReduceEnergy()
     {
         energyData.Energy = Mathf.Max(0, energyData.Energy - 1);
-        Debug.Log($"Energy: {energyData.Energy}");
+        //Debug.Log($"Energy: {energyData.Energy}");
     }
 
     public void Eat(float foodValue)
