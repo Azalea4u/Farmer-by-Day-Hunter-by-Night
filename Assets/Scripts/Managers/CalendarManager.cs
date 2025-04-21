@@ -2,6 +2,12 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum DayState
+{
+    Day,
+    Night
+}
+
 public class CalendarManager : MonoBehaviour
 {
     public static CalendarManager instance;
@@ -17,6 +23,9 @@ public class CalendarManager : MonoBehaviour
 
     public float timeMultiplier = 60f; // 60 = 1 real second = 1 in-game minute
     private float timeElapsed = 0f;
+
+    [Header("State")]
+    [SerializeField] private DayState state;
 
     private void Awake()
     {
@@ -49,6 +58,10 @@ public class CalendarManager : MonoBehaviour
                     CurrentHour = 0;
                     UpdateDay();
                 }
+
+                // Update Day/Night Cycle
+                if (state == DayState.Night && CurrentHour >= 6) state = DayState.Day;
+                else if (state == DayState.Day && CurrentHour >= 18) state = DayState.Night;
             }
 
             UpdateClock();
