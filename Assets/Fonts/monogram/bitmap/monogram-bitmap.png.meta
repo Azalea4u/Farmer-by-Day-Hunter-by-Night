@@ -357,6 +357,32 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -2309,7 +2335,95 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      monogram-bitmap_0: -2773824828830272541
+      monogram-bitmap_1: -3138807730374768133
+      monogram-bitmap_10: 201417838414020729
+      monogram-bitmap_11: 2186248002679659120
+      monogram-bitmap_12: -8050917438264470534
+      monogram-bitmap_13: -3299190802256546830
+      monogram-bitmap_14: 1712822182627478001
+      monogram-bitmap_15: -3896798917564427775
+      monogram-bitmap_16: 8748078322133846045
+      monogram-bitmap_17: 4017497103436354234
+      monogram-bitmap_18: 154584508282430369
+      monogram-bitmap_19: 5552250754430432623
+      monogram-bitmap_2: -8562621806533847735
+      monogram-bitmap_20: 599204049826814498
+      monogram-bitmap_21: -8981009882448842259
+      monogram-bitmap_22: 8731913638850628962
+      monogram-bitmap_23: 1902169144400230282
+      monogram-bitmap_24: -2198059870748694950
+      monogram-bitmap_25: 8456212623514794831
+      monogram-bitmap_26: 4006919119911161327
+      monogram-bitmap_27: -4108437469166135798
+      monogram-bitmap_28: 4768112458245323294
+      monogram-bitmap_29: -2223475270479354869
+      monogram-bitmap_3: 7078592564368743425
+      monogram-bitmap_30: 1689445954018337075
+      monogram-bitmap_31: -5083598855115640103
+      monogram-bitmap_32: 9059375593738634074
+      monogram-bitmap_33: -4853200033786781680
+      monogram-bitmap_34: -5899159293466079307
+      monogram-bitmap_35: -4192528914893957292
+      monogram-bitmap_36: -6408015830458611974
+      monogram-bitmap_37: -6654497089089047144
+      monogram-bitmap_38: -3610343822372177430
+      monogram-bitmap_39: 6185918760826726620
+      monogram-bitmap_4: -3294057148857802396
+      monogram-bitmap_40: 6397370760636569051
+      monogram-bitmap_41: 6457529913740900624
+      monogram-bitmap_42: -2952987294107961369
+      monogram-bitmap_43: 2744196161428428952
+      monogram-bitmap_44: -2661872550604731696
+      monogram-bitmap_45: -4000974394247535273
+      monogram-bitmap_46: -7496633983893724449
+      monogram-bitmap_47: 603814254217793637
+      monogram-bitmap_48: 1194852867610175273
+      monogram-bitmap_49: 5926157523168259997
+      monogram-bitmap_5: 3468548514059899305
+      monogram-bitmap_50: 9042997635971412415
+      monogram-bitmap_51: -445835162019697469
+      monogram-bitmap_52: -7882021396295675958
+      monogram-bitmap_53: -8107541280843310603
+      monogram-bitmap_54: 8912115713661770893
+      monogram-bitmap_55: -8881189623731472610
+      monogram-bitmap_56: 1331359358072774970
+      monogram-bitmap_57: 2441300111127905956
+      monogram-bitmap_58: -5347868158424624623
+      monogram-bitmap_59: -5546517558229156549
+      monogram-bitmap_6: -6948933101303498185
+      monogram-bitmap_60: 4901723771139602097
+      monogram-bitmap_61: -1882614934216247904
+      monogram-bitmap_62: 2699620769994075539
+      monogram-bitmap_63: 1586359872774558973
+      monogram-bitmap_64: -4613988570729631097
+      monogram-bitmap_65: 4118774575192586728
+      monogram-bitmap_66: 7704706039506592304
+      monogram-bitmap_67: -459098747803620892
+      monogram-bitmap_68: 6533748493139306494
+      monogram-bitmap_69: -287619754876222370
+      monogram-bitmap_7: -1923153720331790232
+      monogram-bitmap_70: 2009202542913654062
+      monogram-bitmap_71: -4588986529069981371
+      monogram-bitmap_72: 9174167424254013153
+      monogram-bitmap_73: -8761331410215109884
+      monogram-bitmap_74: -2660167101929141671
+      monogram-bitmap_75: -5210731963159290757
+      monogram-bitmap_76: 3562900983590685467
+      monogram-bitmap_77: 34256092216419987
+      monogram-bitmap_78: 3898384453048282851
+      monogram-bitmap_79: -3106164557704636741
+      monogram-bitmap_8: 3714118031835499463
+      monogram-bitmap_80: -6551423282609337853
+      monogram-bitmap_81: -6602710886166989257
+      monogram-bitmap_82: -6246136396883374088
+      monogram-bitmap_83: -2185882967748398787
+      monogram-bitmap_84: -5202349858042108494
+      monogram-bitmap_85: -2569357708628249602
+      monogram-bitmap_86: 7025628573291966195
+      monogram-bitmap_87: 6891550551303979529
+      monogram-bitmap_9: -8561851657791914664
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
