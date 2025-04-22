@@ -9,11 +9,11 @@ EditorBuildSettings:
     path: Assets/Scenes/RelayTest.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
   - enabled: 1
+    path: Assets/Scenes/CollisionTest.unity
+    guid: 43b1d93fe144f1c47a36fb21038fd32c
+  - enabled: 1
     path: Assets/Scenes/MainMenu_UI.unity
     guid: 2239e1eaf3db7e84db765f2043a5353d
-  - enabled: 1
-    path: Assets/Scenes/ShopTest.unity
-    guid: 40b6e071756b7bf48a556ada8ef91405
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
