@@ -9,6 +9,7 @@ using Unity.Netcode;
 public class Player : NetworkBehaviour
 {
     [SerializeField] private int walkSpeed = 5;
+    [SerializeField] private bool talkingToNPC = false;
 
     [SerializeField] private InputActionMap controls;
 
@@ -55,7 +56,7 @@ public class Player : NetworkBehaviour
     {
         Vector3 walkValue = walkAction.ReadValue<Vector2>();
 
-        if (walkValue.x != 0 || walkValue.y != 0)
+        if ((walkValue.x != 0 || walkValue.y != 0) && !talkingToNPC)
         {
             walkValue.Normalize();  // Prevents faster diagonal movement
 
@@ -186,7 +187,7 @@ public class Player : NetworkBehaviour
     // When within range of an NPC, press the DIALOGUE key (E) to INTERACT/TALK with them
     private void Dialogue()
     {
-        if (IsOwner)
+        if (!talkingToNPC && IsOwner)
         {
             List<RaycastHit2D> results = new();
 
@@ -197,6 +198,7 @@ public class Player : NetworkBehaviour
                     // Finds the first NPC in the collision results and attempts to TALK to them
                     if (hit.collider.isTrigger && hit.collider.gameObject.TryGetComponent<INPC>(out var npc))
                     {
+                        talkingToNPC = true;
                         npc.Talk();
                         break;
                     }

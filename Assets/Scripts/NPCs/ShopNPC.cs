@@ -1,7 +1,7 @@
 using Unity.Netcode;
 using UnityEngine;
 
-public class Shop : NetworkBehaviour, INPC
+public class ShopNPC : NetworkBehaviour, INPC
 {
     public string Name { get; private set; }
 
