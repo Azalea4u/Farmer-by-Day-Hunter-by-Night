@@ -1,12 +1,15 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using Unity.Netcode;
 
 // Thank you https://www.youtube.com/watch?v=HCaSnZvs90g for the movement help, really appreciate it :D
 
-public class Player : MonoBehaviour
+public class Player : NetworkBehaviour
 {
     [SerializeField] private int walkSpeed = 5;
+    [SerializeField] private bool talkingToNPC = false;
 
     [SerializeField] private InputActionMap controls;
 
@@ -18,23 +21,33 @@ public class Player : MonoBehaviour
     private InputAction mapAction;
     private InputAction swapAction;
 
+    // Circle Collider is not strictly needed
+    // Currently, it serves as a nice visualizer in the Editor & as a method of getting the Player's collision radius
+    // But otherwise, it does not have a functional purpose (yet)
     private float radius;
     private CircleCollider2D cc;
-    private ContactFilter2D contactFilter;
+
+    private ContactFilter2D collisionFilter, dialogueFilter;
     private List<RaycastHit2D> currentCollisions;
 
     private void Start()
     {
         SetupControls();
 
+        dialogueAction.performed += _ => Dialogue();
+
         controls.Enable();
 
         cc = GetComponent<CircleCollider2D>();
         radius = cc.radius;
 
-        contactFilter = new();
-        contactFilter = contactFilter.NoFilter();
-        contactFilter.useTriggers = false;
+        collisionFilter = new();
+        collisionFilter = collisionFilter.NoFilter();
+        collisionFilter.useTriggers = false;
+
+        dialogueFilter = new();
+        dialogueFilter = dialogueFilter.NoFilter();
+        dialogueFilter.useTriggers = true;
 
         currentCollisions = new();
     }
@@ -43,7 +56,7 @@ public class Player : MonoBehaviour
     {
         Vector3 walkValue = walkAction.ReadValue<Vector2>();
 
-        if (walkValue.x != 0 || walkValue.y != 0)
+        if ((walkValue.x != 0 || walkValue.y != 0) && !talkingToNPC)
         {
             walkValue.Normalize();  // Prevents faster diagonal movement
 
@@ -53,7 +66,7 @@ public class Player : MonoBehaviour
 
     private Vector3 CheckCollisions(Vector3 moveDir, float distance)
     {
-        if (Physics2D.CircleCast(transform.position, radius, moveDir, contactFilter, currentCollisions, distance) > 0)
+        if (Physics2D.CircleCast(transform.position, radius, moveDir, collisionFilter, currentCollisions, distance) > 0)
         {
             Vector3 resolvedMoveDir = moveDir;
             Vector3 manipulatedMoveDir;
@@ -72,7 +85,7 @@ public class Player : MonoBehaviour
                     Vector2 dirX = Vector2.zero;
                     dirX.x = manipulatedMoveDir.x;
 
-                    if (Physics2D.CircleCast(transform.position, radius, dirX, contactFilter, results, distance) > 0)
+                    if (Physics2D.CircleCast(transform.position, radius, dirX, collisionFilter, results, distance) > 0)
                     {
                         foreach (RaycastHit2D hitX in results)
                         {
@@ -87,7 +100,7 @@ public class Player : MonoBehaviour
                     Vector2 dirY = Vector2.zero;
                     dirY.y = manipulatedMoveDir.y;
 
-                    if (Physics2D.CircleCast(transform.position, radius, dirY, contactFilter, results, distance) > 0)
+                    if (Physics2D.CircleCast(transform.position, radius, dirY, collisionFilter, results, distance) > 0)
                     {
                         foreach (RaycastHit2D hitY in results)
                         {
@@ -170,4 +183,29 @@ public class Player : MonoBehaviour
             swapAction.AddBinding("<Keyboard>/q");
         }
     }
+    
+    // When within range of an NPC, press the DIALOGUE key (E) to INTERACT/TALK with them
+    private void Dialogue()
+    {
+        if (!talkingToNPC && IsOwner)
+        {
+            List<RaycastHit2D> results = new();
+
+            if (Physics2D.CircleCast(transform.position, radius, Vector2.zero, dialogueFilter, results) > 0)
+            {
+                foreach (RaycastHit2D hit in results)
+                {
+                    // Finds the first NPC in the collision results and attempts to TALK to them
+                    if (hit.collider.isTrigger && hit.collider.gameObject.TryGetComponent<INPC>(out var npc))
+                    {
+                        talkingToNPC = true;
+                        npc.Talk(this);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    public void StopDialogue() { talkingToNPC = false; }
 }
