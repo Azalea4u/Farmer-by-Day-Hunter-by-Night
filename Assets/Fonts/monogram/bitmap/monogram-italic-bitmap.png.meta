@@ -351,6 +351,32 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -2259,7 +2285,93 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      monogram-italic-bitmap_0: 4834763863754068009
+      monogram-italic-bitmap_1: -2830738768098490435
+      monogram-italic-bitmap_10: 4152307326551752357
+      monogram-italic-bitmap_11: -2579242921906073351
+      monogram-italic-bitmap_12: -410383248530688140
+      monogram-italic-bitmap_13: 7425717459348948871
+      monogram-italic-bitmap_14: -8114182306905825534
+      monogram-italic-bitmap_15: -1238787976135334708
+      monogram-italic-bitmap_16: -2445458826585040037
+      monogram-italic-bitmap_17: 4036066971481331581
+      monogram-italic-bitmap_18: -4642425399067319213
+      monogram-italic-bitmap_19: 7908289758973795608
+      monogram-italic-bitmap_2: -2602469582851961047
+      monogram-italic-bitmap_20: 4777801881924875644
+      monogram-italic-bitmap_21: -2602126292925911124
+      monogram-italic-bitmap_22: 2684338257798140276
+      monogram-italic-bitmap_23: -6249454238092010123
+      monogram-italic-bitmap_24: 106945359865224359
+      monogram-italic-bitmap_25: 3490232816656480023
+      monogram-italic-bitmap_26: -4453257119821044400
+      monogram-italic-bitmap_27: -1149567859808274010
+      monogram-italic-bitmap_28: -7698075727486320124
+      monogram-italic-bitmap_29: 4903112936388144595
+      monogram-italic-bitmap_3: -3360940384769957348
+      monogram-italic-bitmap_30: -5949495111492564970
+      monogram-italic-bitmap_31: 3961794574648007553
+      monogram-italic-bitmap_32: 820880516567574366
+      monogram-italic-bitmap_33: 3997866886336410848
+      monogram-italic-bitmap_34: -5049933744580641992
+      monogram-italic-bitmap_35: -7717466187061399820
+      monogram-italic-bitmap_36: -5277479385613767719
+      monogram-italic-bitmap_37: 847968115447727091
+      monogram-italic-bitmap_38: 8312145399862977853
+      monogram-italic-bitmap_39: -63658750191519856
+      monogram-italic-bitmap_4: 5817157033192396135
+      monogram-italic-bitmap_40: -2741932396330329805
+      monogram-italic-bitmap_41: 6971198788784112997
+      monogram-italic-bitmap_42: 5236704677207346995
+      monogram-italic-bitmap_43: 1582647564884429533
+      monogram-italic-bitmap_44: -5156433561261205138
+      monogram-italic-bitmap_45: 2079835771630506542
+      monogram-italic-bitmap_46: -2519667268887985874
+      monogram-italic-bitmap_47: 2115662475924738175
+      monogram-italic-bitmap_48: -2291862037477295343
+      monogram-italic-bitmap_49: -6741217804397825147
+      monogram-italic-bitmap_5: 677536857216765900
+      monogram-italic-bitmap_50: -7870977936464597241
+      monogram-italic-bitmap_51: -5234769669289345731
+      monogram-italic-bitmap_52: 4157299767125475091
+      monogram-italic-bitmap_53: -3262190230338609613
+      monogram-italic-bitmap_54: -1189649894107896787
+      monogram-italic-bitmap_55: -6082903081917239272
+      monogram-italic-bitmap_56: -5022144608839543807
+      monogram-italic-bitmap_57: 2596613715395428546
+      monogram-italic-bitmap_58: -1760438737885197258
+      monogram-italic-bitmap_59: 7666151569819186146
+      monogram-italic-bitmap_6: -6429127531967210696
+      monogram-italic-bitmap_60: 8187789724712803908
+      monogram-italic-bitmap_61: 8696201742648517439
+      monogram-italic-bitmap_62: -9007246456217520374
+      monogram-italic-bitmap_63: -3949989018537636502
+      monogram-italic-bitmap_64: -1352997934180467269
+      monogram-italic-bitmap_65: 140426923713870477
+      monogram-italic-bitmap_66: 3194178505483742431
+      monogram-italic-bitmap_67: 8567060347437649752
+      monogram-italic-bitmap_68: 8141561931021820414
+      monogram-italic-bitmap_69: -4453577912947939058
+      monogram-italic-bitmap_7: -102008352401324765
+      monogram-italic-bitmap_70: 2771803123130251130
+      monogram-italic-bitmap_71: -3253744437999408112
+      monogram-italic-bitmap_72: 3300743606268671104
+      monogram-italic-bitmap_73: -1834322276261371350
+      monogram-italic-bitmap_74: 4962308552420768072
+      monogram-italic-bitmap_75: 8847681534001905577
+      monogram-italic-bitmap_76: 8772592957582364989
+      monogram-italic-bitmap_77: 7877915173639521919
+      monogram-italic-bitmap_78: -1920063821077539163
+      monogram-italic-bitmap_79: -8457498807306047319
+      monogram-italic-bitmap_8: 5699114589940330354
+      monogram-italic-bitmap_80: 8981027104718169654
+      monogram-italic-bitmap_81: 7602784311522120315
+      monogram-italic-bitmap_82: 603643249242740319
+      monogram-italic-bitmap_83: 381383581571382157
+      monogram-italic-bitmap_84: 761679198208628304
+      monogram-italic-bitmap_85: -2608662238737392459
+      monogram-italic-bitmap_9: 7449506376221486328
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
