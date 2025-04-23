@@ -199,11 +199,13 @@ public class Player : NetworkBehaviour
                     if (hit.collider.isTrigger && hit.collider.gameObject.TryGetComponent<INPC>(out var npc))
                     {
                         talkingToNPC = true;
-                        npc.Talk();
+                        npc.Talk(this);
                         break;
                     }
                 }
             }
         }
     }
+
+    public void StopDialogue() { talkingToNPC = false; }
 }
