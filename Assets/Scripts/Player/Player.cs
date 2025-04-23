@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections.Generic;
 
 // Thank you https://www.youtube.com/watch?v=HCaSnZvs90g for the movement help, really appreciate it :D
 
@@ -19,6 +20,8 @@ public class Player : MonoBehaviour
 
     private float radius;
     private CircleCollider2D cc;
+    private ContactFilter2D contactFilter;
+    private List<RaycastHit2D> currentCollisions;
 
     private void Start()
     {
@@ -28,6 +31,12 @@ public class Player : MonoBehaviour
 
         cc = GetComponent<CircleCollider2D>();
         radius = cc.radius;
+
+        contactFilter = new();
+        contactFilter = contactFilter.NoFilter();
+        contactFilter.useTriggers = false;
+
+        currentCollisions = new();
     }
 
     private void FixedUpdate()
@@ -44,31 +53,62 @@ public class Player : MonoBehaviour
 
     private Vector3 CheckCollisions(Vector3 moveDir, float distance)
     {
-        RaycastHit2D hit = Physics2D.CircleCast(transform.position, radius, moveDir, distance);
-
-        if (hit && hit.collider != cc)
+        if (Physics2D.CircleCast(transform.position, radius, moveDir, contactFilter, currentCollisions, distance) > 0)
         {
             Vector3 resolvedMoveDir = moveDir;
+            Vector3 manipulatedMoveDir;
 
             float distanceX = distance;
             float distanceY = distance;
 
-            Vector2 dirX = Vector2.zero;
-            dirX.x = moveDir.x;
+            List<RaycastHit2D> results = new();
 
-            RaycastHit2D hitX = Physics2D.CircleCast(transform.position, radius, dirX, distance);
-            if (hitX && hitX.collider != cc) { distanceX = Mathf.Abs(Vector2.Distance(hitX.point, transform.position)) - radius; }
+            foreach (RaycastHit2D hit in currentCollisions)
+            {
+                if (hit.collider != cc)
+                {
+                    manipulatedMoveDir = resolvedMoveDir;
 
-            Vector2 dirY = Vector2.zero;
-            dirY.y = moveDir.y;
+                    Vector2 dirX = Vector2.zero;
+                    dirX.x = manipulatedMoveDir.x;
 
-            RaycastHit2D hitY = Physics2D.CircleCast(transform.position, radius, dirY, distance);
-            if (hitY && hitY.collider != cc) { distanceY = Mathf.Abs(Vector2.Distance(hitY.point, transform.position)) - radius; }
+                    if (Physics2D.CircleCast(transform.position, radius, dirX, contactFilter, results, distance) > 0)
+                    {
+                        foreach (RaycastHit2D hitX in results)
+                        {
+                            if (hitX.collider != cc)
+                            {
+                                float tempDistanceX = Mathf.Abs(Vector2.Distance(hitX.point, transform.position)) - radius;
+                                if (tempDistanceX < distanceX) distanceX = tempDistanceX;
+                            }
+                        }
+                    }
 
-            resolvedMoveDir.x *= distanceX;
-            resolvedMoveDir.y *= distanceY;
+                    Vector2 dirY = Vector2.zero;
+                    dirY.y = manipulatedMoveDir.y;
 
-            return resolvedMoveDir;
+                    if (Physics2D.CircleCast(transform.position, radius, dirY, contactFilter, results, distance) > 0)
+                    {
+                        foreach (RaycastHit2D hitY in results)
+                        {
+                            if (hitY.collider != cc)
+                            {
+                                float tempDistanceY = Mathf.Abs(Vector2.Distance(hitY.point, transform.position)) - radius;
+                                if (tempDistanceY < distanceY) distanceY = tempDistanceY;
+                            }
+                        }
+                    }
+
+                    manipulatedMoveDir.x *= distanceX;
+                    manipulatedMoveDir.y *= distanceY;
+                }
+                else continue;
+
+                if (Mathf.Abs(manipulatedMoveDir.x) < Mathf.Abs(resolvedMoveDir.x)) resolvedMoveDir.x = manipulatedMoveDir.x;
+                if (Mathf.Abs(manipulatedMoveDir.y) < Mathf.Abs(resolvedMoveDir.y)) resolvedMoveDir.y = manipulatedMoveDir.y;
+            }
+
+            if (resolvedMoveDir != moveDir) return resolvedMoveDir;
         }
 
         return moveDir * distance;
