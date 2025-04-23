@@ -15,7 +15,8 @@ public class Item : MonoBehaviour
     public int BuyPrice => data.BuyPrice;
     public bool IsFood => data.IsFood;
     public float HealingAmount => data.HealingAmount;
-    public HealingType HealingType => data.healingType;
+    public HealingTypes HealingType => data.healingType;
+
 
     private void Awake()
     {
