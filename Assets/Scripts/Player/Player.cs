@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private int walkSpeed = 5;
 
+    [Header("Input Actions")]
     [SerializeField] private InputActionMap controls;
 
     private InputAction primaryAction;
