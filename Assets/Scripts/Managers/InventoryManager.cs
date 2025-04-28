@@ -29,7 +29,7 @@ public class InventoryManager : MonoBehaviour
     public Inventory_UI inventoryUI;
 
     [Header("InGame Hotbar")]
-    public int hotbar_SlotCount = 4;
+    public int hotbar_SlotCount = 9;
     public Inventory hotbar;
     public HotBar_Data hotbarData;
 
