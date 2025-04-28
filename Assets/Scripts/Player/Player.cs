@@ -1,134 +1,132 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
-
-// Thank you https://www.youtube.com/watch?v=HCaSnZvs90g for the movement help, really appreciate it :D
+using UnityEngine.UIElements;
+using static ItemData;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private int walkSpeed = 5;
+    [HideInInspector] public InventoryManager inventoryManager;
 
-    [Header("Input Actions")]
-    [SerializeField] private InputActionMap controls;
+    [SerializeField] private PlayerMovement playerMovement;
+    //[SerializeField] private HotBar_Data hotBar_Data;
 
-    private InputAction primaryAction;
-    private InputAction secondaryAction;
-    private InputAction walkAction;
-    private InputAction menuAction;
-    private InputAction dialogueAction;
-    private InputAction mapAction;
-    private InputAction swapAction;
-
-    private float radius;
-    private CircleCollider2D cc;
-
-    private void Start()
+    private void Awake()
     {
-        SetupControls();
-
-        controls.Enable();
-
-        cc = GetComponent<CircleCollider2D>();
-        radius = cc.radius;
+        inventoryManager = GetComponent<InventoryManager>();
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
-        Vector3 walkValue = walkAction.ReadValue<Vector2>();
 
-        if (walkValue.x != 0 || walkValue.y != 0)
+        if (Input.GetKeyDown(KeyCode.E) && !GameManager.instance.IsGamePaused)
+            //&& !DialogueManager.instance.dialogueIsPlaying)
         {
-            walkValue.Normalize();  // Prevents faster diagonal movement
+            ConsumeItem();
 
-            transform.position += CheckCollisions(walkValue, Time.deltaTime * walkSpeed);
+            // Refresh hotbar UI
+            inventoryManager.SaveHotBarData();
+            inventoryManager.inventoryUI.Refresh();
         }
     }
 
-    private Vector3 CheckCollisions(Vector3 moveDir, float distance)
+    // New method to handle both food and potion consumption based on HealingType
+    private void ConsumeItem()
     {
-        RaycastHit2D hit = Physics2D.CircleCast(transform.position, radius, moveDir, distance);
+        var selectedSlot = inventoryManager.hotbar.selectedSlot;
 
-        if (hit && hit.collider != cc)
+        if (selectedSlot != null && !string.IsNullOrEmpty(selectedSlot.itemName))
         {
-            Vector3 resolvedMoveDir = moveDir;
+            var item = GameManager.instance.itemManager.GetItemByName(selectedSlot.itemName);
 
-            float distanceX = distance;
-            float distanceY = distance;
-
-            Vector2 dirX = Vector2.zero;
-            dirX.x = moveDir.x;
-
-            RaycastHit2D hitX = Physics2D.CircleCast(transform.position, radius, dirX, distance);
-            if (hitX && hitX.collider != cc) { distanceX = Mathf.Abs(Vector2.Distance(hitX.point, transform.position)) - radius; }
-
-            Vector2 dirY = Vector2.zero;
-            dirY.y = moveDir.y;
-
-            RaycastHit2D hitY = Physics2D.CircleCast(transform.position, radius, dirY, distance);
-            if (hitY && hitY.collider != cc) { distanceY = Mathf.Abs(Vector2.Distance(hitY.point, transform.position)) - radius; }
-
-            resolvedMoveDir.x *= distanceX;
-            resolvedMoveDir.y *= distanceY;
-
-            return resolvedMoveDir;
+            if (item != null && item.IsFood)
+            {
+                // Check the HealingType and call the appropriate method
+                if (item.HealingType == HealingTypes.Energy)
+                {
+                    // If the item heals hunger, consume it as food
+                    //ConsumeFood(item, selectedSlot);
+                }
+                else if (item.HealingType == HealingTypes.Health)
+                {
+                    // If the item heals health, consume it as a potion
+                    //ConsumePotion(item, selectedSlot);
+                }
+            }
         }
-
-        return moveDir * distance;
     }
 
-    private void SetupControls()
+    /* Consume Items WIP
+    // Consume food and heal hunger
+    private void ConsumeFood(Item item, Inventory.Slot selectedSlot)
     {
-        primaryAction = controls.FindAction("Primary");
-        if (primaryAction == null)
+        if (GameManager.instance.playerUI.Hunger < 100)
         {
-            primaryAction = controls.AddAction("Primary");
-            primaryAction.AddBinding("<Mouse>/leftButton");
-        }
+            HungerData hungerData = GameManager.instance.playerUI.hungerData;
+            hungerData.Hunger = Mathf.Min(100, hungerData.Hunger + item.HealingAmount);
 
-        secondaryAction = controls.FindAction("Secondary");
-        if (secondaryAction == null)
-        {
-            secondaryAction = controls.AddAction("Secondary");
-            secondaryAction.AddBinding("<Mouse>/rightButton");
-        }
+            // Remove the food item
+            if (selectedSlot.count > 0)
+            {
+                selectedSlot.count--;
 
-        walkAction = controls.FindAction("Walk");
-        if (walkAction == null)
-        {
-            walkAction = controls.AddAction("Walk");
-            walkAction.AddCompositeBinding("2DVector")
-                .With("Up",    "<Keyboard>/w")
-                .With("Down",  "<Keyboard>/s")
-                .With("Left",  "<Keyboard>/a")
-                .With("Right", "<Keyboard>/d");
-        }
+                // Remove the slot if count drops to 0
+                if (selectedSlot.count <= 0)
+                {
+                    selectedSlot.itemName = null;
+                    selectedSlot.icon = null;
+                }
+            }
 
-        menuAction = controls.FindAction("Menu");
-        if (menuAction == null)
-        {
-            menuAction = controls.AddAction("Menu");
-            menuAction.AddBinding("<Keyboard>/escape");
-            menuAction.AddBinding("<Keyboard>/tab");
+            Debug.Log($"Consumed {item.ItemName}, Hunger: {hungerData.Hunger}");
         }
-
-        dialogueAction = controls.FindAction("Dialogue");
-        if (dialogueAction == null)
+        else
         {
-            dialogueAction = controls.AddAction("Dialogue");
-            dialogueAction.AddBinding("<Keyboard>/e");
+            Debug.Log("Hunger is already full.");
         }
+    }
 
-        mapAction = controls.FindAction("Map");
-        if (mapAction == null)
+    // Consume potion and heal health
+    private void ConsumePotion(Item itemData, Inventory.Slot selectedSlot)
+    {
+        //if (playerHealth.Health < playerHealth.MaxHealth)
         {
-            mapAction = controls.AddAction("Map");
-            mapAction.AddBinding("<Keyboard>/m");
+            playerHealth.Health = Mathf.Min(99, playerHealth.Health + (int)itemData.HealingAmount);
+
+            // Remove the potion item
+            if (selectedSlot.count > 0)
+            {
+                selectedSlot.count--;
+
+                // Remove the slot if count drops to 0
+                if (selectedSlot.count <= 0)
+                {
+                    selectedSlot.itemName = null;
+                    selectedSlot.icon = null;
+                }
+            }
+
+            Debug.Log($"Consumed {itemData.ItemName}, Health: {playerHealth.Health}");
         }
+    }
+    */
 
-        swapAction = controls.FindAction("Swap");
-        if (swapAction == null)
+    public void DropItem(Item item)
+    {
+        Vector2 spawmLocation = transform.position;
+        Vector2 spawnOffset = Random.insideUnitCircle * 1.5f;
+
+        Item droppedItem = Instantiate(item, spawmLocation + spawnOffset, Quaternion.identity);
+
+        // Makes the dropped item slide
+        droppedItem.rb2D.AddForce(spawnOffset * 0.2f, ForceMode2D.Impulse);
+    }
+
+    public void DropItem(Item item, int numToDrop)
+    {
+        for (int i = 0; i < numToDrop; i++)
         {
-            swapAction = controls.AddAction("Swap");
-            swapAction.AddBinding("<Keyboard>/q");
+            DropItem(item);
         }
     }
 }

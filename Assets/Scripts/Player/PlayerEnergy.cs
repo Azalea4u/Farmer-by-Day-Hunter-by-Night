@@ -33,7 +33,7 @@ public class PlayerEnergy : MonoBehaviour
         {
             if (energyData.Energy <= 0)
             {
-                Debug.Log("Player is starving!");
+                Debug.Log("PlayerMovement is starving!");
             }
 
             // Handle starvation effects here, e.g., damage or reduced movement.
@@ -55,7 +55,7 @@ public class PlayerEnergy : MonoBehaviour
     public void Eat(float foodValue)
     {
         energyData.Energy = Mathf.Min(100, energyData.Energy + foodValue);
-        Debug.Log($"Player ate! Energy: {energyData.Energy}");
+        Debug.Log($"PlayerMovement ate! Energy: {energyData.Energy}");
         StartCoroutine(SlowEnergyRate());
     }
 
