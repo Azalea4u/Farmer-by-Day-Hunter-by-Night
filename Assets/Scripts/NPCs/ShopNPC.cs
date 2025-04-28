@@ -36,7 +36,7 @@ public class ShopNPC : NetworkBehaviour, INPC
 
     public void Buy()
     {
-
+        if (SelectedItem != null) { print("Item bought!"); }
     }
 
     public void Sell()
@@ -51,6 +51,9 @@ public class ShopNPC : NetworkBehaviour, INPC
 
         ShopUI.SetActive(true);
         ShopCloseButton.onClick.AddListener(() => CurrentTargetPlayer.StopDialogue());
+
+        SelectedItem = null;
+        DisplayedItem.sprite = null;
     }
 
     public void ExitShop()
