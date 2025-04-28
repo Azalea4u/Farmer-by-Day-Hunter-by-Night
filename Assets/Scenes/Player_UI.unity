@@ -966,6 +966,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsGamePaused: 0
+  shopManager: {fileID: 0}
+  itemManager: {fileID: 575890789}
+  dialogueManager: {fileID: 0}
+  inventoryManager: {fileID: 0}
+  player: {fileID: 0}
 --- !u!4 &521309829
 Transform:
   m_ObjectHideFlags: 0
