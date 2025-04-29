@@ -1,6 +1,7 @@
+using Unity.Netcode;
 using UnityEngine;
 
-public class ShopManager : MonoBehaviour
+public class ShopManager : NetworkBehaviour
 {
     public static ShopManager instance;
 

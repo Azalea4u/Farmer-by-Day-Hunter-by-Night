@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using static ItemData;
 
-public class Player : MonoBehaviour
+public class Player : NetworkBehaviour
 {
     [HideInInspector] public InventoryManager inventoryManager;
 
@@ -129,4 +129,29 @@ public class Player : MonoBehaviour
             DropItem(item);
         }
     }
+    
+    // When within range of an NPC, press the DIALOGUE key (E) to INTERACT/TALK with them
+    private void Dialogue()
+    {
+        if (!talkingToNPC && IsOwner)
+        {
+            List<RaycastHit2D> results = new();
+
+            if (Physics2D.CircleCast(transform.position, radius, Vector2.zero, dialogueFilter, results) > 0)
+            {
+                foreach (RaycastHit2D hit in results)
+                {
+                    // Finds the first NPC in the collision results and attempts to TALK to them
+                    if (hit.collider.isTrigger && hit.collider.gameObject.TryGetComponent<INPC>(out var npc))
+                    {
+                        talkingToNPC = true;
+                        npc.Talk(this);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    public void StopDialogue() { talkingToNPC = false; }
 }
