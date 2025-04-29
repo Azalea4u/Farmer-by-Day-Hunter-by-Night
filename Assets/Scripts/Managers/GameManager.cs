@@ -6,6 +6,15 @@ public class GameManager : MonoBehaviour
 
     public bool IsGamePaused = false;
 
+    [Header("Managers")]
+    public ShopManager shopManager;
+    public ItemManager itemManager;
+    public DialogueManager dialogueManager;
+    public InventoryManager inventoryManager;
+
+    public Player player;
+
+
     private void Awake()
     {
         if (instance == null)
