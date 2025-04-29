@@ -4,23 +4,28 @@ using UnityEngine;
 using Unity.Netcode;
 using UnityEngine.UIElements;
 using static ItemData;
+using System.Globalization;
 
-public class Player : MonoBehaviour
+[RequireComponent(typeof(PlayerController))]
+public class Player : NetworkBehaviour
 {
     [HideInInspector] public InventoryManager inventoryManager;
 
-    [SerializeField] private PlayerMovement playerMovement;
+    [SerializeField] private PlayerController controller;
     //[SerializeField] private HotBar_Data hotBar_Data;
 
     private void Awake()
     {
         inventoryManager = GetComponent<InventoryManager>();
+        controller = GetComponent<PlayerController>();
     }
 
     private void Update()
     {
+        // !! REMINDER !!
+        /// Add a designated function/call for both pausing & consuming an item in PlayerController
 
-        if (Input.GetKeyDown(KeyCode.E) && !GameManager.instance.IsGamePaused)
+        if (false && !GameManager.instance.IsGamePaused)
             //&& !DialogueManager.instance.dialogueIsPlaying)
         {
             ConsumeItem();

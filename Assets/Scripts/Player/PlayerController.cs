@@ -8,20 +8,23 @@ using System.Globalization;
 
 // Thank you https://www.youtube.com/watch?v=HCaSnZvs90g for the movement help, really appreciate it :D
 
-public class PlayerMovement : NetworkBehaviour
+[RequireComponent(typeof(Player))]
+public class PlayerController : NetworkBehaviour
 {
+    [SerializeField] private Player player;
+
     [SerializeField] private int walkSpeed = 5;
     [SerializeField] private bool talkingToNPC = false;
 
     [SerializeField] private InputActionMap controls;
 
-    private InputAction primaryAction;
-    private InputAction secondaryAction;
-    private InputAction walkAction;
-    private InputAction menuAction;
-    private InputAction dialogueAction;
-    private InputAction mapAction;
-    private InputAction swapAction;
+    [HideInInspector] public InputAction primaryAction;
+    [HideInInspector] public InputAction secondaryAction;
+    [HideInInspector] public InputAction walkAction;
+    [HideInInspector] public InputAction menuAction;
+    [HideInInspector] public InputAction dialogueAction;
+    [HideInInspector] public InputAction mapAction;
+    [HideInInspector] public InputAction swapAction;
 
     // Circle Collider is not strictly needed
     // Currently, it serves as a nice visualizer in the Editor & as a method of getting the Player's collision radius
@@ -34,6 +37,8 @@ public class PlayerMovement : NetworkBehaviour
 
     private void Start()
     {
+        player = GetComponent<Player>();
+
         SetupControls();
 
         dialogueAction.performed += _ => Dialogue();
@@ -58,7 +63,7 @@ public class PlayerMovement : NetworkBehaviour
     {
         Vector3 walkValue = walkAction.ReadValue<Vector2>();
 
-        if (walkValue.x != 0 || walkValue.y != 0)
+        if (!talkingToNPC && (walkValue.x != 0 || walkValue.y != 0))
         {
             walkValue.Normalize();  // Prevents faster diagonal movement
 
@@ -201,7 +206,7 @@ public class PlayerMovement : NetworkBehaviour
                     if (hit.collider.isTrigger && hit.collider.gameObject.TryGetComponent<INPC>(out var npc))
                     {
                         talkingToNPC = true;
-                        npc.Talk(this);
+                        npc.TalkTo(player);
                         break;
                     }
                 }

@@ -202,8 +202,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1808505167}
-        m_TargetAssemblyTypeName: ShopNPC, Assembly-CSharp
+      - m_Target: {fileID: 244197940}
+        m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
         m_MethodName: Buy
         m_Mode: 1
         m_Arguments:
@@ -511,6 +511,83 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 146057044}
   m_CullTransparentMesh: 1
+--- !u!1 &244197938
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 244197941}
+  - component: {fileID: 244197939}
+  - component: {fileID: 244197940}
+  m_Layer: 0
+  m_Name: Shop Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &244197939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 244197938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 2842722076
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  DeferredDespawnTick: 0
+  Ownership: 1
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+  SyncOwnerTransformWhenParented: 1
+  AllowOwnerToParent: 0
+--- !u!114 &244197940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 244197938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4066a19ca70fece47ba1db093f7ccb5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  Stock: []
+  CurrentlySelectedItem: {fileID: 0}
+  ShopUI: {fileID: 724278991}
+  ExitShopButton: {fileID: 1218618885}
+  DisplayedItem: {fileID: 721147811}
+--- !u!4 &244197941
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 244197938}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 960, y: 540, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 724278995}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &278841629
 GameObject:
   m_ObjectHideFlags: 0
@@ -1305,7 +1382,7 @@ RectTransform:
   - {fileID: 1151020204}
   - {fileID: 1477894621}
   - {fileID: 74349050}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 244197941}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2828,17 +2905,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6788987877855257351, guid: 281fb4680a1147446afad6c73d3b9ed0, type: 3}
   m_PrefabInstance: {fileID: 3977263567556440112}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1151020208 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1037665358898959420, guid: 281fb4680a1147446afad6c73d3b9ed0, type: 3}
-  m_PrefabInstance: {fileID: 3977263567556440112}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a19b55d3b06e94498a7e8311254b98a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1177202485
 GameObject:
   m_ObjectHideFlags: 0
@@ -3028,8 +3094,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1808505167}
-        m_TargetAssemblyTypeName: ShopNPC, Assembly-CSharp
+      - m_Target: {fileID: 244197940}
+        m_TargetAssemblyTypeName: ShopManager, Assembly-CSharp
         m_MethodName: ExitShop
         m_Mode: 1
         m_Arguments:
@@ -4046,10 +4112,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  ShopUI: {fileID: 724278991}
-  ShopCloseButton: {fileID: 1218618885}
-  DisplayedItem: {fileID: 721147811}
-  SelectedItem: {fileID: 0}
 --- !u!1 &2097224637
 GameObject:
   m_ObjectHideFlags: 0
@@ -6949,38 +7011,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Test Item
       objectReference: {fileID: 0}
-    - target: {fileID: 4613144701995899643, guid: 281fb4680a1147446afad6c73d3b9ed0, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4613144701995899643, guid: 281fb4680a1147446afad6c73d3b9ed0, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4613144701995899643, guid: 281fb4680a1147446afad6c73d3b9ed0, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1808505167}
-    - target: {fileID: 4613144701995899643, guid: 281fb4680a1147446afad6c73d3b9ed0, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4613144701995899643, guid: 281fb4680a1147446afad6c73d3b9ed0, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SelectItem
-      objectReference: {fileID: 0}
-    - target: {fileID: 4613144701995899643, guid: 281fb4680a1147446afad6c73d3b9ed0, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: ShopNPC, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 4613144701995899643, guid: 281fb4680a1147446afad6c73d3b9ed0, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
-      value: 
-      objectReference: {fileID: 1151020208}
-    - target: {fileID: 4613144701995899643, guid: 281fb4680a1147446afad6c73d3b9ed0, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: ShopItem, Assembly-CSharp
-      objectReference: {fileID: 0}
     - target: {fileID: 6788987877855257351, guid: 281fb4680a1147446afad6c73d3b9ed0, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -7077,4 +7107,4 @@ SceneRoots:
   - {fileID: 1177202489}
   - {fileID: 450922461}
   - {fileID: 1808505160}
-  - {fileID: 724278995}
+  - {fileID: 244197941}

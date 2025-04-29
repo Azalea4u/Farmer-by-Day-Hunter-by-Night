@@ -5,7 +5,7 @@ using UnityEngine;
 public interface INPC
 {
     string Name { get; }
-    PlayerMovement CurrentTargetPlayer { get; }
+    Player CurrentTargetPlayer { get; }
 
-    void Talk(PlayerMovement targetPlayer);
+    void TalkTo(Player targetPlayer);
 }
