@@ -13,7 +13,7 @@ public class ShopNPC : NetworkBehaviour, INPC
     private List<ShopItem> Stock = new List<ShopItem>();
 
     public string Name { get; private set; }
-    public Player CurrentTargetPlayer { get; private set; }
+    public PlayerMovement CurrentTargetPlayer { get; private set; }
 
     public ShopItem SelectedItem = null;
 
@@ -44,7 +44,7 @@ public class ShopNPC : NetworkBehaviour, INPC
 
     }
 
-    public void Talk(Player targetPlayer)
+    public void Talk(PlayerMovement targetPlayer)
     {
         print("Welcome to my shop!");
         CurrentTargetPlayer = targetPlayer;
