@@ -1,5 +1,6 @@
 using Ink.Parsed;
 using System.Collections.Generic;
+using TMPro;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,9 +13,12 @@ public class ShopManager : NetworkBehaviour
 
     [SerializeField] private List<ShopItem> Stock = new List<ShopItem>();
     [SerializeField] private ShopItem CurrentlySelectedItem = null;
+    [SerializeField] private int count = 0;
+    
 
     [Header("UI Elements")]
     [SerializeField] private GameObject ShopUI;
+    [SerializeField] private TMP_Text CountDisplay;
     [SerializeField] private Button ExitShopButton;
     [SerializeField] private Image DisplayedItem;
 
@@ -82,11 +86,24 @@ public class ShopManager : NetworkBehaviour
     {
         CurrentlySelectedItem = null;
         DisplayedItem.sprite = null;
+        count = 0;
+        CountDisplay.text = "";
     }
 
     public void SelectItem(ShopItem item)
     {
         CurrentlySelectedItem = item;
         DisplayedItem.sprite = item.data.Icon;
+        count = 0;
+        CountDisplay.text = "0";
+    }
+
+    public void ChangeCount(int value) 
+    {
+        if (CurrentlySelectedItem != null && (value > 0 || count != 0))
+        {
+            count += value;
+            CountDisplay.text = count.ToString();
+        }
     }
 }
