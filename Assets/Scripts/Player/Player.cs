@@ -10,9 +10,9 @@ using System.Globalization;
 public class Player : NetworkBehaviour
 {
     [HideInInspector] public InventoryManager inventoryManager;
-
+    
     [SerializeField] private PlayerController controller;
-    //[SerializeField] private HotBar_Data hotBar_Data;
+    [SerializeField] private HotBar_Data hotBar_Data;
 
     private void Awake()
     {

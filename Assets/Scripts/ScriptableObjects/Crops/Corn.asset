@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bcff24d2d21efc048a3a3a09ba84dc68, type: 3}
-  m_Name: Tomato
+  m_Name: Corn
   m_EditorClassIdentifier: 
-  ItemName: Tomato
+  ItemName: Corn
   Description: Description of Item
-  Icon: {fileID: 454361591, guid: e382ca2272e9c064cb2dec5e77e1b12d, type: 3}
-  BuyPrice: 90
-  SellPrice: 120
+  Icon: {fileID: 344969028, guid: e382ca2272e9c064cb2dec5e77e1b12d, type: 3}
+  BuyPrice: 50
+  SellPrice: 75
   IsFood: 1
   healingType: 1
-  HealingAmount: 20
+  HealingAmount: 15
   HasStatusEffect: 0
-  statusType: 0
+  statusType: 1
