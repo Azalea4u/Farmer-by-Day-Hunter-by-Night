@@ -9,7 +9,7 @@ public class Collectable : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        PlayerMovement player = collision.GetComponent<PlayerMovement>();
+        PlayerController player = collision.GetComponent<PlayerController>();
 
         if (player)
         {
