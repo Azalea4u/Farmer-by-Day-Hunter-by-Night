@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemName: Tomato
   Description: Description of Item
-  Icon: {fileID: 0}
+  Icon: {fileID: 454361591, guid: e382ca2272e9c064cb2dec5e77e1b12d, type: 3}
   BuyPrice: 90
   SellPrice: 120
   IsFood: 1

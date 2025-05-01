@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bcff24d2d21efc048a3a3a09ba84dc68, type: 3}
-  m_Name: Turnip
+  m_Name: Strawberry
   m_EditorClassIdentifier: 
-  ItemName: Item Name
+  ItemName: Strawberry
   Description: Description of Item
-  Icon: {fileID: 0}
-  BuyPrice: 50
-  SellPrice: 75
+  Icon: {fileID: -1291347247, guid: e382ca2272e9c064cb2dec5e77e1b12d, type: 3}
+  BuyPrice: 30
+  SellPrice: 45
   IsFood: 1
   healingType: 1
-  HealingAmount: 15
+  HealingAmount: 5
   HasStatusEffect: 0
-  statusType: 1
+  statusType: 0
