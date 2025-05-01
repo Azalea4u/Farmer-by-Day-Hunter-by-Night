@@ -155,7 +155,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 250, y: -300}
+  m_AnchoredPosition: {x: 280, y: -360}
   m_SizeDelta: {x: 200, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &74349051
@@ -570,7 +570,7 @@ MonoBehaviour:
   Stock: []
   CurrentlySelectedItem: {fileID: 0}
   count: 0
-  ShopUI: {fileID: 724278991}
+  BuyShopUI: {fileID: 724278991}
   CountDisplay: {fileID: 2079814970}
   ExitShopButton: {fileID: 1218618885}
   DisplayedItem: {fileID: 721147811}
@@ -2201,7 +2201,7 @@ GameObject:
   - component: {fileID: 724278993}
   - component: {fileID: 724278992}
   m_Layer: 5
-  m_Name: Shop UI
+  m_Name: Buy Shop UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -17,7 +17,7 @@ public class ShopManager : NetworkBehaviour
     
 
     [Header("UI Elements")]
-    [SerializeField] private GameObject ShopUI;
+    [SerializeField] private GameObject BuyShopUI;
     [SerializeField] private TMP_Text CountDisplay;
     [SerializeField] private Button ExitShopButton;
     [SerializeField] private Image DisplayedItem;
@@ -36,7 +36,7 @@ public class ShopManager : NetworkBehaviour
 
         SetupShop();
 
-        ShopUI.SetActive(false);
+        BuyShopUI.SetActive(false);
     }
 
     private void SetupShop()
@@ -46,7 +46,7 @@ public class ShopManager : NetworkBehaviour
 
     public void Buy()
     {
-        if (CurrentlySelectedItem != null) { print("Item bought!"); }
+        if (CurrentlySelectedItem != null && count != 0) { print("Item bought!"); }
     }
 
     public void Sell()
@@ -59,7 +59,7 @@ public class ShopManager : NetworkBehaviour
         if (player.TryGetComponent<PlayerController>(out var controller))
         {
             ResetShopDisplay();
-            ShopUI.SetActive(true);
+            BuyShopUI.SetActive(true);
 
             ExitShopButton.onClick.AddListener(() => controller.StopDialogue());
 
@@ -71,7 +71,7 @@ public class ShopManager : NetworkBehaviour
     {
         if (targetPlayer.TryGetComponent<PlayerController>(out var controller))
         {
-            ShopUI.SetActive(false);
+            BuyShopUI.SetActive(false);
 
             // I am not entirely sold on this approach (adding/removing listeners)
             // But it seems to work nicely, even in multiplayer, so I'll take it!
