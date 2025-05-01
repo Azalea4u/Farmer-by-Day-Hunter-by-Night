@@ -23,6 +23,7 @@ public class ShopManager : NetworkBehaviour
     [SerializeField] private Button ExitShopButton;
     [SerializeField] private Image DisplayedItem;
 
+    // Set to public if in Player_UI scene and attach player object for testing
     private Player targetPlayer;
 
 
@@ -52,6 +53,9 @@ public class ShopManager : NetworkBehaviour
             // No way to access any kind of PlayerData at the moment
             // Implementation might look something like this:
             // --> targetPlayer.data.gold -= item.BuyPrice;
+            Debug.Log("Player's Gold: " + targetPlayer.playerData.gold);
+            targetPlayer.playerData.gold -= CurrentlySelectedItem.BuyPrice;
+            targetPlayer.inventoryManager.Add("Hotbar", CurrentlySelectedItem);
             
             print("Item bought!");
         }

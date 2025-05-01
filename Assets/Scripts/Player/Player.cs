@@ -12,7 +12,8 @@ public class Player : NetworkBehaviour
     [HideInInspector] public InventoryManager inventoryManager;
     
     [SerializeField] private PlayerController controller;
-    [SerializeField] private HotBar_Data hotBar_Data;
+    [SerializeField] public HotBar_Data hotBar_Data;
+    [SerializeField] public PlayerData playerData;
 
     private void Awake()
     {

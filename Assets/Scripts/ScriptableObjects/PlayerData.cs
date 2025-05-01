@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "PlayerMovement/PlayerMovement Data")]
+[CreateAssetMenu(menuName = "ScriptableObject/PlayerData")]
 public class PlayerData : ScriptableObject
 {
     public string playerID;       // Unique identifier (e.g., player network ID)
@@ -8,6 +8,7 @@ public class PlayerData : ScriptableObject
     public int health;
     public float energy;
     public int gold;
+    public HotBar_Data hotbar_data;
 
     public float maxEnergy = 100f;
 
