@@ -16,8 +16,9 @@ public class ShopManager : NetworkBehaviour
     [SerializeField] private int count = 0;
     
 
-    [Header("UI Elements")]
+    [Header("Buy Shop UI Elements")]
     [SerializeField] private GameObject BuyShopUI;
+    [SerializeField] private TMP_Text CostDisplay;
     [SerializeField] private TMP_Text CountDisplay;
     [SerializeField] private Button ExitShopButton;
     [SerializeField] private Image DisplayedItem;
@@ -46,7 +47,14 @@ public class ShopManager : NetworkBehaviour
 
     public void Buy()
     {
-        if (CurrentlySelectedItem != null && count != 0) { print("Item bought!"); }
+        if (CurrentlySelectedItem != null && count != 0)
+        {
+            // No way to access any kind of PlayerData at the moment
+            // Implementation might look something like this:
+            // --> targetPlayer.data.gold -= item.BuyPrice;
+            
+            print("Item bought!");
+        }
     }
 
     public void Sell()
@@ -88,6 +96,7 @@ public class ShopManager : NetworkBehaviour
         DisplayedItem.sprite = null;
         count = 0;
         CountDisplay.text = "";
+        CostDisplay.text = "";
     }
 
     public void SelectItem(ShopItem item)
@@ -96,6 +105,7 @@ public class ShopManager : NetworkBehaviour
         DisplayedItem.sprite = item.data.Icon;
         count = 0;
         CountDisplay.text = "0";
+        CostDisplay.text = item.BuyPrice.ToString() + " G";
     }
 
     public void ChangeCount(int value) 
