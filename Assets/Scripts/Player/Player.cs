@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
     [HideInInspector] public InventoryManager inventoryManager;
 
     [SerializeField] private PlayerMovement playerMovement;
-    //[SerializeField] private HotBar_Data hotBar_Data;
+    [SerializeField] private HotBar_Data hotBar_Data;
 
     private void Awake()
     {
