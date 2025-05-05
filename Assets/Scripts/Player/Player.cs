@@ -9,7 +9,7 @@ using System.Globalization;
 [RequireComponent(typeof(PlayerController))]
 public class Player : NetworkBehaviour
 {
-    [HideInInspector] public InventoryManager inventoryManager;
+    [HideInInspector] public PlayerInventory inventoryManager;
     
     [SerializeField] private PlayerController controller;
     [SerializeField] public HotBar_Data hotBar_Data;
@@ -17,7 +17,7 @@ public class Player : NetworkBehaviour
 
     private void Awake()
     {
-        if (inventoryManager == null) inventoryManager = GetComponent<InventoryManager>();
+        if (inventoryManager == null) inventoryManager = GetComponent<PlayerInventory>();
         if (controller == null) controller = GetComponent<PlayerController>();        
     }
 
