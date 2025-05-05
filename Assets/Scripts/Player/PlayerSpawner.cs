@@ -13,8 +13,11 @@ public class PlayerSpawner : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-        if (IsServer) SpawnPlayerServerRpc(NetworkManager.Singleton.LocalClientId, 0);
-        else SpawnPlayerServerRpc(NetworkManager.Singleton.LocalClientId, 1);
+        // We need some way to limit the amount of players that can join the world to 4
+        // This if-statement will work as a temporary solution
+        // NOTE: does not prevent join allocation/connection; player prefab will just not spawn
+
+        if (NetworkManager.Singleton.ConnectedClients.Count < 5) SpawnPlayerServerRpc(NetworkManager.Singleton.LocalClientId, NetworkManager.Singleton.ConnectedClients.Count);
     }
 
     [ServerRpc(RequireOwnership = false)]
@@ -22,9 +25,9 @@ public class PlayerSpawner : NetworkBehaviour
     {
         GameObject newPlayer;
 
-        if      (prefabID == 1) newPlayer = (GameObject) Instantiate(Player02);
-        else if (prefabID == 2) newPlayer = (GameObject) Instantiate(Player03);
-        else if (prefabID == 3) newPlayer = (GameObject) Instantiate(Player04);
+        if      (prefabID == 2) newPlayer = (GameObject) Instantiate(Player02);
+        else if (prefabID == 3) newPlayer = (GameObject) Instantiate(Player03);
+        else if (prefabID == 4) newPlayer = (GameObject) Instantiate(Player04);
         else                    newPlayer = (GameObject) Instantiate(Player01);
 
         netObj = newPlayer.GetComponent<NetworkObject>();
