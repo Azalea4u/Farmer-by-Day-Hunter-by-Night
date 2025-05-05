@@ -11,7 +11,7 @@ using System.Globalization;
 [RequireComponent(typeof(Player))]
 public class PlayerController : NetworkBehaviour
 {
-    [SerializeField] private Player player;
+    [SerializeField] public Player player;
 
     [SerializeField] private int walkSpeed = 5;
     [SerializeField] private bool talkingToNPC = false;

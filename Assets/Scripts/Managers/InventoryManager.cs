@@ -6,6 +6,20 @@ public class InventoryManager : MonoBehaviour
 {
     public static InventoryManager instance;
 
+    public Dictionary<string, Inventory> inventoryByName = new Dictionary<string, Inventory>();
+
+    public Inventory_UI inventoryUI;
+
+    [Header("Hotbar")]
+    public int hotbar_SlotCount = 9;
+    public Inventory hotbar;
+    public HotBar_Data hotbarData;
+    
+    [Header("Inventory")]
+    public int inventory_SlotCount = 18;
+    public Inventory inventory;
+    public HotBar_Data inventoryData;
+
     private void Awake()
     {
         if (instance == null)
@@ -20,18 +34,10 @@ public class InventoryManager : MonoBehaviour
 
         hotbar = new Inventory(hotbar_SlotCount);
         inventoryByName.Add("Hotbar", hotbar);
+        inventoryByName.Add("Inventory", hotbar);
 
         LoadHotBarData();
     }
-
-    public Dictionary<string, Inventory> inventoryByName = new Dictionary<string, Inventory>();
-
-    public Inventory_UI inventoryUI;
-
-    [Header("InGame Hotbar")]
-    public int hotbar_SlotCount = 9;
-    public Inventory hotbar;
-    public HotBar_Data hotbarData;
 
     #region Hotbar
     public void LoadHotBarData()
