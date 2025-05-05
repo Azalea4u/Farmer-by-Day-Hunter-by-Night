@@ -18,7 +18,7 @@ public class Player : NetworkBehaviour
     private void Awake()
     {
         if (inventoryManager == null) inventoryManager = GetComponent<InventoryManager>();
-        if (controller == null) controller = GetComponent<PlayerController>();
+        if (controller == null) controller = GetComponent<PlayerController>();        
     }
 
     private void Update()

@@ -4,20 +4,10 @@ using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
 {
-    public static InventoryManager instance;
+    // public static InventoryManager instance;
 
     private void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-
         hotbar = new Inventory(hotbar_SlotCount);
         inventoryByName.Add("Hotbar", hotbar);
 

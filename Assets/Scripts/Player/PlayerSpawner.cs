@@ -14,7 +14,7 @@ public class PlayerSpawner : NetworkBehaviour
     public override void OnNetworkSpawn()
     {
         if (IsServer) SpawnPlayerServerRpc(NetworkManager.Singleton.LocalClientId, 0);
-        // else SpawnPlayerServerRpc(NetworkManager.Singleton.LocalClientId, 1);
+        else SpawnPlayerServerRpc(NetworkManager.Singleton.LocalClientId, 1);
     }
 
     [ServerRpc(RequireOwnership = false)]
