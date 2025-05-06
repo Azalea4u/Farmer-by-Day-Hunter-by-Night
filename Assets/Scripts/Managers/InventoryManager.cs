@@ -34,7 +34,8 @@ public class InventoryManager : MonoBehaviour
 
         hotbar = new Inventory(hotbar_SlotCount);
         inventoryByName.Add("Hotbar", hotbar);
-        inventoryByName.Add("Inventory", hotbar);
+        inventory = new Inventory(inventory_SlotCount);
+        inventoryByName.Add("Inventory", inventory);
 
         LoadHotBarData();
     }
