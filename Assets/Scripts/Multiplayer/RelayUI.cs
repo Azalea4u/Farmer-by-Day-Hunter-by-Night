@@ -13,7 +13,11 @@ public class RelayUI : MonoBehaviour
     private readonly UnityEvent<ulong> OnClientConnected;
     private readonly UnityEvent<ulong> OnClientDisconnected;
 
-    public string JoinCode = "";
+    public string JoinCode { 
+        get { return joinCode; }
+        set { joinCode = value; joinCodeText.text = value; }
+    }
+    [SerializeField] private string joinCode = "";
 
     private void Start()
     {
@@ -22,7 +26,6 @@ public class RelayUI : MonoBehaviour
 
         connectedIndicator.color = Color.red;
     }
-
     
     private void OnDestroy()
     {
@@ -32,11 +35,6 @@ public class RelayUI : MonoBehaviour
             NetworkManager.Singleton.OnClientConnectedCallback -= OnClientDisconnectedCallback;
         }
         catch { }
-    }
-
-    private void Update()
-    {
-        joinCodeText.text = JoinCode;
     }
 
     private void OnClientConnectedCallback(ulong clientID)
@@ -56,8 +54,5 @@ public class RelayUI : MonoBehaviour
         JoinCode = "";
     }
 
-    public void SetJoinCode()
-    {
-        JoinCode = joinCodeInputField.text;
-    }
+    public void SetJoinCode() { if (JoinCode == "") JoinCode = joinCodeInputField.text; }
 }

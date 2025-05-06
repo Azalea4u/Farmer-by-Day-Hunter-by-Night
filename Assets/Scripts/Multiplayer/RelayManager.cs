@@ -12,7 +12,7 @@ using Unity.Services.Relay;
 using Unity.Services.Relay.Models;
 using UnityEngine;
 
-public class RelayManager : MonoBehaviour
+public class RelayManager : NetworkBehaviour
 {
     [SerializeField] private RelayUI RUI;
 
@@ -26,7 +26,21 @@ public class RelayManager : MonoBehaviour
 
     public async void JoinRelay()
     {
-        if (RUI.JoinCode != "") await StartClientWithRelay(RUI.JoinCode);
+        if (RUI.JoinCode != "" && !NetworkManager.IsConnectedClient)
+        {
+            try { await StartClientWithRelay(RUI.JoinCode); }
+            catch { Debug.Log("Invalid join code"); }
+        }
+    }
+
+    public void DisconnectRelay()
+    {
+        if (IsOwner)
+        {
+            for (int i = 1; i < NetworkManager.Singleton.ConnectedClients.Count; i++) { NetworkManager.Singleton.DisconnectClient((ulong)i); }
+        }
+
+        NetworkManager.Singleton.Shutdown();
     }
 
     private async void Start()
