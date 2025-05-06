@@ -57,7 +57,7 @@ MonoBehaviour:
   inventoryManager: {fileID: 0}
   controller: {fileID: 6334529443992391155}
   hotBar_Data: {fileID: 11400000, guid: 5a0963dd2d7c6834aa697884b55920ae, type: 2}
-  inventory_Data: {fileID: 0}
+  inventory_Data: {fileID: 11400000, guid: 2ba6f5336c22cdd438953e5f0396f455, type: 2}
   playerData: {fileID: 11400000, guid: 4f55212ab4018694d9cfbfa2d1acfc0b, type: 2}
 --- !u!114 &6334529443992391155
 MonoBehaviour:
@@ -326,7 +326,7 @@ MonoBehaviour:
       count: 0
       MaxAllowed: 99
       icon: {fileID: 0}
-  inventoryData: {fileID: 11400000, guid: 5a0963dd2d7c6834aa697884b55920ae, type: 2}
+  inventoryData: {fileID: 11400000, guid: 2ba6f5336c22cdd438953e5f0396f455, type: 2}
 --- !u!114 &7252864602314055989
 MonoBehaviour:
   m_ObjectHideFlags: 0

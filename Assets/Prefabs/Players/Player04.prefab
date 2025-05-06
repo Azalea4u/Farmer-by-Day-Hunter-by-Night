@@ -326,7 +326,7 @@ MonoBehaviour:
       count: 0
       MaxAllowed: 99
       icon: {fileID: 0}
-  inventoryData: {fileID: 11400000, guid: f9f0644c09088f740a5849b581598005, type: 2}
+  inventoryData: {fileID: 11400000, guid: 5a2afe54510bb044cb9add7c53ca77f5, type: 2}
 --- !u!114 &7252864602314055989
 MonoBehaviour:
   m_ObjectHideFlags: 0
