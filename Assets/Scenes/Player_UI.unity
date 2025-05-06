@@ -3770,6 +3770,7 @@ MonoBehaviour:
   inventoryManager: {fileID: 0}
   controller: {fileID: 0}
   hotBar_Data: {fileID: 11400000, guid: 71696f661d236cb428aa1ca70226999a, type: 2}
+  inventory_Data: {fileID: 11400000, guid: ef4062e9dffae3d43bd86286d3a1647c, type: 2}
 --- !u!114 &710429313
 MonoBehaviour:
   m_ObjectHideFlags: 0

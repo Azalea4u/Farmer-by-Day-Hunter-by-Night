@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Player01_Hotbar
   m_EditorClassIdentifier: 
   slots:
-  - itemName: ITem
+  - itemName: Item
     count: 1
     icon: {fileID: -355978042, guid: e382ca2272e9c064cb2dec5e77e1b12d, type: 3}
