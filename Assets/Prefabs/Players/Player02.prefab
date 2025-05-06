@@ -57,6 +57,7 @@ MonoBehaviour:
   inventoryManager: {fileID: 0}
   controller: {fileID: 6334529443992391155}
   hotBar_Data: {fileID: 11400000, guid: bfd2d00589f5f0649baeae578afad9b7, type: 2}
+  inventory_Data: {fileID: 0}
   playerData: {fileID: 11400000, guid: 36dc9d39dd1f67247947b14fa346d814, type: 2}
 --- !u!114 &6334529443992391155
 MonoBehaviour:
@@ -317,6 +318,15 @@ MonoBehaviour:
       MaxAllowed: 99
       icon: {fileID: 0}
   hotbarData: {fileID: 11400000, guid: bfd2d00589f5f0649baeae578afad9b7, type: 2}
+  inventory_SlotCount: 18
+  inventory:
+    slots: []
+    selectedSlot:
+      itemName: 
+      count: 0
+      MaxAllowed: 99
+      icon: {fileID: 0}
+  inventoryData: {fileID: 11400000, guid: bfd2d00589f5f0649baeae578afad9b7, type: 2}
 --- !u!114 &7252864602314055989
 MonoBehaviour:
   m_ObjectHideFlags: 0
