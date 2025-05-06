@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
+// Handles Relay UI Display
+
 public class RelayUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI joinCodeText;
@@ -18,6 +20,7 @@ public class RelayUI : MonoBehaviour
         set { joinCode = value; joinCodeText.text = value; }
     }
     [SerializeField] private string joinCode = "";
+
 
     private void Start()
     {

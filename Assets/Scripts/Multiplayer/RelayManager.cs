@@ -2,7 +2,6 @@
 // Thank you very much for the help!
 
 using System.Threading.Tasks;
-using TMPro;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
 using Unity.Networking.Transport.Relay;
@@ -12,9 +11,11 @@ using Unity.Services.Relay;
 using Unity.Services.Relay.Models;
 using UnityEngine;
 
+// Handles Relay Server/Client Connections
+
 public class RelayManager : NetworkBehaviour
 {
-    [SerializeField] private RelayUI RUI;
+    [SerializeField] private RelayUI RUI;  // Used to get & display Join Code
 
 
     public async void StartRelay()
@@ -35,11 +36,13 @@ public class RelayManager : NetworkBehaviour
 
     public void DisconnectRelay()
     {
+        // Disconnects all other connected Players (if you are the host)
         if (IsOwner)
         {
             for (int i = 1; i < NetworkManager.Singleton.ConnectedClients.Count; i++) { NetworkManager.Singleton.DisconnectClient((ulong)i); }
         }
 
+        // Disconnects self
         NetworkManager.Singleton.Shutdown();
     }
 
