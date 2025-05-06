@@ -2,10 +2,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class InventoryManager : MonoBehaviour
+public class PlayerInventory : MonoBehaviour
 {
-    public static InventoryManager instance;
-
     public Dictionary<string, Inventory> inventoryByName = new Dictionary<string, Inventory>();
 
     public Inventory_UI inventoryUI;

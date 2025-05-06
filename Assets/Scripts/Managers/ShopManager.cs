@@ -50,10 +50,8 @@ public class ShopManager : NetworkBehaviour
     {
         if (CurrentlySelectedItem != null)
         {
-            // No way to access any kind of PlayerData at the moment
-            // Implementation might look something like this:
-            // --> targetPlayer.data.gold -= item.BuyPrice;
             Debug.Log("Player's Gold: " + targetPlayer.playerData.gold);
+
             targetPlayer.playerData.gold -= CurrentlySelectedItem.BuyPrice;
             targetPlayer.inventoryManager.Add("Hotbar", CurrentlySelectedItem);
             

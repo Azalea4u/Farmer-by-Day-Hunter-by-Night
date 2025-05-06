@@ -16,5 +16,7 @@ public class ClickToCopy : MonoBehaviour
         te.text = textToCopy.text;
         te.SelectAll();
         te.Copy();
+
+        Debug.Log($"Text Copied: {textToCopy.text}");
     }
 }

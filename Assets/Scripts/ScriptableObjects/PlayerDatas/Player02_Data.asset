@@ -17,5 +17,5 @@ MonoBehaviour:
   health: 0
   energy: 0
   gold: 0
-  hotbar_data: {fileID: 11400000, guid: 71696f661d236cb428aa1ca70226999a, type: 2}
+  hotbar_data: {fileID: 11400000, guid: bfd2d00589f5f0649baeae578afad9b7, type: 2}
   maxEnergy: 100
