@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public ItemManager itemManager;
     public DialogueManager dialogueManager;
     public InventoryManager inventoryManager;
+    public UI_Manager uiManager;
 
     public Player player;
 
@@ -26,6 +27,9 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        itemManager = GetComponent<ItemManager>();
+        uiManager = GetComponent<UI_Manager>();
     }
 
     // Pauses the Game from any script

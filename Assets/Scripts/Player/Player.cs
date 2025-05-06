@@ -12,7 +12,9 @@ public class Player : NetworkBehaviour
     [HideInInspector] public InventoryManager inventoryManager;
     
     [SerializeField] private PlayerController controller;
-    [SerializeField] public HotBar_Data hotBar_Data;
+
+    [SerializeField] private HotBar_Data hotBar_Data;
+    [SerializeField] private HotBar_Data inventory_Data;
     [SerializeField] public PlayerData playerData;
 
     private void Awake()
@@ -31,8 +33,9 @@ public class Player : NetworkBehaviour
         {
             ConsumeItem();
 
-            // Refresh hotbar UI
-            inventoryManager.SaveHotBarData();
+            // Refresh both UI
+            inventoryManager.SaveInventoryData("Hotbar");
+            inventoryManager.SaveInventoryData("Inventory");
             inventoryManager.inventoryUI.Refresh();
         }
     }

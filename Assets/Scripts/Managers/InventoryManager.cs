@@ -6,6 +6,20 @@ public class InventoryManager : MonoBehaviour
 {
     public static InventoryManager instance;
 
+    public Dictionary<string, Inventory> inventoryByName = new Dictionary<string, Inventory>();
+
+    public Inventory_UI inventoryUI;
+
+    [Header("Hotbar")]
+    public int hotbar_SlotCount = 9;
+    public Inventory hotbar;
+    public HotBar_Data hotbarData;
+    
+    [Header("Inventory")]
+    public int inventory_SlotCount = 18;
+    public Inventory inventory;
+    public HotBar_Data inventoryData;
+
     private void Awake()
     {
         if (instance == null)
@@ -18,39 +32,46 @@ public class InventoryManager : MonoBehaviour
             Destroy(gameObject);
         }
 
+        // Creates the Hotbar inventory
         hotbar = new Inventory(hotbar_SlotCount);
         inventoryByName.Add("Hotbar", hotbar);
+        // Creates the Inventory inventory
+        inventory = new Inventory(inventory_SlotCount);
+        inventoryByName.Add("Inventory", inventory);
 
-        LoadHotBarData();
+        // Loads up the Data
+        LoadInventoryData("Hotbar");
+        LoadInventoryData("Inventory");
     }
 
-    public Dictionary<string, Inventory> inventoryByName = new Dictionary<string, Inventory>();
+    #region Inventory Data Management
 
-    public Inventory_UI inventoryUI;
-
-    [Header("InGame Hotbar")]
-    public int hotbar_SlotCount = 9;
-    public Inventory hotbar;
-    public HotBar_Data hotbarData;
-
-    #region Hotbar
-    public void LoadHotBarData()
+    public void LoadInventoryData(string inventoryName)
     {
-        // Sync hotbar inventory slots with loaded data
-        for (int i = 0; i < hotbarData.slots.Count; i++)
+        if (!inventoryByName.ContainsKey(inventoryName)) return;
+
+        var targetInventory = inventoryByName[inventoryName];
+        var data = inventoryName == "Hotbar" ? hotbarData : inventoryData;
+
+        for (int i = 0; i < data.slots.Count; i++)
         {
-            if (i < hotbar.slots.Count)
+            if (i < targetInventory.slots.Count)
             {
-                hotbar.slots[i].itemName = hotbarData.slots[i].itemName;
-                hotbar.slots[i].count = hotbarData.slots[i].count;
-                hotbar.slots[i].icon = hotbarData.slots[i].icon;
+                targetInventory.slots[i].itemName = data.slots[i].itemName;
+                targetInventory.slots[i].count = data.slots[i].count;
+                targetInventory.slots[i].icon = data.slots[i].icon;
             }
         }
     }
 
-    public void SaveHotBarData()
+    public void SaveInventoryData(string inventoryName)
     {
-        hotbarData.UpdateData(hotbar.slots.Select(slot => new HotBar_Data.SlotData
+        if (!inventoryByName.ContainsKey(inventoryName)) return;
+
+        var targetInventory = inventoryByName[inventoryName];
+        var data = inventoryName == "Hotbar" ? hotbarData : inventoryData;
+
+        data.UpdateData(targetInventory.slots.Select(slot => new HotBar_Data.SlotData
         {
             itemName = slot.itemName,
             count = slot.count,
@@ -58,42 +79,51 @@ public class InventoryManager : MonoBehaviour
         }).ToList());
     }
 
-    public void RefreshHotBarData()
+    public void RefreshInventoryData(string inventoryName)
     {
-        hotbarData.slots.Clear();
+        if (!inventoryByName.ContainsKey(inventoryName)) return;
 
-        foreach (var slot in hotbar.slots)
+        var targetInventory = inventoryByName[inventoryName];
+        var data = inventoryName == "Hotbar" ? hotbarData : inventoryData;
+
+        data.slots.Clear();
+
+        foreach (var slot in targetInventory.slots)
         {
-            var slotData = new HotBar_Data.SlotData
+            data.slots.Add(new HotBar_Data.SlotData
             {
                 itemName = slot.itemName,
                 count = slot.count,
                 icon = slot.icon
-            };
-            hotbarData.slots.Add(slotData);
+            });
         }
     }
 
-    public void ClearHotBarData()
+    public void ClearInventoryData(string inventoryName)
     {
-        if (hotbarData != null)
+        if (!inventoryByName.ContainsKey(inventoryName)) return;
+
+        var targetInventory = inventoryByName[inventoryName];
+        var data = inventoryName == "Hotbar" ? hotbarData : inventoryData;
+
+        if (data != null)
         {
-            hotbarData.slots.Clear(); // Clear all slots
-            Debug.Log("HotBar_Data has been cleared.");
+            data.slots.Clear();
+            Debug.Log($"{inventoryName} data has been cleared.");
         }
         else
         {
-            Debug.LogWarning("HotBar_Data is not loaded and cannot be cleared.");
+            Debug.LogWarning($"{inventoryName} data is not loaded and cannot be cleared.");
         }
 
-        // Optionally clear the hotbar inventory as well
-        foreach (var slot in hotbar.slots)
+        foreach (var slot in targetInventory.slots)
         {
             slot.itemName = null;
             slot.count = 0;
             slot.icon = null;
         }
     }
+
     #endregion
 
     // Call this in your Add and Remove methods
@@ -103,7 +133,7 @@ public class InventoryManager : MonoBehaviour
         {
             inventoryByName[inventoryName].Add(item);
             inventoryUI.Refresh();
-            RefreshHotBarData();
+            RefreshInventoryData(inventoryName);
         }
     }
 
@@ -113,7 +143,7 @@ public class InventoryManager : MonoBehaviour
         {
             inventoryByName[inventoryName].Remove(slotID, quantity);
             inventoryUI.Refresh();
-            RefreshHotBarData();
+            RefreshInventoryData(inventoryName);
         }
     }
 
