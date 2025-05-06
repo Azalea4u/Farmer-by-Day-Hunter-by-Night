@@ -13,7 +13,7 @@ public class ShopManager : NetworkBehaviour
 
     [SerializeField] private List<ShopItem> Stock = new List<ShopItem>();
     [SerializeField] private ShopItem CurrentlySelectedItem = null;
-    [SerializeField] private int count = 0;
+    [SerializeField] private int count = 1;
     
 
     [Header("Buy Shop UI Elements")]
@@ -48,7 +48,7 @@ public class ShopManager : NetworkBehaviour
 
     public void Buy()
     {
-        if (CurrentlySelectedItem != null && count != 0)
+        if (CurrentlySelectedItem != null)
         {
             Debug.Log("Player's Gold: " + targetPlayer.playerData.gold);
 
@@ -96,7 +96,7 @@ public class ShopManager : NetworkBehaviour
     {
         CurrentlySelectedItem = null;
         DisplayedItem.sprite = null;
-        count = 0;
+        count = 1;
         CountDisplay.text = "";
         CostDisplay.text = "";
     }
@@ -105,14 +105,14 @@ public class ShopManager : NetworkBehaviour
     {
         CurrentlySelectedItem = item;
         DisplayedItem.sprite = item.data.Icon;
-        count = 0;
-        CountDisplay.text = "0";
+        count = 1;
+        CountDisplay.text = "1";
         CostDisplay.text = item.BuyPrice.ToString() + " G";
     }
 
     public void ChangeCount(int value) 
     {
-        if (CurrentlySelectedItem != null && (value > 0 || count != 0))
+        if (CurrentlySelectedItem != null && (value > 0 || count != 1))
         {
             count += value;
             CountDisplay.text = count.ToString();
