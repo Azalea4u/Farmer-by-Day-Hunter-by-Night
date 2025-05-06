@@ -27,6 +27,7 @@ public class Inventory_UI : MonoBehaviour
         Refresh();
     }
 
+    // Refreshes the UI after the Hotbar_Data changes
     public void Refresh()
     {
         for (int i = 0; i < slots.Count; i++)
@@ -43,6 +44,7 @@ public class Inventory_UI : MonoBehaviour
         }
     }
 
+    // For when the item is dropped outside the Inventory
     public void Remove()
     {
         Item itemToDrop = GameManager.instance.itemManager.GetItemByName(
@@ -66,6 +68,7 @@ public class Inventory_UI : MonoBehaviour
         UI_Manager.draggedSlot = null;
     }
 
+    // After you click on the item Slot
     public void Slot_BeginDrag(Slot_UI slot)
     {
         UI_Manager.draggedSlot = slot;
@@ -78,12 +81,14 @@ public class Inventory_UI : MonoBehaviour
         Refresh();
     }
 
+    // When Mouse button is still down, you can move the item around
     public void Slot_Drag()
     {
         MoveToMousePosition(UI_Manager.draggedIcon.gameObject);
         Refresh();
     }
 
+    // When you let go of the mouse button
     public void Slot_EndDrag()
     {
         Destroy(UI_Manager.draggedIcon.gameObject);
@@ -92,6 +97,7 @@ public class Inventory_UI : MonoBehaviour
         Refresh();
     }
 
+    // The item will be dropped onto the new slot
     public void Slot_Drop(Slot_UI slot)
     {
         if (slot.inventory != null)
