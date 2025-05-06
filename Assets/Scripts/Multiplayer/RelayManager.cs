@@ -14,21 +14,19 @@ using UnityEngine;
 
 public class RelayManager : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI joinCodeText;
-    [SerializeField] private TextMeshProUGUI joinSuccessText;
-    [SerializeField] private TMP_InputField joinCodeInputField;
+    [SerializeField] private RelayUI RUI;
 
 
     public async void StartRelay()
     {
         string joinCode = await StartHostWithRelay();
-        joinCodeText.text = joinCode;
+
+        RUI.JoinCode = joinCode;
     }
 
     public async void JoinRelay()
     {
-        bool joinSuccess = await StartClientWithRelay(joinCodeInputField.text);
-        joinSuccessText.text = "Joined: " + joinSuccess;
+        if (RUI.JoinCode != "") await StartClientWithRelay(RUI.JoinCode);
     }
 
     private async void Start()
