@@ -10,7 +10,6 @@ public class GameManager : MonoBehaviour
     public ShopManager shopManager;
     public ItemManager itemManager;
     public DialogueManager dialogueManager;
-    public InventoryManager inventoryManager;
     public UI_Manager uiManager;
 
     public Player player;

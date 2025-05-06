@@ -2,7 +2,6 @@
 // Thank you very much for the help!
 
 using System.Threading.Tasks;
-using TMPro;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
 using Unity.Networking.Transport.Relay;
@@ -12,23 +11,39 @@ using Unity.Services.Relay;
 using Unity.Services.Relay.Models;
 using UnityEngine;
 
-public class RelayManager : MonoBehaviour
+// Handles Relay Server/Client Connections
+
+public class RelayManager : NetworkBehaviour
 {
-    [SerializeField] private TextMeshProUGUI joinCodeText;
-    [SerializeField] private TextMeshProUGUI joinSuccessText;
-    [SerializeField] private TMP_InputField joinCodeInputField;
+    [SerializeField] private RelayUI RUI;  // Used to get & display Join Code
 
 
     public async void StartRelay()
     {
         string joinCode = await StartHostWithRelay();
-        joinCodeText.text = joinCode;
+
+        RUI.JoinCode = joinCode;
     }
 
     public async void JoinRelay()
     {
-        bool joinSuccess = await StartClientWithRelay(joinCodeInputField.text);
-        joinSuccessText.text = "Joined: " + joinSuccess;
+        if (RUI.JoinCode != "" && !NetworkManager.IsConnectedClient)
+        {
+            try { await StartClientWithRelay(RUI.JoinCode); }
+            catch { Debug.Log("Invalid join code"); }
+        }
+    }
+
+    public void DisconnectRelay()
+    {
+        // Disconnects all other connected Players (if you are the host)
+        if (IsOwner)
+        {
+            for (int i = 1; i < NetworkManager.Singleton.ConnectedClients.Count; i++) { NetworkManager.Singleton.DisconnectClient((ulong)i); }
+        }
+
+        // Disconnects self
+        NetworkManager.Singleton.Shutdown();
     }
 
     private async void Start()
