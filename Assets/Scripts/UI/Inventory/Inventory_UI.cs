@@ -29,19 +29,16 @@ public class Inventory_UI : MonoBehaviour
 
     public void Refresh()
     {
-        //if (slots.Count == inventory.slots.Count)
+        for (int i = 0; i < slots.Count; i++)
         {
-            for (int i = 0; i < slots.Count; i++)
+            if (inventory.slots[i].itemName != "")
             {
-                if (inventory.slots[i].itemName != "")
-                {
-                    slots[i].SetItem(inventory.slots[i]);
-                }
-                else
-                {
-                    slots[i].SetEmpty();
+                slots[i].SetItem(inventory.slots[i]);
+            }
+            else
+            {
+                slots[i].SetEmpty();
 
-                }
             }
         }
     }

@@ -31,7 +31,7 @@ public class Player : NetworkBehaviour
         {
             ConsumeItem();
 
-            // Refresh hotbar UI
+            // Refresh both UI
             inventoryManager.SaveInventoryData("Hotbar");
             inventoryManager.SaveInventoryData("Inventory");
             inventoryManager.inventoryUI.Refresh();
