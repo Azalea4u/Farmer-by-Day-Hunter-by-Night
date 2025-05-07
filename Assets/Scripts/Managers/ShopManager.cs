@@ -20,6 +20,7 @@ public class ShopManager : NetworkBehaviour
     [SerializeField] private GameObject BuyShopUI;
     [SerializeField] private TMP_Text CostDisplay;
     [SerializeField] private TMP_Text CountDisplay;
+    [SerializeField] private TMP_Text GoldDisplay;
     [SerializeField] private Button ExitShopButton;
     [SerializeField] private Image DisplayedItem;
 
@@ -48,13 +49,13 @@ public class ShopManager : NetworkBehaviour
 
     public void Buy()
     {
-        if (CurrentlySelectedItem != null)
+        if (CurrentlySelectedItem != null && targetPlayer.playerData.gold > CurrentlySelectedItem.BuyPrice * count)
         {
-            Debug.Log("Player's Gold: " + targetPlayer.playerData.gold);
-
-            targetPlayer.playerData.gold -= CurrentlySelectedItem.BuyPrice;
+            targetPlayer.playerData.gold -= CurrentlySelectedItem.BuyPrice * count;
             targetPlayer.inventoryManager.Add("Hotbar", CurrentlySelectedItem);
-            
+
+            GoldDisplay.text = "Total Gold: " + targetPlayer.playerData.gold.ToString();
+
             print("Item bought!");
         }
     }
@@ -68,12 +69,12 @@ public class ShopManager : NetworkBehaviour
     {
         if (player.TryGetComponent<PlayerController>(out var controller))
         {
-            ResetShopDisplay();
             BuyShopUI.SetActive(true);
 
             ExitShopButton.onClick.AddListener(() => controller.StopDialogue());
 
             targetPlayer = player;
+            ResetShopDisplay();
         }
     }
 
@@ -99,6 +100,7 @@ public class ShopManager : NetworkBehaviour
         count = 1;
         CountDisplay.text = "";
         CostDisplay.text = "";
+        GoldDisplay.text = "Total Gold: " + targetPlayer.playerData.gold.ToString();
     }
 
     public void SelectItem(ShopItem item)
@@ -116,6 +118,7 @@ public class ShopManager : NetworkBehaviour
         {
             count += value;
             CountDisplay.text = count.ToString();
+            GoldDisplay.text = "Total Gold: " + targetPlayer.playerData.gold.ToString();
         }
     }
 }
