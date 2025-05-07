@@ -17,10 +17,12 @@ public class Player : NetworkBehaviour
     [SerializeField] private HotBar_Data inventory_Data;
     [SerializeField] public PlayerData playerData;
 
-    private void Awake()
+    private void Start()
     {
         if (inventoryManager == null) inventoryManager = GetComponent<PlayerInventory>();
-        if (controller == null) controller = GetComponent<PlayerController>();        
+        if (controller == null) controller = GetComponent<PlayerController>();
+
+        if (IsOwner) GameManager.instance.player = this;
     }
 
     private void Update()
