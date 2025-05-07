@@ -8,10 +8,10 @@ using System.Globalization;
 
 // Thank you https://www.youtube.com/watch?v=HCaSnZvs90g for the movement help, really appreciate it :D
 
-[RequireComponent(typeof(Player))]
+// [RequireComponent(typeof(Player))]
 public class PlayerController : NetworkBehaviour
 {
-    [SerializeField] private Player player;
+    [SerializeField] public Player player;
 
     [SerializeField] private int walkSpeed = 5;
     [SerializeField] private bool talkingToNPC = false;
@@ -37,7 +37,7 @@ public class PlayerController : NetworkBehaviour
 
     private void Start()
     {
-        player = GetComponent<Player>();
+        if (player == null) player = GetComponent<Player>();
 
         SetupControls();
 

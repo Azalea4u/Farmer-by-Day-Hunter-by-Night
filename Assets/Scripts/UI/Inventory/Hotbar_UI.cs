@@ -8,9 +8,10 @@ public class Hotbar_UI : MonoBehaviour
 
     private Slot_UI selectedSlot;
 
+    // Loads the data from the Hotbar
     public void LoadHotBarFromData()
     {
-        GameManager.instance.player.inventoryManager.LoadHotBarData();
+        GameManager.instance.player.inventoryManager.LoadInventoryData("Hotbar");
 
         for (int i = 0; i < hotbar_Slots.Count; i++)
         {
@@ -41,7 +42,6 @@ public class Hotbar_UI : MonoBehaviour
         SelectSlot(0);
     }
 
-
     private void Update()
     {
         CheckAlphaNumericKeys();
@@ -67,6 +67,7 @@ public class Hotbar_UI : MonoBehaviour
         }
     }
 
+    // Press keys 1-9 and it will select that slot
     private void CheckAlphaNumericKeys()
     {
         if (Input.GetKeyUp(KeyCode.Alpha1))

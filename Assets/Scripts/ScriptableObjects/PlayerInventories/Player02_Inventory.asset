@@ -9,13 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e636fb5ef9f1234489f3eb9311385981, type: 3}
-  m_Name: Player02_Data
+  m_Script: {fileID: 11500000, guid: a65a91d4589a9784cbe4a077169ed676, type: 3}
+  m_Name: Player02_Inventory
   m_EditorClassIdentifier: 
-  playerID: 
-  playerName: 
-  health: 0
-  energy: 0
-  gold: 0
-  hotbar_data: {fileID: 11400000, guid: bfd2d00589f5f0649baeae578afad9b7, type: 2}
-  maxEnergy: 100
+  slots: []

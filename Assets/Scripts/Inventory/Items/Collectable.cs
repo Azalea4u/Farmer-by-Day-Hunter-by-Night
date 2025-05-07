@@ -7,28 +7,32 @@ public class Collectable : MonoBehaviour
 {
     public AudioSource collect;
 
+    // If the Player overlaps, then the item will be destoryed and added to the Player's inventory if inventory and hotbar is not full
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        PlayerController player = collision.GetComponent<PlayerController>();
+        PlayerController playerController = collision.GetComponent<PlayerController>();
 
-        if (player)
+        if (playerController)
         {
             Item item = GetComponent<Item>();
 
             if (item != null)
             {   
-                // WILL FIX ONCE INVENTORY IS FULLY ADDED
-                /*
-                if (player.inventoryManager.GetInventoryByName("Hotbar").IsFull())
+                if (playerController.player.inventoryManager.GetInventoryByName("Hotbar").IsFull())
                 {
-                    //player.inventoryManager.Add("Inventory", item);
-                    Debug.Log("Your hotbar is full!");
+                    if (!playerController.player.inventoryManager.GetInventoryByName("Inventroy").IsFull())
+                    {
+                        playerController.player.inventoryManager.Add("Inventory", item);
+                    }
+                    else
+                    {
+                        Debug.Log("Your hotbar is full!");
+                    }
                 }
                 else
                 {
-                    player.inventoryManager.Add("Hotbar", item);
+                    playerController.player.inventoryManager.Add("Hotbar", item);
                 }
-                */
                 collect.Play();
                 Destroy(this.gameObject);
             }

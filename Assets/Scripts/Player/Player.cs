@@ -9,16 +9,18 @@ using System.Globalization;
 [RequireComponent(typeof(PlayerController))]
 public class Player : NetworkBehaviour
 {
-    [HideInInspector] public InventoryManager inventoryManager;
+    [HideInInspector] public PlayerInventory inventoryManager;
     
     [SerializeField] private PlayerController controller;
-    [SerializeField] public HotBar_Data hotBar_Data;
+
+    [SerializeField] private HotBar_Data hotBar_Data;
+    [SerializeField] private HotBar_Data inventory_Data;
     [SerializeField] public PlayerData playerData;
 
     private void Awake()
     {
-        inventoryManager = GetComponent<InventoryManager>();
-        controller = GetComponent<PlayerController>();
+        if (inventoryManager == null) inventoryManager = GetComponent<PlayerInventory>();
+        if (controller == null) controller = GetComponent<PlayerController>();        
     }
 
     private void Update()
@@ -32,8 +34,9 @@ public class Player : NetworkBehaviour
         {
             ConsumeItem();
 
-            // Refresh hotbar UI
-            inventoryManager.SaveHotBarData();
+            // Refresh both UI
+            inventoryManager.SaveInventoryData("Hotbar");
+            inventoryManager.SaveInventoryData("Inventory");
             inventoryManager.inventoryUI.Refresh();
         }
     }

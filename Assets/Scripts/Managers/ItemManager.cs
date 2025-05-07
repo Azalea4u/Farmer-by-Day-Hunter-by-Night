@@ -18,6 +18,7 @@ public class ItemManager : MonoBehaviour
         }
     }
 
+    // Initalize all of the items
     private void AddItem(Item item)
     {
         if (!nameToItemDict.ContainsKey(item.data.ItemName))
