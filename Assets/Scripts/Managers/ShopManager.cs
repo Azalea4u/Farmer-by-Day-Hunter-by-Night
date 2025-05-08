@@ -20,6 +20,7 @@ public class ShopManager : NetworkBehaviour
     [Header("Sell Shop")]
     [SerializeField] private List<GameObject> SellStock = new();
     [SerializeField] private ShopItem CurrentlySellingItem = null;
+    [SerializeField] private GameObject EmptyShopItem;
     [SerializeField] private int sellCount = 1;
 
     [Header("Shop UI Elements (Main Parent)")]
@@ -40,6 +41,7 @@ public class ShopManager : NetworkBehaviour
 
     [Header("Sell Shop UI Elements")]
     [SerializeField] private GameObject SellShopUI;
+    [SerializeField] private GameObject SellShopItemsDisplay;
 
     private Player targetPlayer;
 
@@ -174,6 +176,42 @@ public class ShopManager : NetworkBehaviour
 
 
     #region Sell Shop
+    private void GetStock()
+    {
+        // Clear Sell Shop stock
+        SellStock.Clear();
+
+        // Get items to sell from hotbar
+        Inventory hotbar = targetPlayer.inventoryManager.GetInventoryByName("Hotbar");
+
+        // Add hotbar items to Sell Shop stock
+        foreach (Inventory.Slot slot in hotbar.slots)
+        {
+            Item item = GameManager.instance.itemManager.GetItemByName(slot.itemName);
+
+            if (item != null)
+            {
+                GameObject newItem = EmptyShopItem;
+                if (newItem.TryGetComponent(out ShopItem sItem))
+                {
+                    sItem.data = item.data;
+                    newItem.name = item.name;
+                    SellStock.Add(newItem);
+                }
+            }
+        }
+
+        // Clear Sell Shop Item Display
+        foreach(Transform child in SellShopItemsDisplay.transform) Destroy(child.gameObject);
+
+        // Populate Sell Shop
+        foreach (GameObject item in SellStock)
+        {
+            GameObject newItemDisplay = Instantiate(item);
+            newItemDisplay.transform.SetParent(SellShopItemsDisplay.transform);
+        }
+    }
+
     public void ResetSellShopDisplay()
     {
         CurrentlySellingItem = null;
@@ -193,6 +231,8 @@ public class ShopManager : NetworkBehaviour
 
     public void ShowSellShop()
     {
+        GetStock();        
+
         if (!SwapShopButton.gameObject.activeSelf) SwapShopButton.gameObject.SetActive(true);
 
         if (BuyShopUI.activeSelf) BuyShopUI.SetActive(false);

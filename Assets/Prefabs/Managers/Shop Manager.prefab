@@ -94,6 +94,7 @@ MonoBehaviour:
   SellStock:
   - {fileID: 0}
   CurrentlySellingItem: {fileID: 0}
+  EmptyShopItem: {fileID: 2566729080821247153, guid: 281fb4680a1147446afad6c73d3b9ed0, type: 3}
   sellCount: 1
   ShopUI: {fileID: 4583246904205847008}
   MainShopUI: {fileID: 6189430229357109654}
@@ -106,6 +107,7 @@ MonoBehaviour:
   DisplayedItem: {fileID: 6323981120784776194}
   GoldDisplay: {fileID: 6889342435678178047}
   SellShopUI: {fileID: 9181318379946463009}
+  SellShopItemsDisplay: {fileID: 3266863861370896225}
 --- !u!1 &235707172455591308
 GameObject:
   m_ObjectHideFlags: 0
