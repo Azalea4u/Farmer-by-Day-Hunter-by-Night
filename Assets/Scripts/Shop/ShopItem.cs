@@ -8,10 +8,14 @@ public class ShopItem : Item
     private Button button;
     private Image sprite;
 
+    public bool canBuyItem = false;
+
+
     private void Awake()
     {
         button = GetComponent<Button>();
-        button.onClick.AddListener(() => ShopManager.instance.SelectItem(this));
+        if (canBuyItem) button.onClick.AddListener(() => ShopManager.instance.SelectItemToBuy(this));
+        else button.onClick.AddListener(() => ShopManager.instance.SelectItemToSell(this));
 
         sprite = GetComponent<Image>();
         sprite.sprite = data.Icon;

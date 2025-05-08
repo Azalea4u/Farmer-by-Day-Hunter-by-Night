@@ -2,6 +2,7 @@ using Ink.Parsed;
 using System.Collections.Generic;
 using TMPro;
 using Unity.Netcode;
+using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,24 +12,31 @@ public class ShopManager : NetworkBehaviour
 {
     public static ShopManager instance;
 
-    [SerializeField] private List<ShopItem> Stock = new List<ShopItem>();
-    [SerializeField] private ShopItem CurrentlySelectedItem = null;
-    [SerializeField] private int count = 1;
+    [Header("Buy Shop")]
+    [SerializeField] private List<GameObject> BuyStock = new();
+    [SerializeField] private ShopItem CurrentlyBuyingItem = null;
+    [SerializeField] private int buyCount = 1;
+
+    [Header("Sell Shop")]
+    [SerializeField] private List<GameObject> SellStock = new();
+    [SerializeField] private ShopItem CurrentlySellingItem = null;
+    [SerializeField] private int sellCount = 1;
 
     [Header("Shop UI Elements (Main Parent)")]
     [SerializeField] private GameObject ShopUI;
 
     [Header("Main Shop UI Elements")]
     [SerializeField] private GameObject MainShopUI;
+    [SerializeField] private Button ExitShopButton;
     [SerializeField] private Button SwapShopButton;
 
     [Header("Buy Shop UI Elements")]
     [SerializeField] private GameObject BuyShopUI;
+    [SerializeField] private GameObject BuyShopItemsDisplay;
+    [SerializeField] private TMP_Text BuyCountDisplay;
     [SerializeField] private TMP_Text CostDisplay;
-    [SerializeField] private TMP_Text CountDisplay;
-    [SerializeField] private TMP_Text GoldDisplay;
-    [SerializeField] private Button ExitShopButton;
     [SerializeField] private Image DisplayedItem;
+    [SerializeField] private TMP_Text GoldDisplay;
 
     [Header("Sell Shop UI Elements")]
     [SerializeField] private GameObject SellShopUI;
@@ -88,7 +96,16 @@ public class ShopManager : NetworkBehaviour
 
     private void SetupShops()
     {
-        // Add items to shop stock here
+        // Populate Buy Shop
+        foreach (GameObject item in BuyStock)
+        {
+            if (item.TryGetComponent(out ShopItem shopItem))
+            {
+                if (!shopItem.canBuyItem) shopItem.canBuyItem = true;
+                GameObject newItemDisplay = Instantiate(item);
+                newItemDisplay.transform.SetParent(BuyShopItemsDisplay.transform);
+            }
+        }
     }
     
     public void SwapShop()
@@ -102,10 +119,10 @@ public class ShopManager : NetworkBehaviour
     #region Buy Shop
     public void Buy()
     {
-        if (CurrentlySelectedItem != null && targetPlayer.playerData.gold > CurrentlySelectedItem.BuyPrice * count)
+        if (CurrentlyBuyingItem != null && targetPlayer.playerData.gold > CurrentlyBuyingItem.BuyPrice * buyCount)
         {
-            targetPlayer.playerData.gold -= CurrentlySelectedItem.BuyPrice * count;
-            targetPlayer.inventoryManager.Add("Hotbar", CurrentlySelectedItem);
+            targetPlayer.playerData.gold -= CurrentlyBuyingItem.BuyPrice * buyCount;
+            targetPlayer.inventoryManager.Add("Hotbar", CurrentlyBuyingItem);
 
             GoldDisplay.text = "Total Gold: " + targetPlayer.playerData.gold.ToString();
 
@@ -113,34 +130,34 @@ public class ShopManager : NetworkBehaviour
         }
     }
 
-    public void ChangeCount(int value)
+    public void ChangeBuyCount(int value)
     {
-        if (CurrentlySelectedItem != null && (value > 0 || count != 1))
+        if (CurrentlyBuyingItem != null && (value > 0 || buyCount != 1))
         {
-            count += value;
-            CountDisplay.text = count.ToString();
+            buyCount += value;
+            BuyCountDisplay.text = buyCount.ToString();
             GoldDisplay.text = "Total Gold: " + targetPlayer.playerData.gold.ToString();
         }
     }
 
     public void ResetBuyShopDisplay()
     {
-        CurrentlySelectedItem = null;
+        CurrentlyBuyingItem = null;
         DisplayedItem.sprite = null;
-        count = 1;
-        CountDisplay.text = "";
+        buyCount = 1;
+        BuyCountDisplay.text = "";
         CostDisplay.text = "";
         GoldDisplay.text = "Total Gold: " + targetPlayer.playerData.gold.ToString();
 
         if (BuyShopUI.activeSelf) BuyShopUI.SetActive(false);
     }
 
-    public void SelectItem(ShopItem item)
+    public void SelectItemToBuy(ShopItem item)
     {
-        CurrentlySelectedItem = item;
+        CurrentlyBuyingItem = item;
         DisplayedItem.sprite = item.data.Icon;
-        count = 1;
-        CountDisplay.text = "1";
+        buyCount = 1;
+        BuyCountDisplay.text = "1";
         CostDisplay.text = item.BuyPrice.ToString() + " G";
     }
 
@@ -159,7 +176,14 @@ public class ShopManager : NetworkBehaviour
     #region Sell Shop
     public void ResetSellShopDisplay()
     {
+        CurrentlySellingItem = null;
+
         if (SellShopUI.activeSelf) SellShopUI.SetActive(false);
+    }
+
+    public void SelectItemToSell(ShopItem item)
+    {
+        CurrentlySellingItem = item;
     }
 
     public void Sell()
