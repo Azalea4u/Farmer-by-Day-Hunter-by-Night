@@ -139,6 +139,7 @@ public class DialogueManager : MonoBehaviour
         dialogueIsPlaying = true;
         dialoguePanel.SetActive(true);
 
+        /* Old Code, but kept for reference for when using Methods in INK
         //if (SceneManager.GetActiveScene().name == "Rest_Level")
         {
             currentStory.BindExternalFunction("ShowBuyMenu", ShowBuyMenu);
@@ -147,8 +148,9 @@ public class DialogueManager : MonoBehaviour
         //else if (SceneManager.GetActiveScene().name == "Test_Level")
         {
             //currentStory.BindExternalFunction("Load_StartMenu", StartMenu);
-            currentStory.BindExternalFunction("QuitGame", QuitGame);
+            //currentStory.BindExternalFunction("QuitGame", QuitGame);
         }
+        */
 
         ContinueStory();
     }
@@ -157,16 +159,18 @@ public class DialogueManager : MonoBehaviour
     {
         yield return new WaitForSeconds(0.2f);
 
+        /* Old Code, but kept for reference for when using Methods in INK
         //if (SceneManager.GetActiveScene().name == "Test_Level")
         {
             //currentStory.UnbindExternalFunction("Load_StartMenu");
-            currentStory.UnbindExternalFunction("QuitGame");
+            //currentStory.UnbindExternalFunction("QuitGame");
         }
         //else if (SceneManager.GetActiveScene().name == "Rest_Level")
         {
             currentStory.UnbindExternalFunction("ShowBuyMenu");
             currentStory.UnbindExternalFunction("CloseBuyMenu");
         }
+        */
 
         dialogueIsPlaying = false;
         dialoguePanel.SetActive(false);
@@ -177,6 +181,7 @@ public class DialogueManager : MonoBehaviour
         //GameManager.instance.ResumeGame();
     }
 
+    // Continues to the next line of text
     private void ContinueStory()
     {
         if (currentStory.canContinue)
@@ -197,6 +202,8 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
+    // Checks if the player can skip the current line
+    // i.e. if you have already read the line before
     private IEnumerator CanSkip()
     {
         canSkip = false; //Making sure the variable is false.
@@ -204,6 +211,7 @@ public class DialogueManager : MonoBehaviour
         canSkip = true;
     }
 
+    // shows the current line of dialogue
     private IEnumerator DisplayLine(string line)
     {
         // empty the dialogue text
@@ -240,6 +248,7 @@ public class DialogueManager : MonoBehaviour
             }
         }
 
+        // Continue icon will show to indicate that all letters in the line has been shown & the player can continue
         continueIcon.SetActive(true);
         DisplayChoices();
 
@@ -247,6 +256,7 @@ public class DialogueManager : MonoBehaviour
         canSkip = false;
     }
 
+    // As each letter is displayed, it plays a sound
     private void PlayDialogueSound(int currentDisplayedCharacterCount, char currentCharacter)
     {
         AudioClip[] dialogueTypingSoundClips = currentAudioInfo.dialogueTypingSoundClips;
@@ -301,6 +311,7 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
+    // Handles the tags in the INK script
     private void HandleTags(List<string> currentTags)
     {
         foreach (string tag in currentTags)
@@ -318,12 +329,15 @@ public class DialogueManager : MonoBehaviour
 
             switch (tagKey)
             {
+                // SPEAKER_TAG = who is currently speaking
                 case SPEAKER_TAG:
                     displaySpeakerText.text = tagValue;
                     break;
+                // LAYOUT_TAG = checks if Left or Right Layout will be used
                 case LAYOUT_TAG:
                     layoutAnimator.Play(tagValue);
                     break;
+                // AUDIO_TAG = sees which kind of text audio will be played
                 case AUDIO_TAG:
                     SetCurrentAudioInfo(tagValue); // This should now be called
                     break;
@@ -335,6 +349,7 @@ public class DialogueManager : MonoBehaviour
     }
 
     #region CHOICES
+    // After a choice is made, hide all the choices
     private void HideChoices()
     {
         foreach (GameObject choiceButton in choices)
@@ -343,10 +358,12 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
+    // When the player needs to make a choice, display the choices
     private void DisplayChoices()
     {
         List<Choice> currentChoices = currentStory.currentChoices;
 
+        // check if the number of choices is greater than the number of choices the UI can display
         if (currentChoices.Count > choices.Length)
         {
             Debug.LogError("More choices were given than the UI can display! Number of choices given: " + currentChoices.Count);
@@ -373,6 +390,7 @@ public class DialogueManager : MonoBehaviour
         StartCoroutine(SelectFirstChoice());
     }
 
+    // Automatically sets the first choice as the selected object
     private IEnumerator SelectFirstChoice()
     {
         // Event System requires we clear it first, then wait
@@ -382,6 +400,7 @@ public class DialogueManager : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(choices[0].gameObject);
     }
 
+    // When the player presses on a Choice BTN
     public void MakeChoice(int choiceIndex)
     {
         if (canContinueToNextLine)
@@ -396,11 +415,13 @@ public class DialogueManager : MonoBehaviour
     }
     #endregion
 
+    // When the player reaches the end of all dialogues in the INK file
     private void EndConversation()
     {
         StartCoroutine(ExitDialogueMode());
     }
 
+    // These are old code, but kept for reference for when using Methods in INK
     #region STORE_MENU
     private void ShowBuyMenu()
     {
@@ -431,6 +452,6 @@ public class DialogueManager : MonoBehaviour
     public void QuitGame()
     {
         Debug.Log("Quiting...");
-        //GameManager.instance.Quit_Game();
+        GameManager.instance.QuitGame();
     }
 }
