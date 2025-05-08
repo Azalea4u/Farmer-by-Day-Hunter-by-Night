@@ -20,6 +20,7 @@ public class ShopManager : NetworkBehaviour
 
     [Header("Main Shop UI Elements")]
     [SerializeField] private GameObject MainShopUI;
+    [SerializeField] private Button SwapShopButton;
 
     [Header("Buy Shop UI Elements")]
     [SerializeField] private GameObject BuyShopUI;
@@ -80,12 +81,20 @@ public class ShopManager : NetworkBehaviour
             // Reset Shop Displays
             ResetBuyShopDisplay();
             ResetSellShopDisplay();
+
+            SwapShopButton.gameObject.SetActive(false);
         }
     }
 
     private void SetupShops()
     {
         // Add items to shop stock here
+    }
+    
+    public void SwapShop()
+    {
+        if (BuyShopUI.activeSelf) ShowSellShop();
+        else ShowBuyShop();
     }
     #endregion
 
@@ -137,6 +146,8 @@ public class ShopManager : NetworkBehaviour
 
     public void ShowBuyShop()
     {
+        if (!SwapShopButton.gameObject.activeSelf) SwapShopButton.gameObject.SetActive(true);
+
         if (MainShopUI.activeSelf) MainShopUI.SetActive(false);
         if (SellShopUI.activeSelf) SellShopUI.SetActive(false);
 
@@ -158,6 +169,8 @@ public class ShopManager : NetworkBehaviour
 
     public void ShowSellShop()
     {
+        if (!SwapShopButton.gameObject.activeSelf) SwapShopButton.gameObject.SetActive(true);
+
         if (BuyShopUI.activeSelf) BuyShopUI.SetActive(false);
         if (MainShopUI.activeSelf) MainShopUI.SetActive(false);
 
