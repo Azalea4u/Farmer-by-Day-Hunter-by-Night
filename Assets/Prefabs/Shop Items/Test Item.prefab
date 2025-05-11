@@ -56,7 +56,9 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: a7b3b623aee3dc342aa5311731e20356, type: 2}
   rb2D: {fileID: 0}
   quantityDisplay: {fileID: 1852128188586974759}
+  image: {fileID: 0}
   canBuyItem: 1
+  quantity: 1
 --- !u!222 &905600645256149683
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -240,8 +242,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

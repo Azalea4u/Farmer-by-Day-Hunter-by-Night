@@ -12,6 +12,7 @@ public class ShopItem : Item
     public Image image;
 
     public bool canBuyItem = false;
+    public int quantity = 1;
 
 
     private void Awake()

@@ -16,6 +16,7 @@ public class ShopManager : NetworkBehaviour
     [SerializeField] private List<GameObject> BuyStock = new();
     [SerializeField] private ShopItem CurrentlyBuyingItem = null;
     [SerializeField] private int buyCount = 1;
+    [SerializeField] private bool updateSellShop = false;
 
     [Header("Sell Shop")]
     [SerializeField] private List<GameObject> SellStock = new();
@@ -36,12 +37,15 @@ public class ShopManager : NetworkBehaviour
     [SerializeField] private GameObject BuyShopItemsDisplay;
     [SerializeField] private TMP_Text BuyCountDisplay;
     [SerializeField] private TMP_Text CostDisplay;
-    [SerializeField] private Image DisplayedItem;
+    [SerializeField] private Image DisplayedBuyItem;
     [SerializeField] private TMP_Text GoldDisplay;
 
     [Header("Sell Shop UI Elements")]
     [SerializeField] private GameObject SellShopUI;
     [SerializeField] private GameObject SellShopItemsDisplay;
+    [SerializeField] private Image DisplayedSellItem;
+    [SerializeField] private TMP_Text ProfitDisplay;
+    [SerializeField] private TMP_Text SellCountDisplay;
 
     private Player targetPlayer;
 
@@ -92,6 +96,9 @@ public class ShopManager : NetworkBehaviour
             ResetBuyShopDisplay();
             ResetSellShopDisplay();
 
+            // Guarantees Sell Shop is populated
+            updateSellShop = true;
+
             SwapShopButton.gameObject.SetActive(false);
         }
     }
@@ -133,12 +140,13 @@ public class ShopManager : NetworkBehaviour
             GoldDisplay.text = "Total Gold: " + targetPlayer.playerData.gold.ToString();
 
             print("Item bought!");
+            updateSellShop = true;
         }
     }
 
     public void ChangeBuyCount(int value)
     {
-        if (CurrentlyBuyingItem != null && (value > 0 || buyCount != 1))
+        if (CurrentlyBuyingItem != null && (value > 0 || buyCount != 1) && (buyCount + value) * CurrentlyBuyingItem.BuyPrice <= targetPlayer.playerData.gold)
         {
             buyCount += value;
             BuyCountDisplay.text = buyCount.ToString();
@@ -149,7 +157,7 @@ public class ShopManager : NetworkBehaviour
     public void ResetBuyShopDisplay()
     {
         CurrentlyBuyingItem = null;
-        DisplayedItem.sprite = null;
+        DisplayedBuyItem.sprite = null;
         buyCount = 1;
         BuyCountDisplay.text = "";
         CostDisplay.text = "";
@@ -161,7 +169,7 @@ public class ShopManager : NetworkBehaviour
     public void SelectItemToBuy(ShopItem item)
     {
         CurrentlyBuyingItem = item;
-        DisplayedItem.sprite = item.data.Icon;
+        DisplayedBuyItem.sprite = item.data.Icon;
         buyCount = 1;
         BuyCountDisplay.text = "1";
         CostDisplay.text = item.BuyPrice.ToString() + " G";
@@ -180,6 +188,15 @@ public class ShopManager : NetworkBehaviour
 
 
     #region Sell Shop
+    public void ChangeSellCount(int value)
+    {
+        if (CurrentlySellingItem != null && (value > 0 || sellCount != 1) && sellCount + value <= CurrentlySellingItem.quantity)
+        {
+            sellCount += value;
+            SellCountDisplay.text = sellCount.ToString();
+        }
+    }
+
     private void GetStock()
     {
         // Clear Sell Shop stock
@@ -204,6 +221,7 @@ public class ShopManager : NetworkBehaviour
                     sItem.data = item.data;
                     newItem.name = item.name;
                     sItem.image.sprite = item.data.Icon;
+                    sItem.quantity = slot.count;
 
                     if (sItem.quantityDisplay != null)
                     {
@@ -216,12 +234,14 @@ public class ShopManager : NetworkBehaviour
                 }
                 else Destroy(newItem);
             }
-        }        
+        }
     }
 
     public void ResetSellShopDisplay()
     {
         CurrentlySellingItem = null;
+        DisplayedSellItem.sprite = null;
+        SellCountDisplay.text = "";
 
         if (SellShopUI.activeSelf) SellShopUI.SetActive(false);
     }
@@ -229,6 +249,9 @@ public class ShopManager : NetworkBehaviour
     public void SelectItemToSell(ShopItem item)
     {
         CurrentlySellingItem = item;
+        DisplayedSellItem.sprite = item.data.Icon;
+        sellCount = 1;
+        SellCountDisplay.text = sellCount.ToString();
     }
 
     public void Sell()
@@ -238,7 +261,13 @@ public class ShopManager : NetworkBehaviour
 
     public void ShowSellShop()
     {
-        GetStock();        
+        if (updateSellShop == true)
+        {
+            GetStock();
+            ResetSellShopDisplay();
+
+            updateSellShop = false;
+        }
 
         if (!SwapShopButton.gameObject.activeSelf) SwapShopButton.gameObject.SetActive(true);
 
