@@ -106,6 +106,10 @@ public class ShopManager : NetworkBehaviour
                 if (!shopItem.canBuyItem) shopItem.canBuyItem = true;
                 GameObject newItemDisplay = Instantiate(item);
                 newItemDisplay.transform.SetParent(BuyShopItemsDisplay.transform);
+                if (shopItem.quantityDisplay != null)
+                {
+                    shopItem.quantityDisplay.text = "";
+                }
             }
         }
     }
@@ -181,35 +185,38 @@ public class ShopManager : NetworkBehaviour
         // Clear Sell Shop stock
         SellStock.Clear();
 
-        // Get items to sell from hotbar
+        // Clear Sell Shop Item Display
+        foreach (Transform child in SellShopItemsDisplay.transform) Destroy(child.gameObject);
+
+        // Get items to sell from Hotbar
         Inventory hotbar = targetPlayer.inventoryManager.GetInventoryByName("Hotbar");
 
-        // Add hotbar items to Sell Shop stock
+        // Add Hotbar items to Sell Shop stock
         foreach (Inventory.Slot slot in hotbar.slots)
         {
             Item item = GameManager.instance.itemManager.GetItemByName(slot.itemName);
 
             if (item != null)
             {
-                GameObject newItem = EmptyShopItem;
+                GameObject newItem = Instantiate(EmptyShopItem);
                 if (newItem.TryGetComponent(out ShopItem sItem))
                 {
                     sItem.data = item.data;
                     newItem.name = item.name;
+                    sItem.image.sprite = item.data.Icon;
+
+                    if (sItem.quantityDisplay != null)
+                    {
+                        sItem.quantityDisplay.text = (slot.count < 10 ? '0' + slot.count.ToString() : slot.count.ToString());
+                    }
+
+                    // Populate Sell Shop
                     SellStock.Add(newItem);
+                    newItem.transform.SetParent(SellShopItemsDisplay.transform);
                 }
+                else Destroy(newItem);
             }
-        }
-
-        // Clear Sell Shop Item Display
-        foreach(Transform child in SellShopItemsDisplay.transform) Destroy(child.gameObject);
-
-        // Populate Sell Shop
-        foreach (GameObject item in SellStock)
-        {
-            GameObject newItemDisplay = Instantiate(item);
-            newItemDisplay.transform.SetParent(SellShopItemsDisplay.transform);
-        }
+        }        
     }
 
     public void ResetSellShopDisplay()

@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,7 +7,9 @@ using UnityEngine.UI;
 public class ShopItem : Item
 {
     private Button button;
-    private Image sprite;
+
+    public TMP_Text quantityDisplay;
+    public Image image;
 
     public bool canBuyItem = false;
 
@@ -17,8 +20,8 @@ public class ShopItem : Item
         if (canBuyItem) button.onClick.AddListener(() => ShopManager.instance.SelectItemToBuy(this));
         else button.onClick.AddListener(() => ShopManager.instance.SelectItemToSell(this));
 
-        sprite = GetComponent<Image>();
-        sprite.sprite = data.Icon;
+        image = GetComponent<Image>();
+        if (data != null) image.sprite = data.Icon;
     }
 
     private void OnDestroy()
