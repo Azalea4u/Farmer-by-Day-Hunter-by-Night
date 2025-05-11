@@ -5,6 +5,7 @@ using Unity.Netcode;
 using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 // Handles all Shop background logic & manages/displays Shop UI
 
@@ -135,11 +136,15 @@ public class ShopManager : NetworkBehaviour
         if (CurrentlyBuyingItem != null && targetPlayer.playerData.gold > CurrentlyBuyingItem.BuyPrice * buyCount)
         {
             targetPlayer.playerData.gold -= CurrentlyBuyingItem.BuyPrice * buyCount;
-            targetPlayer.inventoryManager.Add("Hotbar", CurrentlyBuyingItem);
+            for (int i = 0; i < buyCount; i++) targetPlayer.inventoryManager.Add("Hotbar", CurrentlyBuyingItem);
 
             GoldDisplay.text = "Total Gold: " + targetPlayer.playerData.gold.ToString();
 
-            print("Item bought!");
+            print(buyCount > 1 ? buyCount.ToString() + " items bought!" : "Item bought!");
+
+            buyCount = 1;
+            BuyCountDisplay.text = buyCount.ToString();
+
             updateSellShop = true;
         }
     }
@@ -161,7 +166,6 @@ public class ShopManager : NetworkBehaviour
         buyCount = 1;
         BuyCountDisplay.text = "";
         CostDisplay.text = "";
-        GoldDisplay.text = "Total Gold: " + targetPlayer.playerData.gold.ToString();
 
         if (BuyShopUI.activeSelf) BuyShopUI.SetActive(false);
     }
@@ -177,6 +181,8 @@ public class ShopManager : NetworkBehaviour
 
     public void ShowBuyShop()
     {
+        GoldDisplay.text = "Total Gold: " + targetPlayer.playerData.gold.ToString();
+
         if (!SwapShopButton.gameObject.activeSelf) SwapShopButton.gameObject.SetActive(true);
 
         if (MainShopUI.activeSelf) MainShopUI.SetActive(false);
@@ -194,6 +200,7 @@ public class ShopManager : NetworkBehaviour
         {
             sellCount += value;
             SellCountDisplay.text = sellCount.ToString();
+            ProfitDisplay.text = "Profit: " + (CurrentlySellingItem.data.SellPrice * sellCount).ToString() + " G";
         }
     }
 
@@ -242,6 +249,7 @@ public class ShopManager : NetworkBehaviour
         CurrentlySellingItem = null;
         DisplayedSellItem.sprite = null;
         SellCountDisplay.text = "";
+        ProfitDisplay.text = "";
 
         if (SellShopUI.activeSelf) SellShopUI.SetActive(false);
     }
@@ -252,11 +260,39 @@ public class ShopManager : NetworkBehaviour
         DisplayedSellItem.sprite = item.data.Icon;
         sellCount = 1;
         SellCountDisplay.text = sellCount.ToString();
+        ProfitDisplay.text = "Profit: " + item.data.SellPrice.ToString() + " G";
     }
 
-    public void Sell()
+    public void Sell(bool sellAll)
     {
-
+        if (CurrentlySellingItem != null)
+        {
+            if (sellAll) sellCount = CurrentlySellingItem.quantity;
+            
+            CurrentlySellingItem.quantity -= sellCount;
+            
+            int itemIndex = SellStock.FindIndex(item => item == CurrentlySellingItem.gameObject);
+            
+            if (itemIndex > 8) targetPlayer.inventoryManager.Remove("Inventory", itemIndex, sellCount);
+            else if (itemIndex != -1) targetPlayer.inventoryManager.Remove("Hotbar", itemIndex, sellCount);
+            
+            targetPlayer.playerData.gold += CurrentlySellingItem.SellPrice * sellCount;
+            
+            print(sellCount > 1 ? sellCount.ToString() + " items sold!" : "Item sold!");
+            
+            if (CurrentlySellingItem.quantity == 0)
+            {
+                updateSellShop = true;
+                ShowSellShop();
+            }
+            else
+            {
+                sellCount = 1;
+                SellCountDisplay.text = sellCount.ToString();
+                CurrentlySellingItem.quantityDisplay.text = (CurrentlySellingItem.quantity < 10 ? '0' + CurrentlySellingItem.quantity.ToString() : CurrentlySellingItem.quantity.ToString());
+                ProfitDisplay.text = "Profit: " + CurrentlySellingItem.data.SellPrice.ToString() + " G";
+            }
+        }
     }
 
     public void ShowSellShop()
