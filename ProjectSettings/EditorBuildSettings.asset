@@ -17,6 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ShopTest.unity
     guid: 40b6e071756b7bf48a556ada8ef91405
+  - enabled: 1
+    path: Assets/Scenes/ShopTest_Dialogue.unity
+    guid: 836666398619e464cac85f4edce30c9b
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

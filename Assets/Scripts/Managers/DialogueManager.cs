@@ -67,22 +67,20 @@ public class DialogueManager : MonoBehaviour
     private void Start()
     {
         dialogueIsPlaying = false;
-        if (SceneManager.GetActiveScene().name != "Start_Menu")
+
+        dialoguePanel.SetActive(false);
+        if (SceneManager.GetActiveScene().name == "Shop")
+            buyPanel.SetActive(false);
+
+        // get layout animator
+        //layoutAnimator = dialoguePanel.GetComponent<Animator>();
+
+        choicesText = new TextMeshProUGUI[choices.Length];
+        int index = 0;
+        foreach (GameObject choice in choices)
         {
-            dialoguePanel.SetActive(false);
-            if (SceneManager.GetActiveScene().name == "Rest_Level")
-                buyPanel.SetActive(false);
-
-            // get layout animator
-            layoutAnimator = dialoguePanel.GetComponent<Animator>();
-
-            choicesText = new TextMeshProUGUI[choices.Length];
-            int index = 0;
-            foreach (GameObject choice in choices)
-            {
-                choicesText[index] = choice.GetComponentInChildren<TextMeshProUGUI>();
-                index++;
-            }
+            choicesText[index] = choice.GetComponentInChildren<TextMeshProUGUI>();
+            index++;
         }
 
         InitializeAudioInfoDictionary();

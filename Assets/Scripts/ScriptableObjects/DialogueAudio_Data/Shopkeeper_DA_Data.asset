@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Shopkeeper_DA_Data
   m_EditorClassIdentifier: 
   id: Shopkeeper
-  dialogueTypingSoundClips: []
-  frequencyLevel: 2
-  minPitch: 0.5
-  maxPitch: 2
+  dialogueTypingSoundClips:
+  - {fileID: 8300000, guid: ceaf9176410b47c4892d07916e196b49, type: 3}
+  frequencyLevel: 1
+  minPitch: -0.5
+  maxPitch: 1
   stopAudioSource: 0
