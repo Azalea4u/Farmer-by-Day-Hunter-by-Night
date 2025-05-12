@@ -585,6 +585,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c3bb4bf2d02f6146a6238acfe9fdd0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
 --- !u!223 &7550521990554264014
 Canvas:
   m_ObjectHideFlags: 0
@@ -734,6 +735,7 @@ GameObject:
   - component: {fileID: 4875060319257050660}
   - component: {fileID: 3341338309301471217}
   - component: {fileID: 5045195922061667855}
+  - component: {fileID: 5526789279282641478}
   m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
@@ -867,6 +869,22 @@ MonoBehaviour:
   constraintX: 20
   constraintY: 12.5
   player: {fileID: 3003544883664176735}
+--- !u!114 &5526789279282641478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2134743890008822692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c49b4cc203aa6414fae5c798d1d0e7d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EventMask:
+    serializedVersion: 2
+    m_Bits: 32
+  m_MaxRayIntersections: 0
 --- !u!1 &5932535841032177877
 GameObject:
   m_ObjectHideFlags: 0
