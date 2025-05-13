@@ -319,6 +319,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hover Pop-Up
       objectReference: {fileID: 0}
+    - target: {fileID: 4773025876391314721, guid: 2dd8d966e1245834e9c8755419400620, type: 3}
+      propertyPath: parentItem
+      value: 
+      objectReference: {fileID: 6682299315788966478}
     - target: {fileID: 6829032692900063996, guid: 2dd8d966e1245834e9c8755419400620, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

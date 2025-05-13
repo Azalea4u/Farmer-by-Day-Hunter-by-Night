@@ -55,6 +55,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parentItem: {fileID: 0}
   trans: {fileID: 5719512119238237713}
+  title: {fileID: 8122702595343740173}
+  description: {fileID: 6451658560574217384}
 --- !u!225 &5719512119238237713
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -257,8 +259,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20
-  m_fontSizeBase: 20
+  m_fontSize: 18
+  m_fontSizeBase: 18
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -393,8 +395,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 28
-  m_fontSizeBase: 28
+  m_fontSize: 24
+  m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

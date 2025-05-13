@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 
 public class HoverPopUp : MonoBehaviour
@@ -6,7 +7,10 @@ public class HoverPopUp : MonoBehaviour
     [SerializeField] private ShopItem parentItem;
     [SerializeField] private CanvasGroup trans;
 
-    private float fadeDuration = 0.5f;
+    [SerializeField] private TMP_Text title;
+    [SerializeField] private TMP_Text description;
+
+    private readonly float fadeDuration = 0.5f;
 
 
     private void Start()
@@ -23,6 +27,9 @@ public class HoverPopUp : MonoBehaviour
     public void ShowPopUp()
     {
         trans.alpha = 1f;
+
+        title.text = parentItem.ItemName;
+        description.text = parentItem.Description;
     }
 
     public void HidePopUp()
