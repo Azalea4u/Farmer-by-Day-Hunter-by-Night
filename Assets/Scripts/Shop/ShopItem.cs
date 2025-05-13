@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -5,11 +6,12 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
 using UnityEngine.UI;
 
+
 [RequireComponent(typeof(Button))]
 [RequireComponent(typeof(Image))]
 public class ShopItem : Item, IPointerEnterHandler, IPointerExitHandler
 {
-    [SerializeField] private GameObject hoverPopUp;
+    [SerializeField] private HoverPopUp hoverPopUp;
 
     private Button button;
 
@@ -39,15 +41,13 @@ public class ShopItem : Item, IPointerEnterHandler, IPointerExitHandler
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        transform.SetAsLastSibling();
-
         mouse_over = true;
-        hoverPopUp.SetActive(true);
+        hoverPopUp.ShowPopUp();
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         mouse_over = false;
-        hoverPopUp.SetActive(false);
+        hoverPopUp.InstaHidePopUp();
     }
 }

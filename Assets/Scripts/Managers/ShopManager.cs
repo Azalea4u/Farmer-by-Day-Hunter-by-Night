@@ -1,3 +1,4 @@
+using System;
 using Ink.Parsed;
 using System.Collections.Generic;
 using TMPro;
@@ -234,6 +235,8 @@ public class ShopManager : NetworkBehaviour
                     {
                         sItem.quantityDisplay.text = (slot.count < 10 ? '0' + slot.count.ToString() : slot.count.ToString());
                     }
+
+                    print("populate");
 
                     // Populate Sell Shop
                     SellStock.Add(newItem);
