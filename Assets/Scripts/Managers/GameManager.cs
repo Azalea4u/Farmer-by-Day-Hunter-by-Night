@@ -39,4 +39,9 @@ public class GameManager : MonoBehaviour
         //Debug.Log("Game " + (IsGamePaused ? "Paused" : "Resumed"));
     }
 
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+
 }

@@ -31,7 +31,8 @@ public class Player : NetworkBehaviour
         /// Add a designated function/call for both pausing & consuming an item in PlayerController
 
         if (false && !GameManager.instance.IsGamePaused)
-            //&& !DialogueManager.instance.dialogueIsPlaying)
+            //&& !
+            //Manager.instance.dialogueIsPlaying)
         {
             ConsumeItem();
 
