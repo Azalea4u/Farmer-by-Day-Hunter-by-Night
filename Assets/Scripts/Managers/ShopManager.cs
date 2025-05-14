@@ -2,8 +2,10 @@ using Ink.Parsed;
 using System.Collections.Generic;
 using TMPro;
 using Unity.Netcode;
+using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 // Handles all Shop background logic & manages/displays Shop UI
 
@@ -11,22 +13,45 @@ public class ShopManager : NetworkBehaviour
 {
     public static ShopManager instance;
 
-    [SerializeField] private List<ShopItem> Stock = new List<ShopItem>();
-    [SerializeField] private ShopItem CurrentlySelectedItem = null;
-    [SerializeField] private int count = 1;
-    
+    [Header("Buy Shop")]
+    [SerializeField] private List<GameObject> BuyStock = new();
+    [SerializeField] private ShopItem CurrentlyBuyingItem = null;
+    [SerializeField] private int buyCount = 1;
+    [SerializeField] private bool updateSellShop = false;
+
+    [Header("Sell Shop")]
+    [SerializeField] private List<GameObject> SellStock = new();
+    [SerializeField] private ShopItem CurrentlySellingItem = null;
+    [SerializeField] private GameObject EmptyShopItem;
+    [SerializeField] private int sellCount = 1;
+
+    [Header("Shop UI Elements (Main Parent)")]
+    [SerializeField] private GameObject ShopUI;
+
+    [Header("Main Shop UI Elements")]
+    [SerializeField] private GameObject MainShopUI;
+    [SerializeField] private Button ExitShopButton;
+    [SerializeField] private Button SwapShopButton;
 
     [Header("Buy Shop UI Elements")]
     [SerializeField] private GameObject BuyShopUI;
+    [SerializeField] private GameObject BuyShopItemsDisplay;
+    [SerializeField] private TMP_Text BuyCountDisplay;
     [SerializeField] private TMP_Text CostDisplay;
-    [SerializeField] private TMP_Text CountDisplay;
-    [SerializeField] private Button ExitShopButton;
-    [SerializeField] private Image DisplayedItem;
+    [SerializeField] private Image DisplayedBuyItem;
+    [SerializeField] private TMP_Text GoldDisplay;
 
-    // Set to public if in Player_UI scene and attach player object for testing
+    [Header("Sell Shop UI Elements")]
+    [SerializeField] private GameObject SellShopUI;
+    [SerializeField] private GameObject SellShopItemsDisplay;
+    [SerializeField] private Image DisplayedSellItem;
+    [SerializeField] private TMP_Text ProfitDisplay;
+    [SerializeField] private TMP_Text SellCountDisplay;
+
     private Player targetPlayer;
 
 
+    #region Main Shop (Misc. Stuff)
     private void Awake()
     {
         if (instance == null)
@@ -36,52 +61,16 @@ public class ShopManager : NetworkBehaviour
         }
         else { Destroy(gameObject); }
 
-        SetupShop();
+        SetupShops();
 
-        BuyShopUI.SetActive(false);
-    }
-
-    private void SetupShop()
-    {
-        // Add items to shop stock here
-    }
-
-    public void Buy()
-    {
-        if (CurrentlySelectedItem != null)
-        {
-            Debug.Log("Player's Gold: " + targetPlayer.playerData.gold);
-
-            targetPlayer.playerData.gold -= CurrentlySelectedItem.BuyPrice;
-            targetPlayer.inventoryManager.Add("Hotbar", CurrentlySelectedItem);
-            
-            print("Item bought!");
-        }
-    }
-
-    public void Sell()
-    {
-
-    }
-
-    public void OpenShop(Player player)
-    {
-        if (player.TryGetComponent<PlayerController>(out var controller))
-        {
-            ResetShopDisplay();
-            BuyShopUI.SetActive(true);
-
-            ExitShopButton.onClick.AddListener(() => controller.StopDialogue());
-
-            targetPlayer = player;
-        }
+        ShopUI.SetActive(false);
     }
 
     public void ExitShop()
     {
         if (targetPlayer.TryGetComponent<PlayerController>(out var controller))
         {
-            BuyShopUI.SetActive(false);
+            ShopUI.SetActive(false);
 
             // I am not entirely sold on this approach (adding/removing listeners)
             // But it seems to work nicely, even in multiplayer, so I'll take it!
@@ -92,30 +81,236 @@ public class ShopManager : NetworkBehaviour
         }
     }
 
-    public void ResetShopDisplay()
+    public void OpenShop(Player player)
     {
-        CurrentlySelectedItem = null;
-        DisplayedItem.sprite = null;
-        count = 1;
-        CountDisplay.text = "";
-        CostDisplay.text = "";
+        if (player.TryGetComponent<PlayerController>(out var controller))
+        {
+            ShopUI.SetActive(true);
+            if (!MainShopUI.activeSelf) MainShopUI.SetActive(true);
+
+            ExitShopButton.onClick.AddListener(() => controller.StopDialogue());
+
+            // Set Target Player  (do before resetting shop displays)
+            targetPlayer = player;
+
+            // Reset Shop Displays
+            ResetBuyShopDisplay();
+            ResetSellShopDisplay();
+
+            // Guarantees Sell Shop is populated
+            updateSellShop = true;
+
+            SwapShopButton.gameObject.SetActive(false);
+        }
     }
 
-    public void SelectItem(ShopItem item)
+    private void SetupShops()
     {
-        CurrentlySelectedItem = item;
-        DisplayedItem.sprite = item.data.Icon;
-        count = 1;
-        CountDisplay.text = "1";
+        // Populate Buy Shop
+        foreach (GameObject item in BuyStock)
+        {
+            if (item.TryGetComponent(out ShopItem shopItem))
+            {
+                if (!shopItem.canBuyItem) shopItem.canBuyItem = true;
+                GameObject newItemDisplay = Instantiate(item);
+                newItemDisplay.transform.SetParent(BuyShopItemsDisplay.transform);
+                if (shopItem.quantityDisplay != null)
+                {
+                    shopItem.quantityDisplay.text = "";
+                }
+            }
+        }
+    }
+    
+    public void SwapShop()
+    {
+        if (BuyShopUI.activeSelf) ShowSellShop();
+        else ShowBuyShop();
+    }
+    #endregion
+
+
+    #region Buy Shop
+    public void Buy()
+    {
+        if (CurrentlyBuyingItem != null && targetPlayer.playerData.gold > CurrentlyBuyingItem.BuyPrice * buyCount)
+        {
+            targetPlayer.playerData.gold -= CurrentlyBuyingItem.BuyPrice * buyCount;
+            for (int i = 0; i < buyCount; i++) targetPlayer.inventoryManager.Add("Hotbar", CurrentlyBuyingItem);
+
+            GoldDisplay.text = "Total Gold: " + targetPlayer.playerData.gold.ToString();
+
+            print(buyCount > 1 ? buyCount.ToString() + " items bought!" : "Item bought!");
+
+            buyCount = 1;
+            BuyCountDisplay.text = buyCount.ToString();
+
+            updateSellShop = true;
+        }
+    }
+
+    public void ChangeBuyCount(int value)
+    {
+        if (CurrentlyBuyingItem != null && (value > 0 || buyCount != 1) && (buyCount + value) * CurrentlyBuyingItem.BuyPrice <= targetPlayer.playerData.gold)
+        {
+            buyCount += value;
+            BuyCountDisplay.text = buyCount.ToString();
+            GoldDisplay.text = "Total Gold: " + targetPlayer.playerData.gold.ToString();
+        }
+    }
+
+    public void ResetBuyShopDisplay()
+    {
+        CurrentlyBuyingItem = null;
+        DisplayedBuyItem.sprite = null;
+        buyCount = 1;
+        BuyCountDisplay.text = "";
+        CostDisplay.text = "";
+
+        if (BuyShopUI.activeSelf) BuyShopUI.SetActive(false);
+    }
+
+    public void SelectItemToBuy(ShopItem item)
+    {
+        CurrentlyBuyingItem = item;
+        DisplayedBuyItem.sprite = item.data.Icon;
+        buyCount = 1;
+        BuyCountDisplay.text = "1";
         CostDisplay.text = item.BuyPrice.ToString() + " G";
     }
 
-    public void ChangeCount(int value) 
+    public void ShowBuyShop()
     {
-        if (CurrentlySelectedItem != null && (value > 0 || count != 1))
+        GoldDisplay.text = "Total Gold: " + targetPlayer.playerData.gold.ToString();
+
+        if (!SwapShopButton.gameObject.activeSelf) SwapShopButton.gameObject.SetActive(true);
+
+        if (MainShopUI.activeSelf) MainShopUI.SetActive(false);
+        if (SellShopUI.activeSelf) SellShopUI.SetActive(false);
+
+        BuyShopUI.SetActive(true);
+    }
+    #endregion
+
+
+    #region Sell Shop
+    public void ChangeSellCount(int value)
+    {
+        if (CurrentlySellingItem != null && (value > 0 || sellCount != 1) && sellCount + value <= CurrentlySellingItem.quantity)
         {
-            count += value;
-            CountDisplay.text = count.ToString();
+            sellCount += value;
+            SellCountDisplay.text = sellCount.ToString();
+            ProfitDisplay.text = "Profit: " + (CurrentlySellingItem.data.SellPrice * sellCount).ToString() + " G";
         }
     }
+
+    private void GetStock()
+    {
+        // Clear Sell Shop stock
+        SellStock.Clear();
+
+        // Clear Sell Shop Item Display
+        foreach (Transform child in SellShopItemsDisplay.transform) Destroy(child.gameObject);
+
+        // Get items to sell from Hotbar
+        Inventory hotbar = targetPlayer.inventoryManager.GetInventoryByName("Hotbar");
+
+        // Add Hotbar items to Sell Shop stock
+        foreach (Inventory.Slot slot in hotbar.slots)
+        {
+            Item item = GameManager.instance.itemManager.GetItemByName(slot.itemName);
+
+            if (item != null)
+            {
+                GameObject newItem = Instantiate(EmptyShopItem);
+                if (newItem.TryGetComponent(out ShopItem sItem))
+                {
+                    sItem.data = item.data;
+                    newItem.name = item.name;
+                    sItem.image.sprite = item.data.Icon;
+                    sItem.quantity = slot.count;
+
+                    if (sItem.quantityDisplay != null)
+                    {
+                        sItem.quantityDisplay.text = (slot.count < 10 ? '0' + slot.count.ToString() : slot.count.ToString());
+                    }
+
+                    // Populate Sell Shop
+                    SellStock.Add(newItem);
+                    newItem.transform.SetParent(SellShopItemsDisplay.transform);
+                }
+                else Destroy(newItem);
+            }
+        }
+    }
+
+    public void ResetSellShopDisplay()
+    {
+        CurrentlySellingItem = null;
+        DisplayedSellItem.sprite = null;
+        SellCountDisplay.text = "";
+        ProfitDisplay.text = "";
+
+        if (SellShopUI.activeSelf) SellShopUI.SetActive(false);
+    }
+
+    public void SelectItemToSell(ShopItem item)
+    {
+        CurrentlySellingItem = item;
+        DisplayedSellItem.sprite = item.data.Icon;
+        sellCount = 1;
+        SellCountDisplay.text = sellCount.ToString();
+        ProfitDisplay.text = "Profit: " + item.data.SellPrice.ToString() + " G";
+    }
+
+    public void Sell(bool sellAll)
+    {
+        if (CurrentlySellingItem != null)
+        {
+            if (sellAll) sellCount = CurrentlySellingItem.quantity;
+            
+            CurrentlySellingItem.quantity -= sellCount;
+            
+            int itemIndex = SellStock.FindIndex(item => item == CurrentlySellingItem.gameObject);
+            
+            if (itemIndex > 8) targetPlayer.inventoryManager.Remove("Inventory", itemIndex, sellCount);
+            else if (itemIndex != -1) targetPlayer.inventoryManager.Remove("Hotbar", itemIndex, sellCount);
+            
+            targetPlayer.playerData.gold += CurrentlySellingItem.SellPrice * sellCount;
+            
+            print(sellCount > 1 ? sellCount.ToString() + " items sold!" : "Item sold!");
+            
+            if (CurrentlySellingItem.quantity == 0)
+            {
+                updateSellShop = true;
+                ShowSellShop();
+            }
+            else
+            {
+                sellCount = 1;
+                SellCountDisplay.text = sellCount.ToString();
+                CurrentlySellingItem.quantityDisplay.text = (CurrentlySellingItem.quantity < 10 ? '0' + CurrentlySellingItem.quantity.ToString() : CurrentlySellingItem.quantity.ToString());
+                ProfitDisplay.text = "Profit: " + CurrentlySellingItem.data.SellPrice.ToString() + " G";
+            }
+        }
+    }
+
+    public void ShowSellShop()
+    {
+        if (updateSellShop == true)
+        {
+            GetStock();
+            ResetSellShopDisplay();
+
+            updateSellShop = false;
+        }
+
+        if (!SwapShopButton.gameObject.activeSelf) SwapShopButton.gameObject.SetActive(true);
+
+        if (BuyShopUI.activeSelf) BuyShopUI.SetActive(false);
+        if (MainShopUI.activeSelf) MainShopUI.SetActive(false);
+
+        SellShopUI.SetActive(true);
+    }
+    #endregion
 }

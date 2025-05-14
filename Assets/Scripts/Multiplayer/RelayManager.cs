@@ -20,9 +20,7 @@ public class RelayManager : NetworkBehaviour
 
     public async void StartRelay()
     {
-        string joinCode = await StartHostWithRelay();
-
-        RUI.JoinCode = joinCode;
+        if (RUI.JoinCode == "") RUI.JoinCode = await StartHostWithRelay();
     }
 
     public async void JoinRelay()

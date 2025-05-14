@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bcff24d2d21efc048a3a3a09ba84dc68, type: 3}
-  m_Name: Test Item
+  m_Name: Item
   m_EditorClassIdentifier: 
-  ItemName: Test Item
-  Description: Item Used For Testing :D
-  Icon: {fileID: 21300000, guid: 8e540a724962c8243b3d495d1cb63a7d, type: 3}
-  BuyPrice: 10
-  SellPrice: 5
-  IsFood: 1
-  healingType: 0
-  HealingAmount: 10
+  ItemName: Item
+  Description: Item
+  Icon: {fileID: -355978042, guid: e382ca2272e9c064cb2dec5e77e1b12d, type: 3}
+  BuyPrice: 10000
+  SellPrice: -1
+  IsFood: 0
+  healingType: 1
+  HealingAmount: 5
   HasStatusEffect: 0
   statusType: 0
