@@ -9,6 +9,8 @@ public class HoverPopUp : MonoBehaviour
 
     [SerializeField] private TMP_Text title;
     [SerializeField] private TMP_Text description;
+    [SerializeField] private TMP_Text buyPrice;
+    [SerializeField] private TMP_Text sellPrice;
 
     private readonly float fadeDuration = 0.5f;
 
@@ -22,14 +24,29 @@ public class HoverPopUp : MonoBehaviour
     public void InstaHidePopUp()
     {
         trans.alpha = 0f;
+
+        if (buyPrice != null && buyPrice.gameObject.activeSelf) buyPrice.gameObject.SetActive(false);
+        if (sellPrice != null && sellPrice.gameObject.activeSelf) sellPrice.gameObject.SetActive(false);
     }
 
     public void ShowPopUp()
     {
         trans.alpha = 1f;
 
-        title.text = parentItem.ItemName;
-        description.text = parentItem.Description;
+        if (title != null) title.text = parentItem.ItemName;
+        if (description != null) description.text = parentItem.Description;
+
+        if (parentItem.canBuyItem == true && buyPrice != null)
+        {
+            buyPrice.text = "Cost: " + parentItem.BuyPrice + " G";
+            buyPrice.gameObject.SetActive(true);
+        }
+
+        if (parentItem.canBuyItem == false && sellPrice != null)
+        {
+            sellPrice.text = "Sell: " + parentItem.SellPrice + " G";
+            sellPrice.gameObject.SetActive(true);
+        }
     }
 
     public void HidePopUp()
