@@ -8,7 +8,6 @@ using System.Globalization;
 
 // Thank you https://www.youtube.com/watch?v=HCaSnZvs90g for the movement help, really appreciate it :D
 
-// [RequireComponent(typeof(Player))]
 public class PlayerController : NetworkBehaviour
 {
     [SerializeField] public Player player;
@@ -26,9 +25,7 @@ public class PlayerController : NetworkBehaviour
     [HideInInspector] public InputAction mapAction;
     [HideInInspector] public InputAction swapAction;
 
-    // Circle Collider is not strictly needed
-    // Currently, it serves as a nice visualizer in the Editor & as a method of getting the Player's collision radius
-    // But otherwise, it does not have a functional purpose (yet)
+    // Circle Collider is used for Dialogue Triggers & as a method of getting the Player's collision radius
     private float radius;
     private CircleCollider2D cc;
 

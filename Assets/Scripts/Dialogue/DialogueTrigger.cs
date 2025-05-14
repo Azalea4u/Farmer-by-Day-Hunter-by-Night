@@ -40,17 +40,17 @@ public class DialogueTrigger : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player") && collision.gameObject.TryGetComponent<Player>(out var player))
         {
-            playerInRange = true;
+            if (player.IsOwner) playerInRange = true;
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player") && collision.gameObject.TryGetComponent<Player>(out var player))
         {
-            playerInRange = false;
+            if (player.IsOwner) playerInRange = false;
         }
     }
 }
