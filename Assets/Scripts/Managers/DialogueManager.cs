@@ -46,6 +46,8 @@ public class DialogueManager : MonoBehaviour
     private const string LAYOUT_TAG = "layout";
     private const string AUDIO_TAG = "audio";
 
+    private Player currentTargetPlayer;
+
     private void Awake()
     {
         if (instance != null)
@@ -130,9 +132,10 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    public void EnterDialogueMode(TextAsset inkJSON)
+    public void EnterDialogueMode(TextAsset inkJSON, Player targetPlayer)
     {
         currentStory = new Story(inkJSON.text);
+        currentTargetPlayer = targetPlayer;
 
         dialogueIsPlaying = true;
         dialoguePanel.SetActive(true);
@@ -149,6 +152,11 @@ public class DialogueManager : MonoBehaviour
             //currentStory.BindExternalFunction("QuitGame", QuitGame);
         }
         */
+
+        // Will set an if statement to check if the scene is the shop later
+        // Bind the functions to the INK script
+        currentStory.BindExternalFunction("Open_Buy", Open_Buy);
+        currentStory.BindExternalFunction("Open_Sell", Open_Sell);
 
         ContinueStory();
     }
@@ -444,6 +452,21 @@ public class DialogueManager : MonoBehaviour
         buyPanel.SetActive(false);
         dialoguePanel.SetActive(true);
         //ContinueStory();
+    }
+    #endregion
+
+    #region Open_SHOP
+
+    public void Open_Buy()
+    {
+        ShopManager.instance.OpenShop(currentTargetPlayer);
+        ExitDialogueMode();
+    }
+
+    public void Open_Sell()
+    {
+        ShopManager.instance.OpenShop(currentTargetPlayer);
+        ExitDialogueMode();
     }
     #endregion
 

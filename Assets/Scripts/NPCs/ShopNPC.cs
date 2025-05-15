@@ -18,9 +18,14 @@ public class ShopNPC : NetworkBehaviour, INPC
             print("Welcome to my shop!");
             CurrentTargetPlayer = targetPlayer;
 
-            ShopManager.instance.OpenShop(CurrentTargetPlayer);
+            DialogueManager.GetInstance().EnterDialogueMode(NPCDialogueTrigger.GetInk(), CurrentTargetPlayer);
 
-            DialogueManager.GetInstance().EnterDialogueMode(NPCDialogueTrigger.GetInk());
+            //ShopManager.instance.OpenShop(CurrentTargetPlayer);
         }
+    }
+
+    public void Open_Shop()
+    {
+        ShopManager.instance.OpenShop(CurrentTargetPlayer);
     }
 }
