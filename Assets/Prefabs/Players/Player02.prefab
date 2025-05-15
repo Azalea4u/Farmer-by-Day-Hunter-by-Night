@@ -385,7 +385,15 @@ MonoBehaviour:
       m_Flags: 0
     - m_Name: 
       m_Id: b4a03428-b9cb-44cb-89a4-d70ef6928f42
-      m_Path: <Keyboard>/e
+      m_Path: <Keyboard>/f
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Dialogue
+      m_Flags: 0
+    - m_Name: 
+      m_Id: b4644dc5-dc44-4547-9ebe-70ad55c8d57c
+      m_Path: <Keyboard>/0
       m_Interactions: 
       m_Processors: 
       m_Groups: 

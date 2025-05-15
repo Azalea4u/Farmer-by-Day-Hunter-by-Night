@@ -170,7 +170,8 @@ public class PlayerController : NetworkBehaviour
         if (dialogueAction == null)
         {
             dialogueAction = controls.AddAction("Dialogue");
-            dialogueAction.AddBinding("<Keyboard>/e");
+            dialogueAction.AddBinding("<Keyboard>/f");
+            dialogueAction.AddBinding("<Keyboard>/0");
         }
 
         mapAction = controls.FindAction("Map");
@@ -188,7 +189,7 @@ public class PlayerController : NetworkBehaviour
         }
     }
 
-    // When within range of an NPC, press the DIALOGUE key (E) to INTERACT/TALK with them
+    // When within range of an NPC, press the DIALOGUE key (F) to INTERACT/TALK with them
     private void Dialogue()
     {
         if (!talkingToNPC && IsOwner)

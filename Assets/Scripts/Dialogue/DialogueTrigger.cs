@@ -22,29 +22,10 @@ public class DialogueTrigger : MonoBehaviour
     {
         if (collision.CompareTag("Player") && collision.gameObject.TryGetComponent<Player>(out var player))
         {
-            if (player.IsOwner) playerInRange = true;
-        }
-    }
-
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player") && collision.gameObject.TryGetComponent<Player>(out var player))
-        {
-            if (playerInRange && !DialogueManager.GetInstance().dialogueIsPlaying)
+            if (player.IsOwner)
             {
+                playerInRange = true;
                 visualCue.SetActive(true);
-                //if gameManger isn't paused
-                if (!GameManager.instance.IsGamePaused)
-                {
-                    if (Input.GetKeyDown(KeyCode.F) || Input.GetMouseButtonDown(0))
-                    {
-                        DialogueManager.GetInstance().EnterDialogueMode(inkJSON);
-                    }
-                }
-            }
-            else
-            {
-                visualCue.SetActive(false);
             }
         }
     }
@@ -53,7 +34,13 @@ public class DialogueTrigger : MonoBehaviour
     {
         if (collision.CompareTag("Player") && collision.gameObject.TryGetComponent<Player>(out var player))
         {
-            if (player.IsOwner) playerInRange = false;
+            if (player.IsOwner)
+            {
+                playerInRange = false;
+                visualCue.SetActive(false);
+            }
         }
     }
+
+    public TextAsset GetInk() { return inkJSON; }
 }
