@@ -28,8 +28,7 @@ public class ShopManager : NetworkBehaviour
     [Header("Shop UI Elements (Main Parent)")]
     [SerializeField] private GameObject ShopUI;
 
-    [Header("Main Shop UI Elements")]
-    [SerializeField] private GameObject MainShopUI;
+    [Header("Misc. Shop UI Elements")]
     [SerializeField] private Button ExitShopButton;
     [SerializeField] private Button SwapShopButton;
 
@@ -81,12 +80,11 @@ public class ShopManager : NetworkBehaviour
         }
     }
 
-    public void OpenShop(Player player)
+    public void OpenShop(Player player, bool openSellShop = false)
     {
         if (player.TryGetComponent<PlayerController>(out var controller))
         {
             ShopUI.SetActive(true);
-            if (!MainShopUI.activeSelf) MainShopUI.SetActive(true);
 
             ExitShopButton.onClick.AddListener(() => controller.StopDialogue());
 
@@ -99,8 +97,10 @@ public class ShopManager : NetworkBehaviour
 
             // Guarantees Sell Shop is populated
             updateSellShop = true;
-
-            SwapShopButton.gameObject.SetActive(false);
+            
+            // Open Specified Shop (Buy/Sell)
+            if (openSellShop) ShowSellShop();
+            else ShowBuyShop();
         }
     }
 
@@ -167,7 +167,7 @@ public class ShopManager : NetworkBehaviour
         BuyCountDisplay.text = "";
         CostDisplay.text = "";
 
-        if (BuyShopUI.activeSelf) BuyShopUI.SetActive(false);
+        BuyShopUI.SetActive(false);
     }
 
     public void SelectItemToBuy(ShopItem item)
@@ -183,11 +183,7 @@ public class ShopManager : NetworkBehaviour
     {
         GoldDisplay.text = "Total Gold: " + targetPlayer.playerData.gold.ToString();
 
-        if (!SwapShopButton.gameObject.activeSelf) SwapShopButton.gameObject.SetActive(true);
-
-        if (MainShopUI.activeSelf) MainShopUI.SetActive(false);
-        if (SellShopUI.activeSelf) SellShopUI.SetActive(false);
-
+        SellShopUI.SetActive(false);
         BuyShopUI.SetActive(true);
     }
     #endregion
@@ -251,7 +247,7 @@ public class ShopManager : NetworkBehaviour
         SellCountDisplay.text = "";
         ProfitDisplay.text = "";
 
-        if (SellShopUI.activeSelf) SellShopUI.SetActive(false);
+        SellShopUI.SetActive(false);
     }
 
     public void SelectItemToSell(ShopItem item)
@@ -305,11 +301,7 @@ public class ShopManager : NetworkBehaviour
             updateSellShop = false;
         }
 
-        if (!SwapShopButton.gameObject.activeSelf) SwapShopButton.gameObject.SetActive(true);
-
-        if (BuyShopUI.activeSelf) BuyShopUI.SetActive(false);
-        if (MainShopUI.activeSelf) MainShopUI.SetActive(false);
-
+        BuyShopUI.SetActive(false);
         SellShopUI.SetActive(true);
     }
     #endregion
