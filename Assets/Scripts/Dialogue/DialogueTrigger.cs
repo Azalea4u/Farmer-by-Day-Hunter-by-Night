@@ -18,31 +18,34 @@ public class DialogueTrigger : MonoBehaviour
         visualCue.SetActive(false);
     }
 
-    private void Update()
-    {
-        if (playerInRange && !DialogueManager.GetInstance().dialogueIsPlaying)
-        {
-            visualCue.SetActive(true);
-            //if gameManger isn't paused
-            if (!GameManager.instance.IsGamePaused)
-            {
-                if (Input.GetKeyDown(KeyCode.F) || Input.GetMouseButtonDown(0))
-                {
-                    DialogueManager.GetInstance().EnterDialogueMode(inkJSON);
-                }
-            }
-        }
-        else
-        {
-            visualCue.SetActive(false);
-        }
-    }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player") && collision.gameObject.TryGetComponent<Player>(out var player))
         {
             if (player.IsOwner) playerInRange = true;
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player") && collision.gameObject.TryGetComponent<Player>(out var player))
+        {
+            if (playerInRange && !DialogueManager.GetInstance().dialogueIsPlaying)
+            {
+                visualCue.SetActive(true);
+                //if gameManger isn't paused
+                if (!GameManager.instance.IsGamePaused)
+                {
+                    if (Input.GetKeyDown(KeyCode.F) || Input.GetMouseButtonDown(0))
+                    {
+                        DialogueManager.GetInstance().EnterDialogueMode(inkJSON);
+                    }
+                }
+            }
+            else
+            {
+                visualCue.SetActive(false);
+            }
         }
     }
 
