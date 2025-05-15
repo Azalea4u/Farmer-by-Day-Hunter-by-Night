@@ -1,3 +1,4 @@
+using System;
 using Ink.Parsed;
 using System.Collections.Generic;
 using TMPro;
@@ -60,10 +61,10 @@ public class ShopManager : NetworkBehaviour
         }
         else { Destroy(gameObject); }
 
-        SetupShops();
-
         ShopUI.SetActive(false);
     }
+
+    private void Start() { SetupShops(); }
 
     public void ExitShop()
     {
@@ -144,6 +145,7 @@ public class ShopManager : NetworkBehaviour
 
             buyCount = 1;
             BuyCountDisplay.text = buyCount.ToString();
+            CostDisplay.text = CurrentlyBuyingItem.BuyPrice.ToString() + " G";
 
             updateSellShop = true;
         }
@@ -155,7 +157,7 @@ public class ShopManager : NetworkBehaviour
         {
             buyCount += value;
             BuyCountDisplay.text = buyCount.ToString();
-            GoldDisplay.text = "Total Gold: " + targetPlayer.playerData.gold.ToString();
+            CostDisplay.text = (CurrentlyBuyingItem.BuyPrice * buyCount).ToString() + " G";
         }
     }
 
@@ -230,6 +232,8 @@ public class ShopManager : NetworkBehaviour
                     {
                         sItem.quantityDisplay.text = (slot.count < 10 ? '0' + slot.count.ToString() : slot.count.ToString());
                     }
+
+                    print("populate");
 
                     // Populate Sell Shop
                     SellStock.Add(newItem);
