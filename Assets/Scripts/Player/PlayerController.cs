@@ -1,10 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using Unity.Netcode;
-using static UnityEngine.RuleTile.TilingRuleOutput;
-using System.Globalization;
 
 // Thank you https://www.youtube.com/watch?v=HCaSnZvs90g for the movement help, really appreciate it :D
 
@@ -191,7 +188,7 @@ public class PlayerController : NetworkBehaviour
     // When within range of an NPC, press the DIALOGUE key (E) to INTERACT/TALK with them
     private void Dialogue()
     {
-        if (!talkingToNPC && IsOwner)
+        if (!talkingToNPC && IsOwner && !GameManager.instance.IsGamePaused)
         {
             List<RaycastHit2D> results = new();
 

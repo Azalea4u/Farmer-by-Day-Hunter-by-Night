@@ -1,11 +1,8 @@
-using Ink.Parsed;
 using System.Collections.Generic;
 using TMPro;
 using Unity.Netcode;
-using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
 
 // Handles all Shop background logic & manages/displays Shop UI
 

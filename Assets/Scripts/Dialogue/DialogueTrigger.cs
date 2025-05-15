@@ -15,6 +15,7 @@ public class DialogueTrigger : MonoBehaviour
     private void Awake()
     {
         playerInRange = false;
+
         visualCue.SetActive(false);
     }
 
@@ -23,16 +24,8 @@ public class DialogueTrigger : MonoBehaviour
         if (playerInRange && !DialogueManager.GetInstance().dialogueIsPlaying)
         {
             visualCue.SetActive(true);
-            //if gameManger isn't paused
-            if (!GameManager.instance.IsGamePaused)
-            {
-                if (Input.GetKeyDown(KeyCode.F) || Input.GetMouseButtonDown(0))
-                {
-                    DialogueManager.GetInstance().EnterDialogueMode(inkJSON);
-                }
-            }
         }
-        else
+        else if (visualCue.activeSelf)
         {
             visualCue.SetActive(false);
         }
@@ -53,4 +46,6 @@ public class DialogueTrigger : MonoBehaviour
             if (player.IsOwner) playerInRange = false;
         }
     }
+
+    public TextAsset GetInk() { return inkJSON; }
 }
