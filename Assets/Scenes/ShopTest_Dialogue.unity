@@ -1886,9 +1886,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventoryPanel: {fileID: 71323243}
-  inventroyUIs:
-  - {fileID: 0}
-  - {fileID: 0}
+  inventroyUIs: []
 --- !u!114 &1891828114
 MonoBehaviour:
   m_ObjectHideFlags: 0
