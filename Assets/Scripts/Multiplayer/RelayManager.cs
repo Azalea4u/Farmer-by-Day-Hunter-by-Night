@@ -17,6 +17,8 @@ public class RelayManager : NetworkBehaviour
 {
     [SerializeField] private RelayUI RUI;  // Used to get & display Join Code
 
+    public static RelayManager instance;
+
 
     public async void StartRelay()
     {
@@ -46,6 +48,13 @@ public class RelayManager : NetworkBehaviour
 
     private async void Start()
     {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else { Destroy(gameObject); }
+
         await UnityServices.InitializeAsync();
 
         await AuthenticationService.Instance.SignInAnonymouslyAsync();

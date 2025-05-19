@@ -60,8 +60,6 @@ public class ShopManager : NetworkBehaviour
             DontDestroyOnLoad(gameObject);
         }
         else { Destroy(gameObject); }
-
-        ShopUI.SetActive(false);
     }
 
     private void Start() { SetupShops(); }
@@ -107,20 +105,24 @@ public class ShopManager : NetworkBehaviour
 
     private void SetupShops()
     {
+        ShopUI.SetActive(true);
+
         // Populate Buy Shop
         foreach (GameObject item in BuyStock)
         {
             if (item.TryGetComponent(out ShopItem shopItem))
             {
                 if (!shopItem.canBuyItem) shopItem.canBuyItem = true;
+
+                shopItem.image.sprite = shopItem.data.Icon;
+                shopItem.quantityDisplay.text = "";
+
                 GameObject newItemDisplay = Instantiate(item);
                 newItemDisplay.transform.SetParent(BuyShopItemsDisplay.transform);
-                if (shopItem.quantityDisplay != null)
-                {
-                    shopItem.quantityDisplay.text = "";
-                }
             }
         }
+
+        ShopUI.SetActive(false);
     }
     
     public void SwapShop()
@@ -232,8 +234,6 @@ public class ShopManager : NetworkBehaviour
                     {
                         sItem.quantityDisplay.text = (slot.count < 10 ? '0' + slot.count.ToString() : slot.count.ToString());
                     }
-
-                    print("populate");
 
                     // Populate Sell Shop
                     SellStock.Add(newItem);
