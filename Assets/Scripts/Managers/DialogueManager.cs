@@ -465,7 +465,7 @@ public class DialogueManager : MonoBehaviour
 
     public void Open_Sell()
     {
-        ShopManager.instance.OpenShop(currentTargetPlayer);
+        ShopManager.instance.OpenShop(currentTargetPlayer, true);
         ExitDialogueMode();
     }
     #endregion
