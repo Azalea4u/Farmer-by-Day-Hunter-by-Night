@@ -217,6 +217,7 @@ MonoBehaviour:
   hotBar_Data: {fileID: 11400000, guid: bfd2d00589f5f0649baeae578afad9b7, type: 2}
   inventory_Data: {fileID: 11400000, guid: e507862f7fca6ed4fbe3e003cecc2104, type: 2}
   playerData: {fileID: 11400000, guid: 36dc9d39dd1f67247947b14fa346d814, type: 2}
+  playerCamera: {fileID: 5045195922061667855}
 --- !u!114 &6334529443992391155
 MonoBehaviour:
   m_ObjectHideFlags: 0
