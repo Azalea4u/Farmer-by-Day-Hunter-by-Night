@@ -9,23 +9,35 @@ EditorBuildSettings:
     path: Assets/Scenes/RelayTest.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
   - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 2239e1eaf3db7e84db765f2043a5353d
+  - enabled: 1
     path: Assets/Scenes/CollisionTest.unity
     guid: 43b1d93fe144f1c47a36fb21038fd32c
-  - enabled: 1
-    path: Assets/Scenes/MainMenu_UI.unity
-    guid: 2239e1eaf3db7e84db765f2043a5353d
   - enabled: 1
     path: Assets/Scenes/ShopTest.unity
     guid: 40b6e071756b7bf48a556ada8ef91405
   - enabled: 1
     path: Assets/Scenes/ShopTest_Dialogue.unity
-    guid: 836666398619e464cac85f4edce30c9b
+    guid: ee55f5b56aa57124ea56b6ab4b6c7b58
   - enabled: 1
     path: Assets/Scenes/SCN_Loading.unity
     guid: 3910c210d8279944fbf261bf0aa6756d
   - enabled: 1
     path: Assets/Scenes/Player_UI.unity
     guid: 4f004863a516e1242a031cc01a962fa8
+  - enabled: 1
+    path: Assets/Scenes/Game/Farm.unity
+    guid: f86d21fc00758264cb8f3dadc69a8ba3
+  - enabled: 1
+    path: Assets/Scenes/Game/North_Forest.unity
+    guid: 8ed62b25050c4ce4dbf884a905f2782f
+  - enabled: 1
+    path: Assets/Scenes/Game/South_Forest.unity
+    guid: 989c69e5adcfd9b4f9ebeb78255fe8ab
+  - enabled: 1
+    path: Assets/Scenes/Game/Village.unity
+    guid: d403801c65af88e469b057fd872d0893
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

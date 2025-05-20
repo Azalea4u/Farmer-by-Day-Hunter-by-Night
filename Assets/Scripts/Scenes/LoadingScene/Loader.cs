@@ -9,11 +9,11 @@ public class Loader : MonoBehaviour
     {
         // ACTUAL GAME SCENES
         SCN_Loading,
-        SCN_MainMenu,
-        SCN_VillageScene,
-        SCN_FarmScene,
-        SCN_NorthForest,
-        SCN_SouthForest,
+        MainMenu,
+        Village,
+        Farm,
+        North_Forest,
+        South_Forest,
         
         // TEST SCENES
         Player_UI,

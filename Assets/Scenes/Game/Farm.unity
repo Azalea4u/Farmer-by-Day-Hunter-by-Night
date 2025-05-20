@@ -13019,6 +13019,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c9aa87b94b86c1449138e8772d3bf05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nextScene: North_Forest
 --- !u!61 &413474781
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -14899,6 +14900,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c9aa87b94b86c1449138e8772d3bf05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nextScene: South_Forest
 --- !u!61 &843174855
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -20457,6 +20459,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c9aa87b94b86c1449138e8772d3bf05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nextScene: Village
 --- !u!61 &1882304351
 BoxCollider2D:
   m_ObjectHideFlags: 0

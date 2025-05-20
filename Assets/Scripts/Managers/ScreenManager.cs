@@ -25,27 +25,27 @@ public class ScreenManager : MonoBehaviour
 
     public void MainMenu()
     {
-        AudioManager.instance.ChangeSceneWithMusic(Loader.scenes.SCN_MainMenu, "MainTheme_Music");
+        AudioManager.instance.ChangeSceneWithMusic(Loader.scenes.MainMenu, "MainTheme_Music");
     }
 
     public void Load_VillageScene()
     {
-        StartCoroutine(FadeAndLoadScene(Loader.scenes.ShopTest_Dialogue, "Village_Music", useFullLoading: false));
+        StartCoroutine(FadeAndLoadScene(Loader.scenes.Village, "Village_Music", useFullLoading: false));
     }
 
     public void Load_FarmScene()
     {
-        StartCoroutine(FadeAndLoadScene(Loader.scenes.SCN_FarmScene, "Farm_Music", useFullLoading: false));
+        StartCoroutine(FadeAndLoadScene(Loader.scenes.Farm, "Farm_Music", useFullLoading: false));
     }
 
     public void Load_NorthForest()
     {
-        StartCoroutine(FadeAndLoadScene(Loader.scenes.SCN_NorthForest, "NorthForest_Music", useFullLoading: false));
+        StartCoroutine(FadeAndLoadScene(Loader.scenes.North_Forest, "NorthForest_Music", useFullLoading: false));
     }
 
     public void Load_SouthForest()
     {
-        StartCoroutine(FadeAndLoadScene(Loader.scenes.SCN_SouthForest, "SouthForest_Music", useFullLoading: false));
+        StartCoroutine(FadeAndLoadScene(Loader.scenes.South_Forest, "SouthForest_Music", useFullLoading: false));
     }
 
     public void Load_GameFromMainMenu()
@@ -55,7 +55,32 @@ public class ScreenManager : MonoBehaviour
 
     public void Load_NextDay()
     {
-        AudioManager.instance.ChangeSceneWithMusic(Loader.scenes.SCN_FarmScene, "Farm_Music"); // or use SCN_Loading too
+        AudioManager.instance.ChangeSceneWithMusic(Loader.scenes.Farm, "Farm_Music"); // or use SCN_Loading too
+    }
+
+    public void SwitchScene(string sceneName)
+    {
+        switch (sceneName)
+        {
+            case "Farm":
+                 Load_FarmScene();
+                break;
+
+            case "Village":
+                Load_VillageScene();
+                break;
+
+            case "North Forest":
+                Load_NorthForest();
+                break;
+
+            case "South Forest":
+                Load_NorthForest();
+                break;
+
+            default:
+                throw new System.Exception("There isn't a scene with that name!");
+        }
     }
 
     private IEnumerator FadeAndLoadScene(Loader.scenes sceneToLoad, string musicName, bool useFullLoading)
