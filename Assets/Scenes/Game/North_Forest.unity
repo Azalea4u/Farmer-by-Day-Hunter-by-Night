@@ -56696,6 +56696,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c9aa87b94b86c1449138e8772d3bf05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nextScene: South_Forest
 --- !u!61 &898371889
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -56787,6 +56788,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c9aa87b94b86c1449138e8772d3bf05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nextScene: Village
 --- !u!61 &967531339
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -57155,6 +57157,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c9aa87b94b86c1449138e8772d3bf05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nextScene: North_Forest
 --- !u!61 &1551080367
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -62396,6 +62399,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c9aa87b94b86c1449138e8772d3bf05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nextScene: Farm
 --- !u!61 &1733179481
 BoxCollider2D:
   m_ObjectHideFlags: 0
