@@ -7,13 +7,17 @@ public class Loader : MonoBehaviour
 
     public enum scenes
     {
-        // Add scenes by scene name such as:
-        SCN_MainMenu,
+        // ACTUAL GAME SCENES
         SCN_Loading,
-        SCN_ArcheologyMinigame,
-        SCN_SpaceshipScene,
-        SCN_FindDragonLuigi,
-        SCN_OctopusShooter
+        SCN_MainMenu,
+        SCN_VillageScene,
+        SCN_FarmScene,
+        SCN_NorthForest,
+        SCN_SouthForest,
+        
+        // TEST SCENES
+        Player_UI,
+        ShopTest_Dialogue
     }
 
     public static void Load(scenes targetScene)
