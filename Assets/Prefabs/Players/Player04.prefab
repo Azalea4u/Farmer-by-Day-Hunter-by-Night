@@ -57,8 +57,9 @@ MonoBehaviour:
   inventoryManager: {fileID: 0}
   controller: {fileID: 6334529443992391155}
   hotBar_Data: {fileID: 11400000, guid: f9f0644c09088f740a5849b581598005, type: 2}
-  inventory_Data: {fileID: 0}
+  inventory_Data: {fileID: 11400000, guid: 5a2afe54510bb044cb9add7c53ca77f5, type: 2}
   playerData: {fileID: 11400000, guid: 3893a0acebde45d4ba2d0f90587e9112, type: 2}
+  playerCamera: {fileID: 5045195922061667855}
 --- !u!114 &6334529443992391155
 MonoBehaviour:
   m_ObjectHideFlags: 0

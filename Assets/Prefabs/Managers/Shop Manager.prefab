@@ -236,7 +236,6 @@ MonoBehaviour:
   EmptyShopItem: {fileID: 2566729080821247153, guid: 281fb4680a1147446afad6c73d3b9ed0, type: 3}
   sellCount: 1
   ShopUI: {fileID: 4583246904205847008}
-  MainShopUI: {fileID: 0}
   ExitShopButton: {fileID: 7248664937314579969}
   SwapShopButton: {fileID: 7681073509624811215}
   BuyShopUI: {fileID: 6826881846941516676}
@@ -3348,7 +3347,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &8625471652750743097
 RectTransform:
   m_ObjectHideFlags: 0

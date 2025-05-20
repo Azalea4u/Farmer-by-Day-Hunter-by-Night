@@ -17,6 +17,8 @@ public class Player : NetworkBehaviour
     [SerializeField] private HotBar_Data inventory_Data;
     [SerializeField] public PlayerData playerData;
 
+    [SerializeField] public CameraFollow playerCamera;
+
     private void Start()
     {
         if (inventoryManager == null) inventoryManager = GetComponent<PlayerInventory>();
