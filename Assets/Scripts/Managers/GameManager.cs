@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public ItemManager itemManager;
     public DialogueManager dialogueManager;
     public UI_Manager uiManager;
+    public TileManager tileManager;
 
     public Player player;
 
