@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "ScriptableObject/PlayerData")]
+[CreateAssetMenu(menuName = "ScriptableObjects/PlayerData")]
 public class PlayerData : ScriptableObject
 {
     public string playerID;       // Unique identifier (e.g., player network ID)
