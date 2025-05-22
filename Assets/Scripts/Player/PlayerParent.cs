@@ -10,5 +10,7 @@ public class PlayerParent : NetworkBehaviour
             enabled = false;
             return;
         }
+
+        DontDestroyOnLoad(gameObject);
     }
 }

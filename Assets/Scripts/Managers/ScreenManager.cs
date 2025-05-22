@@ -70,11 +70,11 @@ public class ScreenManager : MonoBehaviour
                 Load_VillageScene();
                 break;
 
-            case "North Forest":
+            case "North_Forest":
                 Load_NorthForest();
                 break;
 
-            case "South Forest":
+            case "South_Forest":
                 Load_NorthForest();
                 break;
 

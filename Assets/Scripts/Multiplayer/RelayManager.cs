@@ -52,12 +52,12 @@ public class RelayManager : NetworkBehaviour
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
+
+            await UnityServices.InitializeAsync();
+
+            await AuthenticationService.Instance.SignInAnonymouslyAsync();
         }
         else { Destroy(gameObject); }
-
-        await UnityServices.InitializeAsync();
-
-        await AuthenticationService.Instance.SignInAnonymouslyAsync();
     }
 
     private async Task<string> StartHostWithRelay(int maxConnections = 3)
