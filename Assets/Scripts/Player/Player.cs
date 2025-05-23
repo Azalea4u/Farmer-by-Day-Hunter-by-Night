@@ -27,10 +27,15 @@ public class Player : NetworkBehaviour
         if (IsOwner) GameManager.instance.player = this;
     }
 
+    public override void OnNetworkSpawn()
+    {
+        print("Player spawned");
+    }
+
     private void Update()
     {
         // !! REMINDER !!
-        /// Add a designated function/call for both pausing & consuming an item in PlayerController
+        /// Add designated functions/calls for pausing & consuming an item in PlayerController
 
         if (false && !GameManager.instance.IsGamePaused)
             //&& !

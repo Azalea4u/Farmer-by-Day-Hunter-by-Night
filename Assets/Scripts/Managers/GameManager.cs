@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
 
     public Player player;
 
+    public WorldData worldData;
+
 
     private void Awake()
     {

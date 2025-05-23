@@ -16,7 +16,7 @@ public class PlayerSpawner : NetworkBehaviour
         // Checks if current number of Players is over 4
         // If so, prevents other Players from joining the "world" / host Player's server
 
-        if (NetworkManager.Singleton.ConnectedClients.Count < 5) SpawnPlayerServerRpc(NetworkManager.Singleton.LocalClientId, NetworkManager.Singleton.ConnectedClients.Count);
+        if (NetworkManager.Singleton.ConnectedClients.Count <= 4) SpawnPlayerServerRpc(NetworkManager.Singleton.LocalClientId, NetworkManager.Singleton.ConnectedClients.Count);
         else NetworkManager.Singleton.Shutdown();
     }
 
@@ -32,6 +32,9 @@ public class PlayerSpawner : NetworkBehaviour
 
         netObj = newPlayer.GetComponent<NetworkObject>();
         newPlayer.SetActive(true);
-        netObj.SpawnAsPlayerObject(clientID, true);
+        netObj.SpawnAsPlayerObject(clientID);
+
+        // Adds new Player to Host Player's world data
+        GameManager.instance.worldData.players.Add(newPlayer.GetComponent<Player>());
     }
 }
