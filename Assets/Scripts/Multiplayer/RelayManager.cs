@@ -13,7 +13,7 @@ using UnityEngine;
 
 // Handles Relay Server/Client Connections
 
-public class RelayManager : NetworkBehaviour
+public class RelayManager : MonoBehaviour
 {
     [SerializeField] private RelayUI RUI;  // Used to get & display Join Code
 
@@ -22,12 +22,14 @@ public class RelayManager : NetworkBehaviour
 
     public async void StartRelay()
     {
+        GameManager.instance.worldData.players.Clear();
+
         if (RUI.JoinCode == "") RUI.JoinCode = await StartHostWithRelay();
     }
 
     public async void JoinRelay()
     {
-        if (RUI.JoinCode != "" && !NetworkManager.IsConnectedClient)
+        if (RUI.JoinCode != "" && !NetworkManager.Singleton.IsConnectedClient)
         {
             try { await StartClientWithRelay(RUI.JoinCode); }
             catch { Debug.Log("Invalid join code"); }
@@ -37,7 +39,7 @@ public class RelayManager : NetworkBehaviour
     public void DisconnectRelay()
     {
         // Disconnects all other connected Players (if you are the host)
-        if (IsOwner)
+        if (NetworkManager.Singleton.IsHost)
         {
             for (int i = 1; i < NetworkManager.Singleton.ConnectedClients.Count; i++) { NetworkManager.Singleton.DisconnectClient((ulong)i); }
         }

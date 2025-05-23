@@ -1,16 +1,11 @@
-using System;
-using Ink.Parsed;
 using System.Collections.Generic;
 using TMPro;
-using Unity.Netcode;
-using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
 
 // Handles all Shop background logic & manages/displays Shop UI
 
-public class ShopManager : NetworkBehaviour
+public class ShopManager : MonoBehaviour
 {
     public static ShopManager instance;
 
@@ -57,7 +52,7 @@ public class ShopManager : NetworkBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);
+            // DontDestroyOnLoad(gameObject);
         }
         else { Destroy(gameObject); }
     }
