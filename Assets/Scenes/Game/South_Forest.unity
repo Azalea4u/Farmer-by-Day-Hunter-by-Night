@@ -5345,6 +5345,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CameraConstraint: {x: 60, y: 36}
+  isForestArea: 1
+  isFarmArea: 0
+  northSpawn: {x: 0, y: 0}
+  eastSpawn: {x: 53, y: 35.9}
+  southSpawn: {x: 0, y: 0}
+  westSpawn: {x: -53, y: 35.9}
+  villageSpawn: {x: -23, y: 35.9}
+  farmSpawn: {x: 23, y: 35.9}
 --- !u!4 &748937100
 Transform:
   m_ObjectHideFlags: 0
@@ -5405,7 +5413,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c9aa87b94b86c1449138e8772d3bf05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextScene: 
+  nextScene: Village
+  direction: 0
 --- !u!61 &1123031254
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5561,8 +5570,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1526841976}
-  - {fileID: 1123031252}
   - {fileID: 1992282524}
+  - {fileID: 1123031252}
   - {fileID: 2052584275}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -61938,7 +61947,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c9aa87b94b86c1449138e8772d3bf05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextScene: 
+  nextScene: North_Forest
+  direction: 1
 --- !u!61 &1526841978
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -62095,7 +62105,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c9aa87b94b86c1449138e8772d3bf05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextScene: 
+  nextScene: Farm
+  direction: 0
 --- !u!61 &1992282526
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -62194,14 +62205,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8506033989630988632, guid: 8aa85b04db8529843aa7c6a62c1abff9, type: 3}
-      propertyPath: shopManager
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 8506033989630988632, guid: 8aa85b04db8529843aa7c6a62c1abff9, type: 3}
-      propertyPath: dialogueManager
-      value: 
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -62252,7 +62255,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c9aa87b94b86c1449138e8772d3bf05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextScene: 
+  nextScene: North_Forest
+  direction: 3
 --- !u!61 &2052584277
 BoxCollider2D:
   m_ObjectHideFlags: 0

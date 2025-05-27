@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 public class SceneTransition : MonoBehaviour
 {
     [SerializeField] private string nextScene;
+    [SerializeField] private Direction direction;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -11,9 +12,7 @@ public class SceneTransition : MonoBehaviour
         {
             if (player.IsOwner)
             {
-                // Play fade out here?
-
-                print("Scene Transition!");
+                player.lastTravelledDirection = direction;
                 ScreenManager.instance.SwitchScene(nextScene);
             }
         }

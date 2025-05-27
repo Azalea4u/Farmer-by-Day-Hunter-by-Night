@@ -75,7 +75,7 @@ public class ScreenManager : MonoBehaviour
                 break;
 
             case "South_Forest":
-                Load_NorthForest();
+                Load_SouthForest();
                 break;
 
             default:

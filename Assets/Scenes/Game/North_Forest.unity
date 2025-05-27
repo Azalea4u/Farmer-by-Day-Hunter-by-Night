@@ -149,6 +149,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CameraConstraint: {x: 60, y: 36}
+  isForestArea: 1
+  isFarmArea: 0
+  northSpawn: {x: 0, y: 0}
+  eastSpawn: {x: 53, y: -35.9}
+  southSpawn: {x: 0, y: 0}
+  westSpawn: {x: -53, y: -35.9}
+  villageSpawn: {x: -23, y: -35.9}
+  farmSpawn: {x: 23, y: -35.9}
 --- !u!4 &93567346
 Transform:
   m_ObjectHideFlags: 0
@@ -159,6 +167,37 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &225206877
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 225206878}
+  m_Layer: 0
+  m_Name: Spawn Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &225206878
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 225206877}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 53, y: -35, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -294,14 +333,6 @@ PrefabInstance:
     - target: {fileID: 6659828166049278795, guid: 8aa85b04db8529843aa7c6a62c1abff9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8506033989630988632, guid: 8aa85b04db8529843aa7c6a62c1abff9, type: 3}
-      propertyPath: shopManager
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 8506033989630988632, guid: 8aa85b04db8529843aa7c6a62c1abff9, type: 3}
-      propertyPath: dialogueManager
-      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -56681,6 +56712,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextScene: South_Forest
+  direction: 3
 --- !u!61 &898371889
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -56773,6 +56805,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextScene: Village
+  direction: 2
 --- !u!61 &967531339
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -56849,8 +56882,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1551080365}
-  - {fileID: 967531337}
   - {fileID: 1733179479}
+  - {fileID: 967531337}
   - {fileID: 898371887}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -56945,7 +56978,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c9aa87b94b86c1449138e8772d3bf05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextScene: North_Forest
+  nextScene: South_Forest
+  direction: 1
 --- !u!61 &1551080367
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -62253,6 +62287,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextScene: Farm
+  direction: 2
 --- !u!61 &1733179481
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -62309,3 +62344,4 @@ SceneRoots:
   - {fileID: 254502066}
   - {fileID: 398436438}
   - {fileID: 1629570536}
+  - {fileID: 225206878}

@@ -6,6 +6,14 @@ using UnityEngine.UIElements;
 using static ItemData;
 using System.Globalization;
 
+public enum Direction
+{
+    NORTH,
+    EAST,
+    SOUTH,
+    WEST
+}
+
 [RequireComponent(typeof(PlayerController))]
 public class Player : NetworkBehaviour
 {
@@ -18,6 +26,11 @@ public class Player : NetworkBehaviour
     [SerializeField] public PlayerData playerData;
 
     [SerializeField] public CameraFollow playerCamera;
+
+    public Direction lastTravelledDirection;
+
+    public bool inFarm = false;
+
 
     private void Start()
     {

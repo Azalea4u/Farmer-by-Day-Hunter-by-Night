@@ -9,6 +9,7 @@ public class PlayerData : ScriptableObject
     public float energy;
     public int gold;
     public HotBar_Data hotbar_data;
+    public Direction lastTravelledDirection;
 
     public float maxEnergy = 100f;
 
