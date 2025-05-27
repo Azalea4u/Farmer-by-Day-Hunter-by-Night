@@ -11,7 +11,7 @@ public class Player : NetworkBehaviour
 {
     [HideInInspector] public PlayerInventory inventoryManager;
     
-    [SerializeField] private PlayerController controller;
+    [SerializeField] public PlayerController controller;
 
     [SerializeField] private HotBar_Data hotBar_Data;
     [SerializeField] private HotBar_Data inventory_Data;

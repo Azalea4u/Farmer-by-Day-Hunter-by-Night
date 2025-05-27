@@ -20,22 +20,29 @@ public class Collectable : MonoBehaviour
             {   
                 if (playerController.player.inventoryManager.GetInventoryByName("Hotbar").IsFull())
                 {
-                    if (!playerController.player.inventoryManager.GetInventoryByName("Inventroy").IsFull())
+                    if (playerController.player.inventoryManager.GetInventoryByName("Inventroy").IsFull())
                     {
-                        playerController.player.inventoryManager.Add("Inventory", item);
+                        Debug.Log("Your hotbar is full!");
+
                     }
                     else
                     {
-                        Debug.Log("Your hotbar is full!");
+                        playerController.player.inventoryManager.Add("Inventory", item);
+                        CollectItem();
                     }
                 }
                 else
                 {
                     playerController.player.inventoryManager.Add("Hotbar", item);
+                    CollectItem();
                 }
-                collect.Play();
-                Destroy(this.gameObject);
             }
         }
+    }
+
+    private void CollectItem()
+    {
+        //collect.Play();
+        Destroy(this.gameObject);
     }
 }

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6520842089846397691}
   - component: {fileID: 3096010076638874287}
   m_Layer: 0
-  m_Name: Hoe_Collectable
+  m_Name: WateringCan_Collectable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cb82b88df0662f4b838935344bd7962, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: 3f644fac15c920b4189078fd20b22909, type: 2}
+  data: {fileID: 11400000, guid: 7eb8168ffb7dac24bbd30437b261986f, type: 2}
   rb2D: {fileID: 0}
 --- !u!114 &6044088332270698094
 MonoBehaviour:

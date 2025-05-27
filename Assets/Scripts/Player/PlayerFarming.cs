@@ -23,6 +23,7 @@ public class PlayerFarming : MonoBehaviour
         tileManager = GameManager.instance.tileManager;
     }
 
+    /*
     private void Update()
     {
         Vector3Int position = new Vector3Int((int)transform.position.x, (int)transform.position.y - 1, 0);
@@ -112,6 +113,7 @@ public class PlayerFarming : MonoBehaviour
             }
         }
     }
+    */
 
     public void DropItem(Item item)
     {
