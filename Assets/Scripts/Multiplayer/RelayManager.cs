@@ -53,7 +53,7 @@ public class RelayManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);
+            // DontDestroyOnLoad(gameObject);
 
             await UnityServices.InitializeAsync();
 
