@@ -28,5 +28,8 @@ MonoBehaviour:
   yieldAmount: 2
   growthStageTiles:
   - {fileID: 11400000, guid: 368bba865f25b3a44a5342886a845dfa, type: 2}
+  - {fileID: 11400000, guid: 368bba865f25b3a44a5342886a845dfa, type: 2}
+  - {fileID: 11400000, guid: 823b7005993cf5c48b2635427aea18f5, type: 2}
+  - {fileID: 11400000, guid: 0e79318c109344647b3a8c0461854a77, type: 2}
   IsHarvestable: 0
   eState: 0
