@@ -12,7 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a65a91d4589a9784cbe4a077169ed676, type: 3}
   m_Name: Player03_Hotbar
   m_EditorClassIdentifier: 
-  slots:
-  - itemName: ITem
-    count: 1
-    icon: {fileID: -355978042, guid: e382ca2272e9c064cb2dec5e77e1b12d, type: 3}
+  slots: []

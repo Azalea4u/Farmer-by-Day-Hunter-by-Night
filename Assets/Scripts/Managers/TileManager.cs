@@ -46,17 +46,19 @@ public class TileManager : MonoBehaviour
         interactableMap.SetTile(position, seededTile);
 
     }
-    public void PlantSeed(Vector3Int position, SeedData seedData)
+    public void PlantSeed(Vector3Int position, SeedData originalSeedData)
     {
-        interactableMap.SetTile(position, seedData.seedlingSprite);
-        seededTiles.Add(position, seedData);
+        // Create a deep copy so each planted seed is independent
+        SeedData seedInstance = ScriptableObject.Instantiate(originalSeedData);
 
-        seedData.daysToGrow = 4;
-        seedData.eState = SeedData.GrowthStage.SEEDLING;
-        seedData.IsHarvestable = false;
+        interactableMap.SetTile(position, seedInstance.seedlingSprite);
+        seededTiles.Add(position, seedInstance);
 
-        //seededTiles[position] = seedData;
+        seedInstance.daysToGrow = originalSeedData.daysToGrow;
+        seedInstance.eState = SeedData.GrowthStage.SEEDLING;
+        seedInstance.IsHarvestable = false;
     }
+
 
     public string GetTileName(Vector3Int position)
     {

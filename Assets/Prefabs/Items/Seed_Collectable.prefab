@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6520842089846397691}
   - component: {fileID: 3096010076638874287}
   m_Layer: 0
-  m_Name: Hoe_Collectable
+  m_Name: Seed_Collectable
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cb82b88df0662f4b838935344bd7962, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: 3f644fac15c920b4189078fd20b22909, type: 2}
+  data: {fileID: 11400000, guid: f517d5a923fd142459235b7bf4b88cc6, type: 2}
   rb2D: {fileID: 0}
 --- !u!114 &6044088332270698094
 MonoBehaviour:
@@ -107,7 +107,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 8834441656716106029, guid: 57852ce7327dbb1458e359656c930284, type: 3}
+  m_Sprite: {fileID: -909726582, guid: e382ca2272e9c064cb2dec5e77e1b12d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -156,7 +156,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.8611112, y: 0.87777776}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 6.7, y: 3.16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

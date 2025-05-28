@@ -6,6 +6,8 @@ using UnityEngine.Tilemaps;
 [CreateAssetMenu(fileName = "Seed Data", menuName = "ScriptableObjects/Seeds")]
 public class SeedData : ItemData
 {
+    [Header("Seed")]
+
     [SerializeField] public int daysToGrow;
     [SerializeField] public Item cropToYield;
     [SerializeField] public Tile seedlingSprite;
