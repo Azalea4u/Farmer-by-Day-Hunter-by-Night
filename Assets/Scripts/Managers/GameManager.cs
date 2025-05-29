@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -23,14 +24,16 @@ public class GameManager : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
+
+            itemManager = GetComponent<ItemManager>();
+            uiManager = GetComponent<UI_Manager>();
+
+            worldData.players ??= new List<Player>();
         }
         else
         {
             Destroy(gameObject);
         }
-
-        itemManager = GetComponent<ItemManager>();
-        uiManager = GetComponent<UI_Manager>();
     }
 
     // Pauses the Game from any script

@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections;
+using Unity.Netcode;
 
 public class ScreenManager : MonoBehaviour
 {
@@ -97,11 +98,13 @@ public class ScreenManager : MonoBehaviour
             yield break;
         }
 
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneToLoad.ToString());
-        while (!asyncLoad.isDone)
-        {
-            yield return null;
-        }
+        NetworkManager.Singleton.SceneManager.LoadScene(sceneToLoad.ToString(), LoadSceneMode.Single);
+
+        //AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneToLoad.ToString());
+        //while (!asyncLoad.isDone)
+        //{
+        //    yield return null;
+        //}
 
         AudioManager.instance.PlayMusic(musicName);
 

@@ -1,5 +1,6 @@
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerSpawner : NetworkBehaviour
 {
@@ -10,6 +11,20 @@ public class PlayerSpawner : NetworkBehaviour
 
     private NetworkObject netObj;
 
+    private static PlayerSpawner instance;
+
+    private PlayerSpawner() { }
+
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else Destroy(gameObject);
+    }
 
     public override void OnNetworkSpawn()
     {
@@ -32,9 +47,11 @@ public class PlayerSpawner : NetworkBehaviour
 
         netObj = newPlayer.GetComponent<NetworkObject>();
         newPlayer.SetActive(true);
-        netObj.SpawnAsPlayerObject(clientID);
+        netObj.SpawnAsPlayerObject(clientID, true);
 
         // Adds new Player to Host Player's world data
-        GameManager.instance.worldData.players.Add(newPlayer.GetComponent<Player>());
+        Player p = newPlayer.GetComponentInChildren<Player>();
+        p.playerData.currentScene = SceneManager.GetActiveScene().name;
+        GameManager.instance.worldData.players.Add(p);
     }
 }

@@ -117,7 +117,7 @@ MonoBehaviour:
     EnableTimeResync: 0
     TimeResyncInterval: 30
     EnsureNetworkVariableLengthSafety: 0
-    EnableSceneManagement: 0
+    EnableSceneManagement: 1
     ForceSamePrefabs: 1
     RecycleNetworkIds: 1
     NetworkIdRecycleDelay: 120
@@ -235,6 +235,18 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1979482499320540255, guid: 5b07638a97af7d045875486ef90f4400, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1979482499320540255, guid: 5b07638a97af7d045875486ef90f4400, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 6093613555913347077}
+    - target: {fileID: 1979482499320540255, guid: 5b07638a97af7d045875486ef90f4400, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: MakeChoice
+      objectReference: {fileID: 0}
     - target: {fileID: 4628395797734152642, guid: 5b07638a97af7d045875486ef90f4400, type: 3}
       propertyPath: m_Name
       value: Dialogue_UI
@@ -318,6 +330,14 @@ PrefabInstance:
     - target: {fileID: 5688866124909419393, guid: 5b07638a97af7d045875486ef90f4400, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8355365040470336704, guid: 5b07638a97af7d045875486ef90f4400, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 6093613555913347077}
+    - target: {fileID: 8355365040470336704, guid: 5b07638a97af7d045875486ef90f4400, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: MakeChoice
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

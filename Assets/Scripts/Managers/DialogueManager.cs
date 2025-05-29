@@ -50,15 +50,14 @@ public class DialogueManager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance != null)
+        if (instance == null)
         {
-            Debug.LogWarning("More than one instance of DialogueManager found!");
+            instance = this;
+
+            audioSource = this.gameObject.AddComponent<AudioSource>();
+            currentAudioInfo = defaultAudioInfo;
         }
-
-        instance = this;
-
-        audioSource = this.gameObject.AddComponent<AudioSource>();
-        currentAudioInfo = defaultAudioInfo;
+        else { Destroy(gameObject); }
     }
 
     public static DialogueManager GetInstance()

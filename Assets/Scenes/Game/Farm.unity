@@ -19933,15 +19933,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2407604322526762190, guid: 2b560873e6f68114b97ce9ccfa5076a3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 699.2005
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2407604322526762190, guid: 2b560873e6f68114b97ce9ccfa5076a3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 482.5175
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2407604322526762190, guid: 2b560873e6f68114b97ce9ccfa5076a3, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -7.0743546
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2407604322526762190, guid: 2b560873e6f68114b97ce9ccfa5076a3, type: 3}
       propertyPath: m_LocalRotation.w
@@ -20000,9 +20000,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
-    - target: {fileID: 6085081273169574082, guid: 8aa85b04db8529843aa7c6a62c1abff9, type: 3}
-      propertyPath: NetworkConfig.EnableSceneManagement
-      value: 0
+    - target: {fileID: 4635923109685985983, guid: 8aa85b04db8529843aa7c6a62c1abff9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5619386359410892696, guid: 8aa85b04db8529843aa7c6a62c1abff9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6659828166049278795, guid: 8aa85b04db8529843aa7c6a62c1abff9, type: 3}
       propertyPath: m_LocalPosition.x

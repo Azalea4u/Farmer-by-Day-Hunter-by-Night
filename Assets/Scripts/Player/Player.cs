@@ -5,6 +5,7 @@ using Unity.Netcode;
 using UnityEngine.UIElements;
 using static ItemData;
 using System.Globalization;
+using UnityEngine.SceneManagement;
 
 public enum Direction
 {
@@ -30,6 +31,7 @@ public class Player : NetworkBehaviour
     public Direction lastTravelledDirection;
 
     public bool inFarm = false;
+    public string currentScene;
 
 
     private void Start()
@@ -38,6 +40,8 @@ public class Player : NetworkBehaviour
         if (controller == null) controller = GetComponent<PlayerController>();
 
         if (IsOwner) GameManager.instance.player = this;
+
+        currentScene = playerData.currentScene;
     }
 
     public override void OnNetworkSpawn()

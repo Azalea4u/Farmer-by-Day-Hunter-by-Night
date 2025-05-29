@@ -13,6 +13,7 @@ public class SceneTransition : MonoBehaviour
             if (player.IsOwner)
             {
                 player.lastTravelledDirection = direction;
+                player.currentScene = nextScene;
                 ScreenManager.instance.SwitchScene(nextScene);
             }
         }
