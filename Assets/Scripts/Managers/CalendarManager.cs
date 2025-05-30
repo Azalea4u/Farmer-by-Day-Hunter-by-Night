@@ -102,7 +102,6 @@ public class CalendarManager : MonoBehaviour
         state = DayState.Day; // Optionally reset day state
         UpdateClock();
         UpdateDay();
-        Debug.Log("Day skipped via keybind.");
     }
 
 }

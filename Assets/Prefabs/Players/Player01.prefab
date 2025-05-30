@@ -75,6 +75,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   player: {fileID: 3669202801145732627}
+  playerInventory: {fileID: 0}
   walkSpeed: 5
   talkingToNPC: 0
   controls:
@@ -306,6 +307,10 @@ MonoBehaviour:
     m_Interactions: 
     m_SingletonActionBindings: []
     m_Flags: 0
+  collect: {fileID: 0}
+  water: {fileID: 0}
+  plow: {fileID: 0}
+  plant: {fileID: 0}
 --- !u!114 &9111357525288074595
 MonoBehaviour:
   m_ObjectHideFlags: 0

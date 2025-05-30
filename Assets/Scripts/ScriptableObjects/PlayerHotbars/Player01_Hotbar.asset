@@ -22,9 +22,9 @@ MonoBehaviour:
   - itemName: Hoe
     count: 1
     icon: {fileID: 8834441656716106029, guid: 57852ce7327dbb1458e359656c930284, type: 3}
-  - itemName: 
-    count: 0
-    icon: {fileID: 0}
+  - itemName: Seed
+    count: 1000
+    icon: {fileID: -909726582, guid: e382ca2272e9c064cb2dec5e77e1b12d, type: 3}
   - itemName: 
     count: 0
     icon: {fileID: 0}
