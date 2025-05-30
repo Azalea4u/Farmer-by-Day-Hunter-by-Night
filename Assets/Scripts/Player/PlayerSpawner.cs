@@ -40,6 +40,8 @@ public class PlayerSpawner : NetworkBehaviour
     {
         GameObject newPlayer;
 
+        print("PrefabID: " + prefabID);
+
         if      (prefabID == 2) newPlayer = Instantiate(Player02);
         else if (prefabID == 3) newPlayer = Instantiate(Player03);
         else if (prefabID == 4) newPlayer = Instantiate(Player04);

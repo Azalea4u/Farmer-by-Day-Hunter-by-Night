@@ -53,8 +53,11 @@ public class RelayUI : MonoBehaviour
         Debug.Log($"Client disconnected: {clientID}");
         OnClientDisconnected?.Invoke(clientID);
 
-        connectedIndicator.color = Color.red;
-        JoinCode = "";
+        if (clientID == NetworkManager.Singleton.LocalClientId)
+        {
+            connectedIndicator.color = Color.red;
+            JoinCode = "";
+        }
     }
 
     public void SetJoinCode() { if (JoinCode == "") JoinCode = joinCodeInputField.text; }
