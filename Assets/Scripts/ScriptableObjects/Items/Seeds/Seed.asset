@@ -22,7 +22,7 @@ MonoBehaviour:
   HealingAmount: 0
   HasStatusEffect: 0
   statusType: 0
-  daysToGrow: 2
+  daysToGrow: 3
   cropToYield: {fileID: 5162127538143012132, guid: d2ea3fe994d8bd6438b1b00e5558f30f, type: 3}
   seedlingSprite: {fileID: 11400000, guid: 368bba865f25b3a44a5342886a845dfa, type: 2}
   yieldAmount: 2

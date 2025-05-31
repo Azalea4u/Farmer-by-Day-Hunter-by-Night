@@ -5,6 +5,8 @@ using UnityEngine.Tilemaps;
 
 public class TileManager : MonoBehaviour
 {
+    public static TileManager instance;
+
     [Header("Tilemaps")]
     [SerializeField] public Tilemap interactableMap;
     [SerializeField] public Tilemap backgroundMap;
@@ -17,6 +19,19 @@ public class TileManager : MonoBehaviour
     [SerializeField] public Tile seededTile;
 
     public Dictionary<Vector3Int, SeedData> seededTiles = new Dictionary<Vector3Int, SeedData>();
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     void Start()
     {

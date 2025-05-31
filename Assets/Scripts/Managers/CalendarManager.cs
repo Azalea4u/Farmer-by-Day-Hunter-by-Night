@@ -89,7 +89,7 @@ public class CalendarManager : MonoBehaviour
         {
             Day_Text.text = $"Day {CurrentDay}";
         }
-
+        TileManager.instance.UpdateSeededTiles(); // Update seeded tiles for the new day
         // Additional per-day logic can be placed here
         Debug.Log("A new day has started: Day " + CurrentDay);
     }
