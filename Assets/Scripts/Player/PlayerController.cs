@@ -5,14 +5,17 @@ using Unity.VisualScripting;
 using Unity.Netcode;
 using static UnityEngine.RuleTile.TilingRuleOutput;
 using System.Globalization;
+using Ink.Runtime;
 
 // Thank you https://www.youtube.com/watch?v=HCaSnZvs90g for the movement help, really appreciate it :D
 
 public class PlayerController : NetworkBehaviour
 {
     [SerializeField] public Player player;
+    [SerializeField] private PlayerInventory playerInventory;
 
     [SerializeField] private int walkSpeed = 5;
+    [SerializeField] private float interactionRange = 3f;
     [SerializeField] private bool talkingToNPC = false;
 
     [SerializeField] private InputActionMap controls;
@@ -25,6 +28,13 @@ public class PlayerController : NetworkBehaviour
     [HideInInspector] public InputAction mapAction;
     [HideInInspector] public InputAction swapAction;
 
+    public AudioSource collect;
+    public AudioSource water;
+    public AudioSource plow;
+    public AudioSource plant;
+
+    private TileManager tileManager;
+
     // Circle Collider is used for Dialogue Triggers & as a method of getting the Player's collision radius
     private float radius;
     private CircleCollider2D cc;
@@ -35,6 +45,9 @@ public class PlayerController : NetworkBehaviour
     private void Start()
     {
         if (player == null) player = GetComponent<Player>();
+        if (playerInventory == null) playerInventory = GetComponent<PlayerInventory>();
+
+        tileManager = GameManager.instance.tileManager;
 
         SetupControls();
 
@@ -65,6 +78,96 @@ public class PlayerController : NetworkBehaviour
             walkValue.Normalize();  // Prevents faster diagonal movement
 
             transform.position += CheckCollisions(walkValue, Time.deltaTime * walkSpeed);
+        }
+    }
+
+    private void UsePrimaryAction()
+    {
+        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+        Vector3Int position = tileManager.interactableMap.WorldToCell(mouseWorldPos);
+        position.z = 0;
+
+        // ?? Check distance between player and tile
+        if (Vector3.Distance(transform.position, tileManager.interactableMap.CellToWorld(position)) > interactionRange)
+        {
+            Debug.Log("Tile is out of range.");
+            return;
+        }
+
+        if (tileManager != null)
+        {
+            string tileName = tileManager.GetTileName(position);
+
+            if (!string.IsNullOrWhiteSpace(tileName))
+            {
+                if (tileManager.seededTiles.ContainsKey(position))
+                {
+                    SeedData seedData = tileManager.seededTiles[position];
+                    if (seedData.IsHarvestable)
+                    {
+                        Item cropToYield = seedData.cropToYield;
+                        int yieldAmount = seedData.yieldAmount;
+
+                        for (int i = 0; i < yieldAmount; i++)
+                        {
+                            playerInventory.Add("Hotbar", cropToYield);
+                            //collect.Play();
+                        }
+
+                        tileManager.seededTiles.Remove(position);
+                        tileManager.interactableMap.SetTile(position, tileManager.interactableTile);
+
+                        Debug.Log("Harvested " + yieldAmount + " " + cropToYield.name);
+                    }
+                }
+
+                if (tileName.Contains("Interactable"))
+                {
+                    var selectedSlot = playerInventory.hotbar.selectedSlot;
+
+                    if (selectedSlot.itemName == "Hoe")
+                    {
+                        if (tileName.Contains("Seed"))
+                        {
+                            Debug.Log("This tile has already been plowed up");
+                        }
+                        else
+                        {
+                            tileManager.SetPlowed(position);
+                            //plow.Play();
+                        }
+                    }
+                    else if (selectedSlot.itemName == "WateringCan")
+                    {
+                        tileManager.SetWatered(position);
+                        //water.Play();
+                    }
+                    else if (selectedSlot.itemName.Contains("Seed"))
+                    {
+                        if (selectedSlot.count > 0)
+                        {
+                            if (tileName.Contains("Plow"))
+                            {
+                                tileManager.PlantSeed(position, selectedSlot.seedData);
+                                //plant.Play();
+                                selectedSlot.count--;
+
+                                Debug.Log("Planted Seed");
+                            }
+                            else
+                            {
+                                Debug.Log("This tile has not been plowed up");
+                            }
+                        }
+                        else
+                        {
+                            Debug.Log("You don't have any seeds to plant!");
+                        }
+
+                        playerInventory.inventoryUI.Refresh();
+                    }
+                }
+            }
         }
     }
 
@@ -134,11 +237,7 @@ public class PlayerController : NetworkBehaviour
     private void SetupControls()
     {
         primaryAction = controls.FindAction("Primary");
-        if (primaryAction == null)
-        {
-            primaryAction = controls.AddAction("Primary");
-            primaryAction.AddBinding("<Mouse>/leftButton");
-        }
+        primaryAction.performed += _ => UsePrimaryAction();
 
         secondaryAction = controls.FindAction("Secondary");
         if (secondaryAction == null)

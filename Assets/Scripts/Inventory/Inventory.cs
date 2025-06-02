@@ -78,7 +78,22 @@ public class Inventory
                 }
             }
         }
+
+        public SeedData seedData
+        {
+            get
+            {
+                if (itemName.Contains("Seed"))
+                {
+                    SeedData seedData = new SeedData();
+                    seedData = (SeedData)GameManager.instance.itemManager.GetItemByName(itemName).data;
+                    return seedData;
+                }
+                return null;
+            }
+        }
     }
+
 
     // ------------------------------------------------- INVENTORY BELOW --------------------------------------------------//
 
@@ -95,7 +110,7 @@ public class Inventory
 
     public void Add(Item item)
     {
-        // Check if we already have the item in our inventoryManager
+        // Check if we already have the item in our playerInventory
         foreach (Slot slot in slots)
         {
             if (slot.itemName == item.data.ItemName && slot.CanAddItem(item.data.ItemName))
@@ -105,7 +120,7 @@ public class Inventory
             }
         }
 
-        // If we don't have the item in our inventoryManager/or is full
+        // If we don't have the item in our playerInventory/or is full
         // add it to the first empty slot
         foreach (Slot slot in slots)
         {

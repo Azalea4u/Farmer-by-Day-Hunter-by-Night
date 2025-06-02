@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6334529443992391155}
   - component: {fileID: 9111357525288074595}
   - component: {fileID: 7252864602314055989}
+  - component: {fileID: 8602890497777658511}
   - component: {fileID: 2391838713997902243}
   - component: {fileID: 1578811856951606277}
   - component: {fileID: 2794167374032674089}
@@ -74,6 +75,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   player: {fileID: 3669202801145732627}
+  playerInventory: {fileID: 0}
   walkSpeed: 5
   talkingToNPC: 0
   controls:
@@ -305,6 +307,10 @@ MonoBehaviour:
     m_Interactions: 
     m_SingletonActionBindings: []
     m_Flags: 0
+  collect: {fileID: 0}
+  water: {fileID: 0}
+  plow: {fileID: 0}
+  plant: {fileID: 0}
 --- !u!114 &9111357525288074595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -350,6 +356,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   energyData: {fileID: 11400000, guid: 7f76a4e8069c7b64cb650adce75c83ed, type: 2}
   slowEnergyDuration: 2
+--- !u!114 &8602890497777658511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 528048624206147852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56802f7e8b852c041800edfd7980e97b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 3669202801145732627}
+  playerInventory: {fileID: 9111357525288074595}
+  collect: {fileID: 0}
+  water: {fileID: 0}
+  plow: {fileID: 0}
+  plant: {fileID: 0}
 --- !u!114 &2391838713997902243
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1593,6 +1617,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2956305163778741206, guid: 02529ae74f5b67e41807e3e30f4214ab, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6434920636319995635, guid: 02529ae74f5b67e41807e3e30f4214ab, type: 3}
       propertyPath: m_Name
       value: HotbarSlot_01
@@ -1668,6 +1696,14 @@ PrefabInstance:
     - target: {fileID: 6885657217309453647, guid: 02529ae74f5b67e41807e3e30f4214ab, type: 3}
       propertyPath: m_Delegates.Array.data[3].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8636983383418877932, guid: 02529ae74f5b67e41807e3e30f4214ab, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9003398245604897451, guid: 02529ae74f5b67e41807e3e30f4214ab, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

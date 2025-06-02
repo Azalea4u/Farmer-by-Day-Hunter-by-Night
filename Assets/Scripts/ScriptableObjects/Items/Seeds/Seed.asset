@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f61da30835b374448ec5415a94c0d61, type: 3}
+  m_Name: Seed
+  m_EditorClassIdentifier: 
+  ItemName: Seed
+  Description: Description of Item
+  Icon: {fileID: -909726582, guid: e382ca2272e9c064cb2dec5e77e1b12d, type: 3}
+  BuyPrice: 0
+  SellPrice: 0
+  IsFood: 0
+  healingType: 0
+  HealingAmount: 0
+  HasStatusEffect: 0
+  statusType: 0
+  daysToGrow: 3
+  cropToYield: {fileID: 5162127538143012132, guid: d2ea3fe994d8bd6438b1b00e5558f30f, type: 3}
+  seedlingSprite: {fileID: 11400000, guid: 368bba865f25b3a44a5342886a845dfa, type: 2}
+  yieldAmount: 2
+  growthStageTiles:
+  - {fileID: 11400000, guid: 368bba865f25b3a44a5342886a845dfa, type: 2}
+  - {fileID: 11400000, guid: 368bba865f25b3a44a5342886a845dfa, type: 2}
+  - {fileID: 11400000, guid: 823b7005993cf5c48b2635427aea18f5, type: 2}
+  - {fileID: 11400000, guid: 0e79318c109344647b3a8c0461854a77, type: 2}
+  IsHarvestable: 0
+  eState: 0

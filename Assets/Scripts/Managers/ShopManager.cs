@@ -139,7 +139,7 @@ public class ShopManager : NetworkBehaviour
         if (CurrentlyBuyingItem != null && targetPlayer.playerData.gold > CurrentlyBuyingItem.BuyPrice * buyCount)
         {
             targetPlayer.playerData.gold -= CurrentlyBuyingItem.BuyPrice * buyCount;
-            for (int i = 0; i < buyCount; i++) targetPlayer.inventoryManager.Add("Hotbar", CurrentlyBuyingItem);
+            for (int i = 0; i < buyCount; i++) targetPlayer.playerInventory.Add("Hotbar", CurrentlyBuyingItem);
 
             GoldDisplay.text = "Total Gold: " + targetPlayer.playerData.gold.ToString();
 
@@ -213,7 +213,7 @@ public class ShopManager : NetworkBehaviour
         foreach (Transform child in SellShopItemsDisplay.transform) Destroy(child.gameObject);
 
         // Get items to sell from Hotbar
-        Inventory hotbar = targetPlayer.inventoryManager.GetInventoryByName("Hotbar");
+        Inventory hotbar = targetPlayer.playerInventory.GetInventoryByName("Hotbar");
 
         // Add Hotbar items to Sell Shop stock
         foreach (Inventory.Slot slot in hotbar.slots)
@@ -273,8 +273,8 @@ public class ShopManager : NetworkBehaviour
             
             int itemIndex = SellStock.FindIndex(item => item == CurrentlySellingItem.gameObject);
             
-            if (itemIndex > 8) targetPlayer.inventoryManager.Remove("Inventory", itemIndex, sellCount);
-            else if (itemIndex != -1) targetPlayer.inventoryManager.Remove("Hotbar", itemIndex, sellCount);
+            if (itemIndex > 8) targetPlayer.playerInventory.Remove("Inventory", itemIndex, sellCount);
+            else if (itemIndex != -1) targetPlayer.playerInventory.Remove("Hotbar", itemIndex, sellCount);
             
             targetPlayer.playerData.gold += CurrentlySellingItem.SellPrice * sellCount;
             

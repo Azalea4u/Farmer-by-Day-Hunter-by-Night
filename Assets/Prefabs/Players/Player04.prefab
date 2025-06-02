@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6334529443992391155}
   - component: {fileID: 9111357525288074595}
   - component: {fileID: 7252864602314055989}
+  - component: {fileID: 5103385005621969410}
   - component: {fileID: 2391838713997902243}
   - component: {fileID: 1578811856951606277}
   - component: {fileID: 2794167374032674089}
@@ -350,6 +351,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   energyData: {fileID: 11400000, guid: 7f76a4e8069c7b64cb650adce75c83ed, type: 2}
   slowEnergyDuration: 2
+--- !u!114 &5103385005621969410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 528048624206147852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56802f7e8b852c041800edfd7980e97b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 3669202801145732627}
+  playerInventory: {fileID: 9111357525288074595}
+  collect: {fileID: 0}
+  water: {fileID: 0}
+  plow: {fileID: 0}
+  plant: {fileID: 0}
 --- !u!114 &2391838713997902243
 MonoBehaviour:
   m_ObjectHideFlags: 0

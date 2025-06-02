@@ -10,11 +10,8 @@ public class DialogueTrigger : MonoBehaviour
     [Header("Ink JSON")]
     [SerializeField] private TextAsset inkJSON;
 
-    private bool playerInRange;
-
     private void Awake()
     {
-        playerInRange = false;
         visualCue.SetActive(false);
     }
 
@@ -24,7 +21,6 @@ public class DialogueTrigger : MonoBehaviour
         {
             if (player.IsOwner)
             {
-                playerInRange = true;
                 visualCue.SetActive(true);
             }
         }
@@ -36,7 +32,6 @@ public class DialogueTrigger : MonoBehaviour
         {
             if (player.IsOwner)
             {
-                playerInRange = false;
                 visualCue.SetActive(false);
             }
         }

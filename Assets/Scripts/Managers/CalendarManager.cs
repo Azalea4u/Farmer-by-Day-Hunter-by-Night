@@ -42,6 +42,12 @@ public class CalendarManager : MonoBehaviour
 
     private void Update()
     {
+        // Skip to the next day when R is pressed
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            SkipToNextDay();
+        }
+
         timeElapsed += Time.deltaTime * timeMultiplier;
 
         while (timeElapsed >= 60f)
@@ -79,12 +85,27 @@ public class CalendarManager : MonoBehaviour
     private void UpdateDay()
     {
         CurrentDay++;
+
         if (Day_Text != null)
         {
             Day_Text.text = $"Day {CurrentDay}";
         }
 
-        // Additional per-day logic can be placed here
+        TileManager.instance.UpdateSeededTiles();
+        TileManager.instance.ResetWateredTiles();
+
         Debug.Log("A new day has started: Day " + CurrentDay);
     }
+
+
+    private void SkipToNextDay()
+    {
+        CurrentHour = 0;
+        CurrentMinute = 0;
+        timeElapsed = 0f;
+        state = DayState.Day; // Optionally reset day state
+        UpdateClock();
+        UpdateDay();
+    }
+
 }
