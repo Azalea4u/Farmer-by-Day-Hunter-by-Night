@@ -9,30 +9,6 @@ public class Hotbar_UI : MonoBehaviour
 
     private Slot_UI selectedSlot;
 
-    private void Start()
-    {
-        StartCoroutine(WaitForLocalPlayerAndInitialize());
-    }
-
-    private IEnumerator WaitForLocalPlayerAndInitialize()
-    {
-        // Wait until the GameManager and local player are assigned
-        while (GameManager.instance == null || GameManager.instance.player == null)
-        {
-            yield return null;
-        }
-
-        // Extra safety wait
-        yield return new WaitForEndOfFrame();
-
-        // Only initialize if *this* is the local player's hotbar
-        if (GameManager.instance.player.IsOwner)
-        {
-            InitializeHotbar();
-        }
-    }
-
-
     // Loads the data from the Hotbar
     public void LoadHotBarFromData()
     {
@@ -69,8 +45,6 @@ public class Hotbar_UI : MonoBehaviour
             SelectSlot(0);
         }
     }
-
-
     private void Update()
     {
         CheckAlphaNumericKeys();

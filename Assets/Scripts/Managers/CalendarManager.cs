@@ -85,14 +85,18 @@ public class CalendarManager : MonoBehaviour
     private void UpdateDay()
     {
         CurrentDay++;
+
         if (Day_Text != null)
         {
             Day_Text.text = $"Day {CurrentDay}";
         }
-        TileManager.instance.UpdateSeededTiles(); // Update seeded tiles for the new day
-        // Additional per-day logic can be placed here
+
+        TileManager.instance.UpdateSeededTiles();
+        TileManager.instance.ResetWateredTiles();
+
         Debug.Log("A new day has started: Day " + CurrentDay);
     }
+
 
     private void SkipToNextDay()
     {

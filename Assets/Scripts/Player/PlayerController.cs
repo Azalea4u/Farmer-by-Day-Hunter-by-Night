@@ -15,6 +15,7 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] private PlayerInventory playerInventory;
 
     [SerializeField] private int walkSpeed = 5;
+    [SerializeField] private float interactionRange = 3f;
     [SerializeField] private bool talkingToNPC = false;
 
     [SerializeField] private InputActionMap controls;
@@ -82,7 +83,16 @@ public class PlayerController : NetworkBehaviour
 
     private void UsePrimaryAction()
     {
-        Vector3Int position = new Vector3Int((int)transform.position.x, (int)transform.position.y - 1, 0);
+        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+        Vector3Int position = tileManager.interactableMap.WorldToCell(mouseWorldPos);
+        position.z = 0;
+
+        // ?? Check distance between player and tile
+        if (Vector3.Distance(transform.position, tileManager.interactableMap.CellToWorld(position)) > interactionRange)
+        {
+            Debug.Log("Tile is out of range.");
+            return;
+        }
 
         if (tileManager != null)
         {
