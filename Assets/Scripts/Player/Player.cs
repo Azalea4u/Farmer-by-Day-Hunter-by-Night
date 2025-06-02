@@ -9,7 +9,7 @@ using System.Globalization;
 [RequireComponent(typeof(PlayerController))]
 public class Player : NetworkBehaviour
 {
-    [HideInInspector] public PlayerInventory inventoryManager;
+    [HideInInspector] public PlayerInventory playerInventory;
     
     [SerializeField] public PlayerController controller;
 
@@ -19,12 +19,17 @@ public class Player : NetworkBehaviour
 
     [SerializeField] public CameraFollow playerCamera;
 
-    private void Start()
+    public override void OnNetworkSpawn()
     {
-        if (inventoryManager == null) inventoryManager = GetComponent<PlayerInventory>();
+        if (!IsOwner) return;
+
+        if (playerInventory == null) playerInventory = GetComponent<PlayerInventory>();
         if (controller == null) controller = GetComponent<PlayerController>();
 
-        if (IsOwner) GameManager.instance.player = this;
+        GameManager.instance.player = this;
+
+        // Initialize Hotbar only after network spawn
+        FindObjectOfType<Hotbar_UI>()?.InitializeHotbar();
     }
 
     private void Update()
@@ -33,22 +38,21 @@ public class Player : NetworkBehaviour
         /// Add a designated function/call for both pausing & consuming an item in PlayerController
 
         if (false && !GameManager.instance.IsGamePaused)
-            //&& !
-            //Manager.instance.dialogueIsPlaying)
+            //&& !DialogueManager.instance.dialogueIsPlaying)
         {
             ConsumeItem();
 
             // Refresh both UI
-            inventoryManager.SaveInventoryData("Hotbar");
-            inventoryManager.SaveInventoryData("Inventory");
-            inventoryManager.inventoryUI.Refresh();
+            playerInventory.SaveInventoryData("Hotbar");
+            playerInventory.SaveInventoryData("Inventory");
+            playerInventory.inventoryUI.Refresh();
         }
     }
 
     // New method to handle both food and potion consumption based on HealingType
     private void ConsumeItem()
     {
-        var selectedSlot = inventoryManager.hotbar.selectedSlot;
+        var selectedSlot = playerInventory.hotbar.selectedSlot;
 
         if (selectedSlot != null && !string.IsNullOrEmpty(selectedSlot.itemName))
         {

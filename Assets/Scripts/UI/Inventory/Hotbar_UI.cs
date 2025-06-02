@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Inventory;
 
 public class Hotbar_UI : MonoBehaviour
 {
@@ -8,16 +9,40 @@ public class Hotbar_UI : MonoBehaviour
 
     private Slot_UI selectedSlot;
 
+    private void Start()
+    {
+        StartCoroutine(WaitForLocalPlayerAndInitialize());
+    }
+
+    private IEnumerator WaitForLocalPlayerAndInitialize()
+    {
+        // Wait until the GameManager and local player are assigned
+        while (GameManager.instance == null || GameManager.instance.player == null)
+        {
+            yield return null;
+        }
+
+        // Extra safety wait
+        yield return new WaitForEndOfFrame();
+
+        // Only initialize if *this* is the local player's hotbar
+        if (GameManager.instance.player.IsOwner)
+        {
+            InitializeHotbar();
+        }
+    }
+
+
     // Loads the data from the Hotbar
     public void LoadHotBarFromData()
     {
-        GameManager.instance.player.inventoryManager.LoadInventoryData("Hotbar");
+        GameManager.instance.player.playerInventory.LoadInventoryData("Hotbar");
 
         for (int i = 0; i < hotbar_Slots.Count; i++)
         {
-            if (i < GameManager.instance.player.inventoryManager.hotbarData.slots.Count)
+            if (i < GameManager.instance.player.playerInventory.hotbarData.slots.Count)
             {
-                var slotData = GameManager.instance.player.inventoryManager.hotbarData.slots[i];
+                var slotData = GameManager.instance.player.playerInventory.hotbarData.slots[i];
                 if (!string.IsNullOrEmpty(slotData.itemName))
                 {
                     Inventory.Slot slot = new Inventory.Slot
@@ -36,11 +61,15 @@ public class Hotbar_UI : MonoBehaviour
         }
     }
 
-    private void Start()
+    public void InitializeHotbar()
     {
-        LoadHotBarFromData();
-        SelectSlot(0);
+        if (GameManager.instance != null && GameManager.instance.player != null)
+        {
+            LoadHotBarFromData();
+            SelectSlot(0);
+        }
     }
+
 
     private void Update()
     {
@@ -63,7 +92,7 @@ public class Hotbar_UI : MonoBehaviour
             selectedSlot = hotbar_Slots[index];
             selectedSlot.SetHighlight(true);
 
-            GameManager.instance.player.inventoryManager.hotbar.SelectSlot(index);
+            GameManager.instance.player.playerInventory.hotbar.SelectSlot(index);
         }
     }
 
